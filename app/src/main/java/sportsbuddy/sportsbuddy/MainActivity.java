@@ -1,8 +1,12 @@
 package sportsbuddy.sportsbuddy;
 
+import android.content.ClipData;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -17,6 +21,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Hey guys! Please always leave good comments to your code, so it's easy for others to understand :)
+ * Also please do not commit anything unless you are 100% sure it works!
+ */
+
+/**
+ * This class is pretty much finished, please do not modify unless you know what you are doing!
+ */
+
+/**
+ * Handles the ViewPagerAdapter. The 3 fragments: MatchesFragment, SSCInfoFragment and Timetable fragment should be modified from their
+ * separate classes. Please do not make changes to them from here to keep things consistent :)
+ */
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -67,9 +84,34 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //Which of the menu buttons has been pressed
         if (id == R.id.action_settings) {
             return true;
+        }
+        if(id == R.id.action_profile){
+            Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
+            startActivity(intent);
+        }
+        /**
+         * Creates an Alert dialog asking to confirm log out.
+         */
+        if(id == R.id.action_log_out){
+            CharSequence[] items = {"Confirm", "Cancel"};
+            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
+            alertDialog.setItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if(i == 0){
+                        //Confirm pressed
+                        //TODO: Log out and remove access token when this is implemented
+                        dialogInterface.dismiss();
+                    }else{
+                        //Cancel pressed
+                        dialogInterface.dismiss();
+                    }
+                }
+            });
+            alertDialog.show();
         }
 
         return super.onOptionsItemSelected(item);

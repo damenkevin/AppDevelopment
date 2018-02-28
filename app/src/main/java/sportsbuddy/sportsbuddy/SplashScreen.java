@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
  * Created by s165700 on 2/28/2018.
  */
 
+//TODO: First check for accessToken and then process to the corresponding Activity.
 public class SplashScreen extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

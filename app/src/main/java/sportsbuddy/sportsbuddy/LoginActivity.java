@@ -13,6 +13,11 @@ import android.widget.Toast;
  * Created by s165700 on 2/28/2018.
  */
 
+/**
+ * Login Activity, pretty much self-explanatory. We could add login from social networks.
+ *
+ */
+//TODO: Add Social login, Facebook Google etc...
 public class LoginActivity extends Activity {
 
     @Override
