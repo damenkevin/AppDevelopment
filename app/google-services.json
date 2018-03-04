@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "340199281851",
+    "firebase_url": "https://sportsbuddy-f1cab.firebaseio.com",
+    "project_id": "sportsbuddy-f1cab",
+    "storage_bucket": "sportsbuddy-f1cab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340199281851:android:3c98cc8f5007eacd",
+        "android_client_info": {
+          "package_name": "sportsbuddy.sportsbuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340199281851-poave1bolapfrt88818cilfm21bq081p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg_xMsDlsLClM-ecoSDl873oBCmJGTtd0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
