@@ -27,6 +27,9 @@
         <activity android:name=".ProfilePageActivity">
 
         </activity>
+        <activity android:name=".SettingsActivity">
+
+        </activity>
     </application>
 
 </manifest>

@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Which of the menu buttons has been pressed
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(intent);
         }
         if(id == R.id.action_profile){
             Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
