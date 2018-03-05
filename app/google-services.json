@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:340199281851:android:3c98cc8f5007eacd",
+        "mobilesdk_app_id": "1:340199281851:android:7432370f480d6f65",
         "android_client_info": {
           "package_name": "sportsbuddy.sportsbuddy"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "340199281851-448dc30p5t6ohef42t48q39qorh9kck8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sportsbuddy.sportsbuddy",
+            "certificate_hash": "8caabb8f05eae493dfbf5c3c8910f11a15e87d39"
+          }
+        },
         {
           "client_id": "340199281851-poave1bolapfrt88818cilfm21bq081p.apps.googleusercontent.com",
           "client_type": 3
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340199281851-poave1bolapfrt88818cilfm21bq081p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
