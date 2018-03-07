@@ -22,69 +22,26 @@ import java.util.List;
  */
 
 /**
- * Login Activity, pretty much self-explanatory. We could add login from social networks.
+ * Login Activity, pretty much self-explanatory. Uses Firebase auth system to login. Does not use its own layout.
+ * This activity is just used as a reference activity. It is called when the user opens the application, and when logging out.
+ * This activity's only purpose is to manage the calls to the firebase auth system.
+ * The provided firebase AuthSystem creates a layout on its own, this, ONLY provides the methods that need to be used for logging in.
+ * CURRENT METHODS:
+ * -google sign up
+ * -email sign up with email verification.
+ * TODO: Finish email sign up build
+ * TODO: Add facebook sign up
+ * TODO: Add Twitter sign up
  *
  */
-//TODO: Add Social login, Facebook Google etc...
 public class LoginActivity extends Activity {
+    //integer for reference to the RequestCode
     private static final int RC_SIGN_IN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_screen);
-        /**
-        Button loginButton = (Button) findViewById(R.id.buttonLogin);
-        Button registerButton = (Button) findViewById(R.id.buttonRegister);
-        final EditText usernameText = (EditText) findViewById(R.id.textUsername);
-        final EditText passwordText = (EditText) findViewById(R.id.textPassword);
-
-
-
-        //The login button
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String loginUsername = usernameText.getText().toString().trim();
-                String loginPassword = passwordText.getText().toString().trim();
-                //TODO: Check username and password from server and then approve
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        //The register button
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Dialog dialog = new Dialog(getApplicationContext());
-                dialog.setContentView(R.layout.register_dialog);
-                EditText usernameRegText = (EditText) dialog.findViewById(R.id.textUsernameReg);
-                EditText emailRegText = (EditText) dialog.findViewById(R.id.textEmailReg);
-                final EditText passwordRegText = (EditText) dialog.findViewById(R.id.textPasswordReg);
-                final EditText passwordRegRepText = (EditText) dialog.findViewById(R.id.textPasswordRegRep);
-
-                Button tryRegButton = (Button) dialog.findViewById(R.id.register);
-
-                tryRegButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //If the two given passwords match
-                        if(passwordRegText.getText().toString().trim().equals(passwordRegRepText.getText().toString().trim())){
-                            // TODO: Check if username is free and send an approval email to the given one and Register user in the server database.
-                        }
-                        else{
-                            Toast.makeText(LoginActivity.this, "The passwords do not match", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                dialog.show();
-
-
-            }
-        });
-         */
+        setContentView(R.layout.splash_screen);
         // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),

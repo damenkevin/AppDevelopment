@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
          * Creates an Alert dialog asking to confirm log out.
          */
         if(id == R.id.action_log_out){
+            //TODO: FIX IT
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
             alertDialog.setTitle("Warning");
             alertDialog.setMessage("Are you sure you want to log out?");
