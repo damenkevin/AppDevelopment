@@ -3,6 +3,7 @@ package sportsbuddy.sportsbuddy;
 import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -20,6 +21,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 /**
  * Hey guys! Please always leave good comments to your code, so it's easy for others to understand :)
@@ -97,19 +102,26 @@ public class MainActivity extends AppCompatActivity {
          * Creates an Alert dialog asking to confirm log out.
          */
         if(id == R.id.action_log_out){
-            CharSequence[] items = {"Confirm", "Cancel"};
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
-            alertDialog.setItems(items, new DialogInterface.OnClickListener() {
+            alertDialog.setTitle("Warning");
+            alertDialog.setMessage("Are you sure you want to log out?");
+            alertDialog.setPositiveButton("Log out", new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if(i == 0){
-                        //Confirm pressed
-                        //TODO: Log out and remove access token when this is implemented
-                        dialogInterface.dismiss();
-                    }else{
-                        //Cancel pressed
-                        dialogInterface.dismiss();
-                    }
+                public void onClick(DialogInterface dialog, int which) {
+                    AuthUI.getInstance()
+                            .signOut(MainActivity.this)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    // ...
+                                }
+                            });
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
                 }
             });
             alertDialog.show();

@@ -23,6 +23,10 @@ import android.widget.TextView;
  */
 public class MatchesFragment extends Fragment {
 
+    MatchesAdapter matchesAdapter;
+    RequestsAdapter requestsAdapter;
+    GridView gridView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,22 +35,20 @@ public class MatchesFragment extends Fragment {
 
         Button buttonViewRequests = (Button) view.findViewById(R.id.buttonViewRequests);
         Button buttonViewMatches = (Button) view.findViewById(R.id.buttonViewMatches);
-        final GridView gridView = (GridView) view.findViewById(R.id.gridView);
+        gridView = (GridView) view.findViewById(R.id.gridView);
 
-        final MatchesAdapter matchesAdapter;
-        RequestsAdapter requestsAdapter;
 
         buttonViewRequests.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //gridView.setAdapter(matchesAdapter);
+                gridView.setAdapter(matchesAdapter);
             }
         });
 
         buttonViewMatches.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //gridView.setAdapter(requestsAdapter);
+                gridView.setAdapter(requestsAdapter);
             }
         });
 

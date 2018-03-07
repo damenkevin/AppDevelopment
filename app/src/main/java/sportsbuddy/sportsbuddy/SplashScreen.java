@@ -3,7 +3,9 @@ package sportsbuddy.sportsbuddy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * Created by s165700 on 2/28/2018.
@@ -20,7 +22,7 @@ public class SplashScreen extends Activity {
             public void run() {
                 try {
                     sleep(3000);
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                         finish();
                 } catch (InterruptedException e) {
