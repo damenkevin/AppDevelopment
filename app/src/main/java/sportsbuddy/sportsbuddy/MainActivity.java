@@ -1,13 +1,9 @@
 package sportsbuddy.sportsbuddy;
 
-import android.content.ClipData;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -21,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -102,30 +99,36 @@ public class MainActivity extends AppCompatActivity {
          * Creates an Alert dialog asking to confirm log out.
          */
         if(id == R.id.action_log_out){
-            //TODO: FIX IT
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
-            alertDialog.setTitle("Warning");
-            alertDialog.setMessage("Are you sure you want to log out?");
-            alertDialog.setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+            //TODO: It's good enough for initial implementation but later switch it to alert dialog and figure out why alertDialog does not work with the basic theme.
+            final Dialog logOutDialog = new Dialog(this);
+            logOutDialog.setContentView(R.layout.singout_popup);
+            final Button logoutBtn = (Button) logOutDialog.findViewById(R.id.btn_log_out);
+            Button logoutCancelBtn = (Button) logOutDialog.findViewById(R.id.btn_log_out_cancel);
+            logoutBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(View view) {
                     AuthUI.getInstance()
                             .signOut(MainActivity.this)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    // ...
+                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                    startActivity(intent);
                                 }
                             });
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            logoutCancelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(View view) {
+                    logOutDialog.dismiss();
                 }
             });
-            alertDialog.show();
+            logOutDialog.getWindow().setLayout((int) (getResources().getDisplayMetrics().widthPixels*0.9),
+                    (int) (getResources().getDisplayMetrics().heightPixels*0.3));
+            logOutDialog.show();
+
+
         }
 
         return super.onOptionsItemSelected(item);
