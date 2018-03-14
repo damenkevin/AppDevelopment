@@ -1,6 +1,7 @@
 package sportsbuddy.sportsbuddy;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -25,15 +26,8 @@ public class SSCInfoFragment extends Fragment {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                dialog.setTitle("It Works!");
-                dialog.setPositiveButton("Thank god!", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                Intent intent = new Intent(getContext(), DatabaseTestingActivity.class);
+                startActivity(intent);
             }
         });
         return view;
