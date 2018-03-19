@@ -13,13 +13,13 @@
         android:layout_height="0dp"
         android:layout_marginEnd="26dp"
         android:layout_marginStart="26dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/profileImg" />
 
     <EditText
         android:id="@+id/Age"
@@ -37,10 +37,10 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
+        android:layout_width="73dp"
         android:layout_height="43dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginStart="148dp"
+        android:layout_marginStart="128dp"
         android:layout_marginTop="28dp"
         android:text="Profile"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -64,10 +64,10 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="0dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginTop="35dp"
+        android:layout_width="26dp"
+        android:layout_height="33dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
@@ -85,4 +85,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Name" />
+
+    <ImageButton
+        android:id="@+id/profileImg"
+        android:layout_width="101dp"
+        android:layout_height="89dp"
+        android:layout_marginTop="17dp"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+
 </android.support.constraint.ConstraintLayout>
