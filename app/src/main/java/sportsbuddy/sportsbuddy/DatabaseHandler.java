@@ -1,8 +1,5 @@
 package sportsbuddy.sportsbuddy;
 
-import android.provider.ContactsContract;
-import android.util.Log;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +16,8 @@ import com.google.firebase.database.ValueEventListener;
  * Private variables to hold information about the databases.
  * Used for easier communication between server and local database.
  * Methods for database communication.
+ * NOTE: All interaction with any of the databases should be done through this class to keep things consistent.
+ * You should not call methods directly from SQLiteHelper class and should not create any more instances of it.
  */
 public class DatabaseHandler {
     private static boolean isSetUp = false;
@@ -28,14 +27,14 @@ public class DatabaseHandler {
     private static FirebaseUser firebaseUser;
     private static DatabaseReference timeTableRef;
 
+    private static SQLiteHelper sqLiteHelper;
+
     //To make sure only one instance of the DatabaseHandler is created
     protected static DatabaseHandler getDatabaseHandler(){
-        //TODO: Set up databaseHandler before return
         if(!isSetUp){
             database = FirebaseDatabase.getInstance();
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             timeTableRef = database.getReference("TimeTableSlot");
-
             isSetUp = true;
         }
 
@@ -58,30 +57,34 @@ public class DatabaseHandler {
      * Adds a new Timeslot to the server database
      */
     public static void addNewTimeSlotToServerDatabase(String sport, String day, String timeFrom, String timeTo){
+        //Create a timetable slot in the server database with a unique ID
         DatabaseReference newTimeTableSlot = timeTableRef.push().getRef();
+        //Add the unique userID which is final and consistent with the database
         newTimeTableSlot.child("User").setValue(firebaseUser.getUid());
+        //Add the rest of the slot information to an Event child with corresponding names
         newTimeTableSlot.child("Event").child("Activity").setValue(sport);
         newTimeTableSlot.child("Event").child("Day").setValue(day);
         newTimeTableSlot.child("Event").child("TimeFrom").setValue(timeFrom);
         newTimeTableSlot.child("Event").child("TimeTo").setValue(timeTo);
-        checkForMatches(sport, day, timeFrom, timeTo);
+        //Insert into the local database
+        sqLiteHelper.insertTimeTableSlotDetails(newTimeTableSlot.getKey(),sport,day,timeFrom,timeTo);
     }
 
     /**
      * Checks for matches of a specific type
-     * @param sport
+     * @param activity
      * @param day
      * @param timeFrom
      * @param timeTo
      */
-    public static void checkForMatches(final String sport,final String day, final String timeFrom, final String timeTo){
+    public static void checkForMatches(final String activity,final String day, final String timeFrom, final String timeTo){
         timeTableRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     //If the current event we are looking at is not the same user
                     if(!snapshot.child("User").getValue().equals(firebaseUser.getUid())){
-                        if(snapshot.child("Event").child("Activity").getValue().equals(sport)){
+                        if(snapshot.child("Event").child("Activity").getValue().equals(activity)){
                             if(snapshot.child("Event").child("Day").getValue().equals(day)){
                                 //TODO: Compare to values from local database
                                 if(Integer.valueOf(snapshot.child("Event").child("TimeFrom").getValue().toString()) < 10){
@@ -101,20 +104,20 @@ public class DatabaseHandler {
         });
     }
 
-    public static void addTimeSlotToLocalDatabase(){
-
-    }
-
-
     /*
      * <--- Database management methods END --->
      */
 
-
-
     /*
      * <--- Getters and setters START --->
      */
+
+    public static void setSqLiteHelper(SQLiteHelper _sqLiteHelper){
+        sqLiteHelper = _sqLiteHelper;
+        sqLiteHelper.queryData
+                ("CREATE TABLE IF NOT EXISTS Slots(Id INTEGER PRIMARY KEY AUTOINCREMENT, slotID VARCHAR, activity VARCHAR, day VARCHAR, timeFrom VARCHAR, timeTo VARCHAR)");
+
+    }
     public static FirebaseDatabase getDatabase() {
         return database;
     }

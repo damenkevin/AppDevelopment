@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        //Set up local database and init databaseHandler
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(getApplicationContext(), "LocalDB.sqlite",null,1);
+        DatabaseHandler databaseHandler = DatabaseHandler.getDatabaseHandler();
+        databaseHandler.setSqLiteHelper(sqLiteHelper);
     }
 
 

@@ -39,7 +39,7 @@ public class TimetableFragment extends Fragment {
                 dialog.setContentView(R.layout.addtimeslot_popup);
                 Button addButton = (Button) dialog.findViewById(R.id.buttonSetTimeslot);
                 //TODO: Add spinners with values from strings file and remove textFields.
-                final EditText sportText = (EditText) dialog.findViewById(R.id.textSport);
+                final EditText activityText = (EditText) dialog.findViewById(R.id.textActivity);
                 final EditText dayText = (EditText) dialog.findViewById(R.id.textDay);
                 final EditText timeFromText = (EditText) dialog.findViewById(R.id.textFrom);
                 final EditText timeToText = (EditText) dialog.findViewById(R.id.textTo);
@@ -48,11 +48,11 @@ public class TimetableFragment extends Fragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String sport = sportText.getText().toString().trim();
+                        String activity = activityText.getText().toString().trim();
                         String day = dayText.getText().toString().trim();
                         String timeFrom = timeFromText.getText().toString().trim();
                         String timeTo = timeToText.getText().toString().trim();
-                        databaseHandler.addNewTimeSlotToServerDatabase(sport, day, timeFrom, timeTo);
+                        databaseHandler.addNewTimeSlotToServerDatabase(activity, day, timeFrom, timeTo);
                         dialog.dismiss();
 
                     }
