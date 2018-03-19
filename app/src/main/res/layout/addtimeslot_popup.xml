@@ -6,67 +6,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/buttonTest1"
+    <EditText
+        android:id="@+id/textSport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Test1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:ems="10"
+        android:hint="Sport"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/textDay"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.905" />
 
-    <Button
-        android:id="@+id/buttonTest2"
+    <EditText
+        android:id="@+id/textDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Test2"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Day of the week"
+        app:layout_constraintBottom_toTopOf="@+id/textFrom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonTest1" />
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonTest3"
+    <EditText
+        android:id="@+id/textFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Test3"
+        android:ems="10"
+        android:hint="From"
+        android:inputType="time"
+        app:layout_constraintBottom_toTopOf="@+id/textTo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonTest2" />
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonTest4"
+    <EditText
+        android:id="@+id/textTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Test4"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:ems="10"
+        android:hint="To"
+        android:inputType="time"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSetTimeslot"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonTest3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/testText"
+    <Button
+        android:id="@+id/buttonSetTimeslot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="148dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/buttonTest1"
+        android:text="Set"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

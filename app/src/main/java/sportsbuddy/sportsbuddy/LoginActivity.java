@@ -69,8 +69,9 @@ public class LoginActivity extends Activity {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Toast.makeText(this, "Welcome!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
                 } else {
                 // Sign in failed, check response for error code
                 // ...
