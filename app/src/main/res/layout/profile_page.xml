@@ -7,33 +7,31 @@
     tools:layout_editor_absoluteY="81dp"
     android:background="#DCDCDC">
 
-    <EditText
-        android:id="@+id/Name"
+    <TextView
+        android:id="@+id/textNameProfile"
         android:layout_width="308dp"
         android:layout_height="0dp"
         android:layout_marginEnd="26dp"
         android:layout_marginStart="26dp"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileImg" />
 
-    <EditText
-        android:id="@+id/Age"
+    <TextView
+        android:id="@+id/textAgeProfile"
         android:layout_width="309dp"
         android:layout_height="0dp"
         android:layout_marginEnd="26dp"
         android:layout_marginStart="26dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="Age"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Gender" />
+        app:layout_constraintTop_toBottomOf="@+id/textGenderProfile" />
 
     <TextView
         android:id="@+id/textView"
@@ -44,26 +42,25 @@
         android:layout_marginTop="28dp"
         android:text="Profile"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/editProfileButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/About"
+    <TextView
+        android:id="@+id/textAboutProfile"
         android:layout_width="308dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="About"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Age" />
+        app:layout_constraintTop_toBottomOf="@+id/textAgeProfile" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/editProfileButton"
         android:layout_width="26dp"
         android:layout_height="33dp"
         android:layout_marginEnd="84dp"
@@ -72,19 +69,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
-    <EditText
-        android:id="@+id/Gender"
+    <TextView
+        android:id="@+id/textGenderProfile"
         android:layout_width="308dp"
         android:layout_height="0dp"
         android:layout_marginEnd="26dp"
         android:layout_marginStart="26dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="Gender"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Name" />
+        app:layout_constraintTop_toBottomOf="@+id/textNameProfile" />
 
     <ImageButton
         android:id="@+id/profileImg"

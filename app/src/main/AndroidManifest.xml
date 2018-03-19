@@ -33,6 +33,9 @@
         <activity android:name=".DatabaseTestingActivity">
 
         </activity>
+        <activity android:name=".ViewProfileActivity">
+
+        </activity>
         <service
             android:name=".NotificationService">
             <intent-filter>

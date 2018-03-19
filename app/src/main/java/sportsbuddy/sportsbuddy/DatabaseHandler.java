@@ -1,5 +1,9 @@
 package sportsbuddy.sportsbuddy;
 
+import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +30,11 @@ public class DatabaseHandler {
     private static FirebaseDatabase database;
     private static FirebaseUser firebaseUser;
     private static DatabaseReference timeTableRef;
-
+    private static DatabaseReference usersRef;
     private static SQLiteHelper sqLiteHelper;
+
+    private static UserInformation userInformation;
+
 
     //To make sure only one instance of the DatabaseHandler is created
     protected static DatabaseHandler getDatabaseHandler(){
@@ -35,6 +42,7 @@ public class DatabaseHandler {
             database = FirebaseDatabase.getInstance();
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             timeTableRef = database.getReference("TimeTableSlot");
+            usersRef = database.getReference("UsersInfo");
             isSetUp = true;
         }
 
@@ -104,6 +112,82 @@ public class DatabaseHandler {
         });
     }
 
+    //Upadates the server and local database with the new user info
+    public static void updateUserInfo(String name, String gender, String age, String about){
+        usersRef.child(firebaseUser.getUid()).child("Name").setValue(name);
+        usersRef.child(firebaseUser.getUid()).child("Gender").setValue(gender);
+        usersRef.child(firebaseUser.getUid()).child("Age").setValue(age);
+        usersRef.child(firebaseUser.getUid()).child("About").setValue(about);
+        sqLiteHelper.updatePersonalProfileData(FirebaseAuth.getInstance().getUid(), name, age, gender, about);
+    }
+
+    //Gets a user from the online database. Not used ATM
+    //TODO: Adapt and use this when viewing other profiles
+    public static void getUserInfoFromServer(String uID){
+        usersRef.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    if(snapshot.getKey().equals("Name")){
+                        userInformation.setName(snapshot.getValue().toString());
+                    }
+                    if(snapshot.getKey().equals("Age")){
+                        userInformation.setAge(snapshot.getValue().toString());
+                    }
+                    if(snapshot.getKey().equals("Gender")){
+                        userInformation.setGender(snapshot.getValue().toString());
+                    }
+                    if(snapshot.getKey().equals("About")){
+                        userInformation.setAbout(snapshot.getValue().toString());
+                    }
+                }
+
+
+                usersRef.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    //returns an instance of the user infromation filled with data from the local database
+    public static UserInformation getUserInfoFromLocal(){
+        String name ="blank";
+        String age = "blank";
+        String gender = "blank";
+        String about = "blank";
+        Cursor cursor = sqLiteHelper.getData("SELECT COUNT(*) FROM Profile");
+        boolean empty = true;
+        if (cursor != null && cursor.moveToFirst()) {
+            empty = (cursor.getInt (0) == 0);
+        }
+        cursor.close();
+        Log.d("Reached",String.valueOf(empty));
+        if(empty){
+            sqLiteHelper.insertPersonalProfileInfo(FirebaseAuth.getInstance().getUid(), "Blank", "0", "Blank", "Blank");
+            Log.d("Filled The table","");
+        } else {
+            cursor = sqLiteHelper.getData("SELECT * FROM PROFILE");
+            while(cursor.moveToNext()) {
+                name = cursor.getString(2);
+                age = cursor.getString(3);
+                gender = cursor.getString(4);
+                about = cursor.getString(5);
+                Log.d("Name is: ", name);
+                Log.d("age is: ", age);
+                Log.d("gender is: ", gender);
+                Log.d("about is: ", about);
+            }
+        }
+        userInformation = new UserInformation(FirebaseAuth.getInstance().getUid(),name,age,gender,about);
+        return userInformation ;
+    }
+
     /*
      * <--- Database management methods END --->
      */
@@ -112,10 +196,13 @@ public class DatabaseHandler {
      * <--- Getters and setters START --->
      */
 
+    //sets up the local database.
     public static void setSqLiteHelper(SQLiteHelper _sqLiteHelper){
         sqLiteHelper = _sqLiteHelper;
         sqLiteHelper.queryData
                 ("CREATE TABLE IF NOT EXISTS Slots(Id INTEGER PRIMARY KEY AUTOINCREMENT, slotID VARCHAR, activity VARCHAR, day VARCHAR, timeFrom VARCHAR, timeTo VARCHAR)");
+        sqLiteHelper.queryData
+                ("CREATE TABLE IF NOT EXISTS Profile(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, name VARCHAR, age VARCHAR, gender VARCHAR, about VARCHAR)");
 
     }
     public static FirebaseDatabase getDatabase() {
@@ -142,6 +229,13 @@ public class DatabaseHandler {
         DatabaseHandler.firebaseUser = firebaseUser;
     }
 
+    public static UserInformation getUserInformation() {
+        return userInformation;
+    }
+
+    public static void setUserInformation(UserInformation userInformation) {
+        DatabaseHandler.userInformation = userInformation;
+    }
 
     /*
      * <--- Gertters and setters END --->
