@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "340199281851-v8lgm755mtqqslo7ik9ec92ja934uqgh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sportsbuddy.sportsbuddy",
+            "certificate_hash": "f857f4a0d32d891d4488151683a8391fb112e04a"
+          }
+        },
+        {
+          "client_id": "340199281851-7aestja19anjf9ol1hgunuvc2bu5mg2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sportsbuddy.sportsbuddy",
+            "certificate_hash": "92c93b2f8b41061c6ea72d84e453086aedac7dc8"
+          }
+        },
+        {
           "client_id": "340199281851-haft0dsl18433p0ptgqvlgtsv2la6fo5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
