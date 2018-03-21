@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                             .signOut(MainActivity.this)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 public void onComplete(@NonNull Task<Void> task) {
+                                    logOutDialog.dismiss();
                                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                     startActivity(intent);
                                 }

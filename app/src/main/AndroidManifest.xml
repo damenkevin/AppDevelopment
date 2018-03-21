@@ -36,6 +36,9 @@
         <activity android:name=".ViewProfileActivity">
 
         </activity>
+        <activity android:name=".VerifyEmailActivity">
+
+        </activity>
         <service
             android:name=".NotificationService">
             <intent-filter>
