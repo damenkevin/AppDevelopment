@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String SELECTED_ITEM = "menu_matches";
     private BottomNavigationView mBottomNav;
     private Toolbar toolbar;
+    private int mSelectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         mBottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         toolbar.setTitle("Matches");
         loadFragment(new MatchesFragment());
-
+        mSelectedItem = R.id.menu_matches;
 
     }
 
@@ -68,18 +69,21 @@ public class MainActivity extends AppCompatActivity {
             String string;
             switch (item.getItemId()) {
                 case R.id.menu_matches:
+                    mSelectedItem = R.id.menu_matches;
                     string = getResources().getString(R.string.menu_matches);
                     toolbar.setTitle(string);
                     fragment = new MatchesFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.menu_sscinfo:
+                    mSelectedItem = R.id.menu_matches;
                     string = getResources().getString(R.string.menu_sscinfo);
                     toolbar.setTitle(string);
                     fragment = new SSCInfoFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.menu_timetable:
+                    mSelectedItem = R.id.menu_matches;
                     string = getResources().getString(R.string.menu_timetable);
                     toolbar.setTitle(string);
                     fragment = new TimetableFragment();
