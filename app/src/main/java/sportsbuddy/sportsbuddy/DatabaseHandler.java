@@ -123,7 +123,7 @@ public class DatabaseHandler {
 
     //Gets a user from the online database. Not used ATM
     //TODO: Adapt and use this when viewing other profiles
-    public static void getUserInfoFromServer(String uID){
+    public void getUserInfoFromServer(String uID){
         usersRef.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
