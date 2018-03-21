@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String SELECTED_ITEM = "menu_matches";
     private BottomNavigationView mBottomNav;
-    private int mSelectedItem;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //Set up local database and init databaseHandler
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        toolbar.setTitle("Matches");
         loadFragment(new MatchesFragment());
 
     }
@@ -63,16 +64,23 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
+            String string;
             switch (item.getItemId()) {
                 case R.id.menu_matches:
+                    string = getResources().getString(R.string.menu_matches);
+                    toolbar.setTitle(string);
                     fragment = new MatchesFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.menu_sscinfo:
+                    string = getResources().getString(R.string.menu_sscinfo);
+                    toolbar.setTitle(string);
                     fragment = new SSCInfoFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.menu_timetable:
+                    string = getResources().getString(R.string.menu_timetable);
+                    toolbar.setTitle(string);
                     fragment = new TimetableFragment();
                     loadFragment(fragment);
                     return true;
@@ -81,12 +89,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(SELECTED_ITEM, mSelectedItem);
-        super.onSaveInstanceState(outState);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
