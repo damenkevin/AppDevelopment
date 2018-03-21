@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -28,9 +29,12 @@ public class DatabaseTestingActivity extends Activity {
         Button testButton3 = (Button) findViewById(R.id.buttonTest3);
         Button testButton4 = (Button) findViewById(R.id.buttonTest4);
 
+        EditText testEdit = (EditText) findViewById(R.id.testText);
+
         final TextView testText = (TextView) findViewById(R.id.testText);
         testButton1.setText("Get database values");
         testButton2.setText("Add new Timetable slot");
+        testButton3.setText("Send Notification");
         databaseHandler = DatabaseHandler.getDatabaseHandler();
 
         testButton1.setOnClickListener(new View.OnClickListener() {
