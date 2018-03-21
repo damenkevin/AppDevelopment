@@ -48,12 +48,9 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
-
         // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
                 new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
         // Create and launch sign-in intent
         startActivityForResult(
@@ -76,8 +73,10 @@ public class LoginActivity extends Activity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                //Check if the user is logged
                 if(!(user ==  null)){
                     Log.e("Verified =" , String.valueOf(user.isEmailVerified()));
+                    //If the email has not been verified continue to email verification activity
                     if(user.isEmailVerified() == false){
                         user.sendEmailVerification()
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -91,6 +90,7 @@ public class LoginActivity extends Activity {
                                     }
                                 });
                     } else {
+                        //If the email has been verified continue to main activity
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
