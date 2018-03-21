@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("Matches");
         loadFragment(new MatchesFragment());
 
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
