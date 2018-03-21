@@ -7,21 +7,21 @@
     android:background="#DCDCDC"
     tools:layout_editor_absoluteY="81dp">
 
-    <EditText
+    <TextView
         android:id="@+id/textNameProfile"
         android:layout_width="308dp"
-        android:layout_height="0dp"
+        android:layout_height="20dp"
         android:layout_marginStart="238dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="120dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="@string/item_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/Level"
         android:layout_width="309dp"
         android:layout_height="0dp"
@@ -29,13 +29,13 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Level"
+        android:text="@string/item_level"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Sports" />
 
-    <EditText
+    <TextView
         android:id="@+id/Sports"
         android:layout_width="308dp"
         android:layout_height="0dp"
@@ -43,7 +43,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Sports"
+        android:text="@string/item_sports"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,8 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="120dp"
         android:layout_marginStart="132dp"
-        android:layout_marginTop="8dp"
-        android:text="Remove match"
+        android:layout_marginTop="25dp"
+        android:text="@string/item_remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Level" />
