@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "340199281851-dmkga0kuki1jobql3r61uo0jsgcpq91t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sportsbuddy.sportsbuddy",
+            "certificate_hash": "5c7435c005161c776aaad46f62cfe0f4307d6130"
+          }
+        },
+        {
           "client_id": "340199281851-uhd1011kmv3p6rpktsmk35hme88janv3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
