@@ -101,7 +101,7 @@ public class TimetableFragment extends Fragment {
 
 
     private void initLayout(View view) {
-        btnMode = view.findViewById(R.id.btnMode);
+       // btnMode = view.findViewById(R.id.btnMode);
         timeTable = (TimeTableView) view.findViewById(R.id.timeTable);
     }
 
@@ -185,4 +185,3 @@ public class TimetableFragment extends Fragment {
         mShortSamples.addAll(tables);
     }
 }
-
