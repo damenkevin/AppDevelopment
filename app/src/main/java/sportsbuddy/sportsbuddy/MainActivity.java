@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -67,27 +69,31 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
             String string;
+            FragmentManager fragmentManager = getSupportFragmentManager();
             switch (item.getItemId()) {
                 case R.id.menu_matches:
                     mSelectedItem = R.id.menu_matches;
                     string = getResources().getString(R.string.menu_matches);
                     toolbar.setTitle(string);
                     fragment = new MatchesFragment();
-                    loadFragment(fragment);
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragment).commit();
                     return true;
                 case R.id.menu_sscinfo:
                     mSelectedItem = R.id.menu_matches;
                     string = getResources().getString(R.string.menu_sscinfo);
                     toolbar.setTitle(string);
                     fragment = new SSCInfoFragment();
-                    loadFragment(fragment);
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragment).commit();
                     return true;
                 case R.id.menu_timetable:
                     mSelectedItem = R.id.menu_matches;
                     string = getResources().getString(R.string.menu_timetable);
                     toolbar.setTitle(string);
                     fragment = new TimetableFragment();
-                    loadFragment(fragment);
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragment).commit();
                     return true;
             }
 
@@ -169,5 +175,25 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        int count = getFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//***Change Here***
+            startActivity(intent);
+            finish();
+            System.exit(0);
+            super.onBackPressed();
+            //additional code
+        } else {
+            getFragmentManager().popBackStack();
+        }
+
     }
 }
