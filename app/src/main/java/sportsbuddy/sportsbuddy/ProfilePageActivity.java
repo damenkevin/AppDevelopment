@@ -27,6 +27,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
     private TextView nameText;
     private TextView ageText;
     private TextView aboutText;
+    private TextView genderText;
     private DatabaseHandler databaseHandler;
     private UserInformation userInformation;
     String gender;
@@ -37,11 +38,10 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
         setContentView(R.layout.profile_page);
         nameText = (TextView) findViewById(R.id.textNameProfile);
         ageText = (TextView) findViewById(R.id.textAgeProfile);
+        genderText = (TextView) findViewById(R.id.textGenderProfile);
         aboutText = (TextView) findViewById(R.id.textAboutProfile);
         databaseHandler = DatabaseHandler.getDatabaseHandler();
         ImageButton editProfileButton = (ImageButton) findViewById(R.id.editProfileButton);
-
-
         setEditProfileButton(editProfileButton);
         updatePersonalProfile();
 
@@ -56,6 +56,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
         nameText.setText(userInformation.getName());
         ageText.setText(userInformation.getAge());
         aboutText.setText(userInformation.getAbout());
+        genderText.setText(userInformation.getGender());
         Log.e("asdasasdasdasdasdasd",userInformation.getAge());
 
     }
