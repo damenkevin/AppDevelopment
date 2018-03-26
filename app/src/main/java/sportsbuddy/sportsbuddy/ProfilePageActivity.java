@@ -24,7 +24,6 @@ import java.util.List;
 
 public class ProfilePageActivity extends Activity implements OnItemSelectedListener{
     private TextView nameText;
-    private TextView genderText;
     private TextView ageText;
     private TextView aboutText;
     private DatabaseHandler databaseHandler;
@@ -36,29 +35,11 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_page);
         nameText = (TextView) findViewById(R.id.textNameProfile);
-        genderText = (TextView) findViewById(R.id.textGenderProfile);
         ageText = (TextView) findViewById(R.id.textAgeProfile);
         aboutText = (TextView) findViewById(R.id.textAboutProfile);
         databaseHandler = DatabaseHandler.getDatabaseHandler();
         ImageButton editProfileButton = (ImageButton) findViewById(R.id.editProfileButton);
 
-        // implement spinner element
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-
-        // set click listener for spinner
-        spinner.setOnItemSelectedListener(this);
-
-        // add elements for the spinner
-        List<String> gender = new ArrayList<String>();
-        gender.add("Male");
-        gender.add("Female");
-
-        // create an adapter for the spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gender );
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        //set the data adapter to the spinner
-        spinner.setAdapter(dataAdapter);
 
         setEditProfileButton(editProfileButton);
         updatePersonalProfile();
@@ -73,7 +54,6 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
         userInformation = databaseHandler.getUserInfoFromLocal();
         nameText.setText(userInformation.getName());
         ageText.setText(userInformation.getAge());
-        genderText.setText(userInformation.getGender());
         aboutText.setText(userInformation.getAbout());
         Log.e("asdasasdasdasdasdasd",userInformation.getAge());
 
@@ -90,6 +70,24 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
             public void onClick(View view) {
                 final Dialog dialog = new Dialog(ProfilePageActivity.this);
                 dialog.setContentView(R.layout.editprofile_popup);
+
+                // implement spinner element
+                Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+                // set click listener for spinner
+                spinner.setOnItemSelectedListener(ProfilePageActivity.this);
+
+                // add elements for the spinner
+                List<String> genderList = new ArrayList<String>();
+                genderList.add("Male");
+                genderList.add("Female");
+
+                // create an adapter for the spinner
+                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, genderList);
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                //set the data adapter to the spinner
+                spinner.setAdapter(spinnerAdapter);
                 final EditText editName = (EditText) dialog.findViewById(R.id.editProfileName);
                 final EditText editAge = (EditText) dialog.findViewById(R.id.editProfileAge);
                 final EditText editAbout = (EditText) dialog.findViewById(R.id.editProfileAbout);
@@ -114,7 +112,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // when selecting a spinner item
-        gender = parent.getItemAtPosition(position).toString();
+        gender = parent.getItemAtPosition(position).toString().trim();
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
