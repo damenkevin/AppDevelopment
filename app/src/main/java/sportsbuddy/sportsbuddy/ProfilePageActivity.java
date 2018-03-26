@@ -2,6 +2,7 @@ package sportsbuddy.sportsbuddy;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -88,6 +89,8 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
 
                 //set the data adapter to the spinner
                 spinner.setAdapter(spinnerAdapter);
+
+
                 final EditText editName = (EditText) dialog.findViewById(R.id.editProfileName);
                 final EditText editAge = (EditText) dialog.findViewById(R.id.editProfileAge);
                 final EditText editAbout = (EditText) dialog.findViewById(R.id.editProfileAbout);
@@ -112,6 +115,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // when selecting a spinner item
+        ((TextView) view).setTextColor(Color.BLACK);
         gender = parent.getItemAtPosition(position).toString().trim();
     }
 
