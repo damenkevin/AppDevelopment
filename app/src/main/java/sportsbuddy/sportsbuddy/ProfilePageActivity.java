@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,23 +40,6 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
         databaseHandler = DatabaseHandler.getDatabaseHandler();
         ImageButton editProfileButton = (ImageButton) findViewById(R.id.editProfileButton);
 
-        // implement spinner element
-        Spinner genderSpinner = (Spinner) findViewById(R.id.spinner);
-
-        // set click listener for spinner
-        genderSpinner.setOnItemSelectedListener(this);
-
-        // add elements for the spinner
-        List<String> genderList = new ArrayList<String>();
-        genderList.add("Male");
-        genderList.add("Female");
-
-        // create an adapter for the spinner
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, genderList);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        //set the data adapter to the spinner
-        genderSpinner.setAdapter(spinnerAdapter);
 
         setEditProfileButton(editProfileButton);
         updatePersonalProfile();
@@ -86,6 +70,24 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
             public void onClick(View view) {
                 final Dialog dialog = new Dialog(ProfilePageActivity.this);
                 dialog.setContentView(R.layout.editprofile_popup);
+
+                // implement spinner element
+                Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+                // set click listener for spinner
+                spinner.setOnItemSelectedListener(ProfilePageActivity.this);
+
+                // add elements for the spinner
+                List<String> genderList = new ArrayList<String>();
+                genderList.add("Male");
+                genderList.add("Female");
+
+                // create an adapter for the spinner
+                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, genderList);
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                //set the data adapter to the spinner
+                spinner.setAdapter(spinnerAdapter);
                 final EditText editName = (EditText) dialog.findViewById(R.id.editProfileName);
                 final EditText editAge = (EditText) dialog.findViewById(R.id.editProfileAge);
                 final EditText editAbout = (EditText) dialog.findViewById(R.id.editProfileAbout);
