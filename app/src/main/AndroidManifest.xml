@@ -39,6 +39,9 @@
         <activity android:name=".VerifyEmailActivity">
 
         </activity>
+        <activity android:name=".FriendsActivity">
+
+        </activity>
         <service
             android:name=".NotificationService">
             <intent-filter>

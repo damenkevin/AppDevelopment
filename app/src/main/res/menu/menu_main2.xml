@@ -18,4 +18,9 @@
         android:orderInCategory="100"
         android:title="@string/action_log_out"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_friends_list"
+        android:orderInCategory="100"
+        android:title="View Friends"
+        app:showAsAction="never"/>
 </menu>

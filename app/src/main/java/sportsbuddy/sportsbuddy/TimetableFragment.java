@@ -54,6 +54,10 @@ public class TimetableFragment extends Fragment {
         return view;
     }
 
+    public void Test(){
+
+    }
+
     /**
      * Sets the onClick listener to the button supposed to create the popup
      * and manages the popup

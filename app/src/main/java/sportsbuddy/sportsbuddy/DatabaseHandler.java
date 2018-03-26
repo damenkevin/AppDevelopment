@@ -230,6 +230,69 @@ public class DatabaseHandler {
         return userInformation;
     }
 
+    /**
+     * This method is used to get the friends id's from the database in the FriendsActivity
+     * After the static method setFriendsList in FriendsActivity is called
+     * @param userList
+     */
+    public void getFriendsListIDS(final ArrayList<String> userList, final FriendsActivity activity){
+        DatabaseReference friendsRef = database.getReference("FriendsList").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        friendsRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datum : dataSnapshot.getChildren()){
+                    if(!userList.contains(datum.getKey())){
+                        userList.add(datum.getKey());
+                    }
+                }
+                activity.setFriendsListIDS(userList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * This method updates the Friends list containing of AppUsers from the Database, comparing it to the ArrayList of string of users
+     * @param userListIDS
+     * @param userList
+     * @param activity
+     */
+    public void getFriendsListUsers(final ArrayList<String> userListIDS, final ArrayList<AppUser> userList, final  FriendsActivity activity){
+        DatabaseReference usersRef = database.getReference("UsersInfo");
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datum : dataSnapshot.getChildren()){
+                    Log.e("Checking:",String.valueOf(datum.child("Name").getValue()));
+                    AppUser user = new AppUser(dataSnapshot.getKey(),null, null);
+                    //If the user's id is in the friends list
+                    if(userListIDS.contains(datum.getKey())){
+                        user.setName(String.valueOf(datum.child("Name").getValue()));
+                        user.setUID(datum.getKey());
+                        if(!userList.contains(user)){
+                            Log.e("Added ","^^^");
+                            userList.add(user);
+                        }
+
+                    }
+                }
+                activity.setFriendsList(userList);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     /*
      * <--- Database management methods END --->
      */
