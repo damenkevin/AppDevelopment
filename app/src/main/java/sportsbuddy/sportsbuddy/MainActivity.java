@@ -117,11 +117,15 @@ public class MainActivity extends AppCompatActivity {
 
         //Which of the menu buttons has been pressed
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
         }
         if(id == R.id.action_profile){
-            Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
+            Intent intent = new Intent(MainActivity.this, ProfilePageActivity.class);
+            startActivity(intent);
+        }
+        if(id == R.id.action_friends_list){
+            Intent intent = new Intent(MainActivity.this, FriendsActivity.class);
             startActivity(intent);
         }
         /**

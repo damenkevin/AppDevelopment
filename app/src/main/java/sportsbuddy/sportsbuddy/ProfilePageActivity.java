@@ -73,7 +73,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
                 dialog.setContentView(R.layout.editprofile_popup);
 
                 // implement spinner element
-                Spinner spinner = (Spinner) findViewById(R.id.spinner);
+                Spinner spinner = (Spinner) dialog.findViewById(R.id.spinner);
 
                 // set click listener for spinner
                 spinner.setOnItemSelectedListener(ProfilePageActivity.this);
