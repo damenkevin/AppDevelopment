@@ -17,6 +17,8 @@ public class RequestsTab extends MatchesFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.matches_layout, container, false);
         gridView = (GridView) view.findViewById(R.id.gridView);
+
+        RequestsAdapter requestsAdapter = new RequestsAdapter(this.getContext());
         gridView.setAdapter(requestsAdapter);
 
         return view;
