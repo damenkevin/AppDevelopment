@@ -16,13 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.eunsiljo.timetablelib.data.TimeData;
 import com.github.eunsiljo.timetablelib.data.TimeTableData;
 import com.github.eunsiljo.timetablelib.view.TimeTableView;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -37,7 +37,7 @@ import java.util.Map;
  * Created by s165700 on 2/28/2018.
  */
 
-public class TimetableFragment extends Fragment implements OnItemSelectedListener{
+public class TimetableFragment extends Fragment implements OnItemSelectedListener {
     DatabaseHandler databaseHandler;
     String sport;
     String day;
@@ -62,7 +62,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
         return view;
     }
 
-    public void Test(){
+    public void Test() {
 
     }
 
@@ -85,13 +85,13 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
                 // add elements for the spinner
                 List<String> dayList = new ArrayList<String>();
-                dayList.add("Monday");
-                dayList.add("Tuesday");
-                dayList.add("Wednesday");
-                dayList.add("Thursday");
-                dayList.add("Friday");
-                dayList.add("Saturday");
-                dayList.add("Sunday");
+                dayList.add("Mon");
+                dayList.add("Tue");
+                dayList.add("Wed");
+                dayList.add("Thu");
+                dayList.add("Fri");
+                dayList.add("Sat");
+                dayList.add("Sun");
 
                 // create an adapter for the spinner
                 ArrayAdapter<String> daySpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, dayList);
@@ -123,7 +123,6 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
                 //set the data adapter to the spinner
                 sportSpinner.setAdapter(sportSpinnerAdapter);
-
 
 
                 // implement spinner element for fromHour
@@ -273,7 +272,6 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 toMSpinner.setAdapter(toMSpinnerAdapter);
 
 
-
                 Button addButton = (Button) dialog.findViewById(R.id.buttonSetTimeslot);
                 //TODO: Add spinners with values from strings file and remove textFields.
 
@@ -304,7 +302,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
 
     private void initLayout(View view) {
-       // btnMode = view.findViewById(R.id.btnMode);
+        //btnMode = view.findViewById(R.id.btnMode);
         timeTable = (TimeTableView) view.findViewById(R.id.timeTable);
     }
 
@@ -315,7 +313,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 loadData();
                 //initShortSamples();
 
-                timeTable.setStartHour(8);
+                timeTable.setStartHour(6);
                 timeTable.setShowHeader(true);
                 timeTable.setTableMode(TimeTableView.TableMode.SHORT);
 
@@ -328,17 +326,16 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
     }
 
-
-    private void toogleMode() {
-        btnMode.setActivated(!btnMode.isActivated());
-    }
-
     // =============================================================================
     // Date format
     // =============================================================================
 
     private long getMillis(String day) {
-        DateTime date = getDateTimePattern().parseDateTime(day);
+        //get current date, with the given time
+        DateTime date = DateTime.now();
+        LocalTime time = getDateTimePattern().parseDateTime(day).toLocalTime();
+        date = date.withTime(time);
+        //timeslots are in millisecond
         return date.getMillis();
     }
 
@@ -346,16 +343,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
         return DateTimeFormat.forPattern("HH:mm");
     }
 
-    // =============================================================================
-    // Toast
-    // =============================================================================
 
-    private void showToast(Activity activity, String msg) {
-        Toast toast = Toast.makeText(activity, msg, Toast.LENGTH_SHORT);
-        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        if (v != null) v.setGravity(Gravity.CENTER);
-        toast.show();
-    }
 
     private void loadData() {
         List<UserTimeTable> data = DatabaseHandler.getUserTimeTable();
@@ -371,13 +359,12 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
         timeDataMap.put("Sat", new ArrayList<TimeData>());
         timeDataMap.put("Sun", new ArrayList<TimeData>());
 
-        int i = 0;
+        int i = 0; //variable that loops through keys.
         for (UserTimeTable item : data) {
             if (mShortHeaders.contains(item.getDay())) {
                 TimeData timeData = new TimeData(i++, item.getActivity(), R.color.color_table_1, getMillis(item.getTimeFrom()), getMillis(item.getTimeTo()));
                 timeDataMap.get(item.getDay()).add(timeData);
             }
-
         }
 
         ArrayList<TimeTableData> tables = new ArrayList<>();
