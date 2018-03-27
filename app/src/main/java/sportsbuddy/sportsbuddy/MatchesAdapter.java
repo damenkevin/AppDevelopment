@@ -38,9 +38,10 @@ public class MatchesAdapter extends BaseAdapter {
 
     }
 
+    //change the getcount to count the amount of matches instead of values1
     @Override
     public int getCount() {
-        return values1.length;//values.length;
+        return values1.length;
     }
 
     @Override

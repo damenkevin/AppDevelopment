@@ -22,8 +22,12 @@ public class FriendsActivity extends Activity {
         setContentView(R.layout.friends_layout);
         userList = new ArrayList<AppUser>();
         userListIDS = new ArrayList<String>();
+
+        //------------------------
         GridView gridView = (GridView) findViewById(R.id.grid_friends);
+
         databaseHandler.getFriendsListIDS(userListIDS,this);
+
         FriendsAdapter adapter = new FriendsAdapter(FriendsActivity.this,R.layout.friends_layout, userList);
         gridView.setAdapter(adapter);
     }

@@ -37,9 +37,10 @@ public class RequestsAdapter extends BaseAdapter {
 
     }
 
+    //change the getcount to count the amuont of requests instaad of values1
     @Override
     public int getCount() {
-        return values1.length;//values.length;
+        return values1.length;
     }
 
     @Override
