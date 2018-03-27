@@ -29,7 +29,7 @@ public class DatabaseTestingActivity extends Activity {
         Button testButton3 = (Button) findViewById(R.id.buttonTest3);
         Button testButton4 = (Button) findViewById(R.id.buttonTest4);
 
-        EditText testEdit = (EditText) findViewById(R.id.testText);
+        TextView testEdit = (TextView) findViewById(R.id.testText);
 
         final TextView testText = (TextView) findViewById(R.id.testText);
         testButton1.setText("Get database values");
@@ -59,7 +59,7 @@ public class DatabaseTestingActivity extends Activity {
         testButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                databaseHandler.checkForMatches("Football", "Monday", "19:30", "20:10");
 
             }
         });

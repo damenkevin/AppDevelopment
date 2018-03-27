@@ -93,24 +93,67 @@ public class DatabaseHandler {
      * @param timeFrom
      * @param timeTo
      */
-    public static void checkForMatches(final String activity, final String day, final String timeFrom, final String timeTo) {
-        timeTableRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void checkForMatches(final String activity, final String day, final String timeFrom, final String timeTo) {
+        DatabaseReference reference = database.getReference("TimeTableSlot");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Match> matches = new ArrayList<Match>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     //If the current event we are looking at is not the same user
                     if (!snapshot.child("User").getValue().equals(firebaseUser.getUid())) {
+                        String UIDsecond = String.valueOf(snapshot.child("User").getValue());
                         if (snapshot.child("Event").child("Activity").getValue().equals(activity)) {
                             if (snapshot.child("Event").child("Day").getValue().equals(day)) {
-                                //TODO: Compare to values from local database
-                                if (Integer.valueOf(snapshot.child("Event").child("TimeFrom").getValue().toString()) < 10) {
-
+                                String timeFromDB = String.valueOf(snapshot.child("Event").child("TimeFrom").getValue());
+                                String timeToDB = String.valueOf(snapshot.child("Event").child("TimeTo").getValue());
+                                timeFromDB = String.valueOf(timeFromDB.charAt(0)) +
+                                        String.valueOf(timeFromDB.charAt(1)) +
+                                        String.valueOf(timeFromDB.charAt(3)) +
+                                        String.valueOf(timeFromDB.charAt(4));
+                                timeToDB = String.valueOf(timeToDB.charAt(0)) +
+                                        String.valueOf(timeToDB.charAt(1)) +
+                                        String.valueOf(timeToDB.charAt(3)) +
+                                        String.valueOf(timeToDB.charAt(4));
+                                String timeFromF = String.valueOf(timeFrom.charAt(0)) +
+                                        String.valueOf(timeFrom.charAt(1)) +
+                                        String.valueOf(timeFrom.charAt(3)) +
+                                        String.valueOf(timeFrom.charAt(4));
+                                String timeToF = String.valueOf(timeTo.charAt(0)) +
+                                        String.valueOf(timeTo.charAt(1)) +
+                                        String.valueOf(timeTo.charAt(3)) +
+                                        String.valueOf(timeTo.charAt(4));
+                                int timeFromDBInt = Integer.parseInt(timeFromDB);
+                                int timeToDBInt = Integer.parseInt(timeToDB);
+                                int timeFromInt = Integer.parseInt(timeFromF);
+                                int timeToInt = Integer.parseInt(timeToF);
+                                Log.e(String.valueOf(timeFromInt) + " To ", String.valueOf(timeToInt));
+                                Log.e(String.valueOf(timeFromDBInt) + " To ", String.valueOf(timeToDBInt));
+                                if((timeFromInt>timeToDBInt && timeToDBInt > timeToInt)
+                                        || (timeFromDBInt > timeToInt && timeToInt > timeToDBInt)) {
+                                    String timeFromOverlap;
+                                    String timeToOverlap;
+                                    if (timeFromInt <= timeFromDBInt) {
+                                        timeFromOverlap = String.valueOf(timeFromDBInt);
+                                    } else {
+                                        timeFromOverlap = String.valueOf(timeFromInt);
+                                    }
+                                    if (timeToInt <= timeToDBInt) {
+                                        timeToOverlap = String.valueOf(timeToInt);
+                                    } else {
+                                        timeToOverlap = String.valueOf(timeToDBInt);
+                                    }
+                                    Match newMatch = new Match(FirebaseAuth.getInstance().getCurrentUser().getUid(), UIDsecond, activity, timeFromOverlap, timeToOverlap);
+                                    if (!matches.contains(newMatch)){
+                                        matches.add(newMatch);
+                                    }
                                 }
+
                             }
                         }
                     }
                 }
-                timeTableRef.addListenerForSingleValueEvent(null);
+                //TODO: Call the method in MatchesFragment to send the matches array and notify the adapter.
             }
 
             @Override
@@ -220,10 +263,6 @@ public class DatabaseHandler {
                 age = cursor.getString(3);
                 gender = cursor.getString(4);
                 about = cursor.getString(5);
-                Log.d("Name is: ", name);
-                Log.d("age is: ", age);
-                Log.d("gender is: ", gender);
-                Log.d("about is: ", about);
             }
         }
         userInformation = new UserInformation(FirebaseAuth.getInstance().getUid(), name, age, gender, about);
@@ -292,6 +331,28 @@ public class DatabaseHandler {
             }
         });
     }
+
+    /**
+     * Adds a friend to the users friend list. UID is the new friend's UID
+     * @param UID
+     */
+    public void AddToFriends(String UID){
+        DatabaseReference friendsRef = database.getReference("FriendsList")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        friendsRef.child(UID).setValue("UID");
+    }
+
+    /**
+     * Remove a friend with UID from the user's database.
+     * @param UID
+     */
+    public void RemoveFromFriends(String UID){
+        DatabaseReference friendsRef = database.getReference("FriendsList")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        friendsRef.child(UID).removeValue();
+    }
+
+
 
     /*
      * <--- Database management methods END --->
