@@ -28,6 +28,8 @@
     <string name="settings_notification">Notifications</string>
     <string name="settings_caption">Settings</string>
     <string name="add_new_slot">Add new slot</string>
+    <string name="matches">Matches</string>
+    <string name="requests">Requests</string>
 
 
 </resources>
