@@ -6,7 +6,7 @@
     <string name="action_log_out">Log Out</string>
     <string name="action_friends_list">View Friends</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="menu_matches">Matches</string>
+    <string name="menu_matches">Buddies</string>
     <string name="menu_sscinfo">SSC</string>
     <string name="menu_timetable">TimeTable</string>
     <string name="profile_about">About</string>
