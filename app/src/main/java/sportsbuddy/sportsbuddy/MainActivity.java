@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        toolbar.setTitle("Matches");
+        toolbar.setTitle(getResources().getString(R.string.menu_matches));
         loadFragment(new MatchesFragment());
         mSelectedItem = R.id.menu_matches;
 

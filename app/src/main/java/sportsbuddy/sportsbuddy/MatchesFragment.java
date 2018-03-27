@@ -3,6 +3,7 @@ package sportsbuddy.sportsbuddy;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,31 +28,29 @@ public class MatchesFragment extends Fragment {
     RequestsAdapter requestsAdapter;
     GridView gridView;
 
+    private FragmentTabHost tabHost;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.matches_layout, container, false);
 
-        Button buttonViewRequests = (Button) view.findViewById(R.id.buttonViewRequests);
-        Button buttonViewMatches = (Button) view.findViewById(R.id.buttonViewMatches);
-        gridView = (GridView) view.findViewById(R.id.gridView);
+        tabHost = new FragmentTabHost(getActivity());
+        tabHost.setup(getActivity(), getChildFragmentManager(), R.layout.matches_layout);
+
+        Bundle arg1 = new Bundle();
+        arg1.putInt("Arg for Frag1", 1);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.matches)).
+                        setIndicator(getResources().getString(R.string.matches)),
+                MatchesTab.class, arg1);
+
+        Bundle arg2 = new Bundle();
+        arg2.putInt("Arg for Frag2", 2);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.requests)).
+                        setIndicator(getResources().getString(R.string.requests)),
+                RequestsTab.class, arg2);
 
 
-        buttonViewRequests.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gridView.setAdapter(matchesAdapter);
-            }
-        });
-
-        buttonViewMatches.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gridView.setAdapter(requestsAdapter);
-            }
-        });
-
-        return view;
+        return tabHost;
     }
 }
