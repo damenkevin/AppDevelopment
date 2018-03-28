@@ -222,6 +222,10 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 //set the data adapter to the spinner
                 toHSpinner.setAdapter(toHSpinnerAdapter);
 
+                //set default
+                toHSpinner.setSelection(14);
+                hourTo = toHourList.get(14);
+
 
                 // implement spinner element for toMinute
                 Spinner toMSpinner = (Spinner) dialog.findViewById(R.id.toMSpinner);
@@ -250,6 +254,10 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
                 //set the data adapter to the spinner
                 toMSpinner.setAdapter(toMSpinnerAdapter);
+
+                //set default
+                toMSpinner.setSelection(11);
+                minuteTo = toMinuteList.get(11);
 
 
                 Button addButton = (Button) dialog.findViewById(R.id.buttonSetTimeslot);
@@ -405,9 +413,25 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
             case R.id.fromHSpinner:
                 ((TextView) view).setTextColor(Color.BLACK);
+                toHourList.clear();
+                toHourList.add("08");
+                toHourList.add("09");
+                toHourList.add("10");
+                toHourList.add("11");
+                toHourList.add("12");
+                toHourList.add("13");
+                toHourList.add("14");
+                toHourList.add("15");
+                toHourList.add("16");
+                toHourList.add("17");
+                toHourList.add("18");
+                toHourList.add("19");
+                toHourList.add("20");
+                toHourList.add("21");
+                toHourList.add("22");
                 hourFrom = parent.getItemAtPosition(position).toString().trim();
                 int hF = Integer.parseInt(hourFrom);
-                for (int i=0; i<15; i++) {
+                for (int i=toHourList.size()-1; i>=0; i--) {
                     int hT = Integer.parseInt(toHourList.get(i));
                     if (hT<hF) {
                         toHourList.remove(i);
@@ -418,23 +442,59 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
             case R.id.fromMSpinner:
                 ((TextView) view).setTextColor(Color.BLACK);
+                toMinuteList.clear();
+                toMinuteList.add("00");
+                toMinuteList.add("05");
+                toMinuteList.add("10");
+                toMinuteList.add("15");
+                toMinuteList.add("20");
+                toMinuteList.add("25");
+                toMinuteList.add("30");
+                toMinuteList.add("35");
+                toMinuteList.add("40");
+                toMinuteList.add("45");
+                toMinuteList.add("50");
+                toMinuteList.add("55");
                 minuteFrom = parent.getItemAtPosition(position).toString().trim();
+                int mF = Integer.parseInt(minuteFrom);
+                hF = Integer.parseInt(hourFrom);
+                int hT = Integer.parseInt(hourTo);
+                if (hF==hT) {
+                    for (int i=toMinuteList.size()-1; i>=0; i--) {
+                        int mT = Integer.parseInt(toMinuteList.get(i));
+                        if (mT<=mF) {
+                            toMinuteList.remove(i);
+                        }
+                    }
+                }
 
 
                 break;
 
             case R.id.toHSpinner:
                 ((TextView) view).setTextColor(Color.BLACK);
+                fromHourList.clear();
+                fromHourList.add("08");
+                fromHourList.add("09");
+                fromHourList.add("10");
+                fromHourList.add("11");
+                fromHourList.add("12");
+                fromHourList.add("13");
+                fromHourList.add("14");
+                fromHourList.add("15");
+                fromHourList.add("16");
+                fromHourList.add("17");
+                fromHourList.add("18");
+                fromHourList.add("19");
+                fromHourList.add("20");
+                fromHourList.add("21");
+                fromHourList.add("22");
                 hourTo = parent.getItemAtPosition(position).toString().trim();
-                hF = Integer.parseInt(hourFrom);
-                int hT = Integer.parseInt(hourTo);
-                int mF = Integer.parseInt(minuteFrom);
-                if (hF==hT) {
-                    for (int i=0; i<12; i++) {
-                        int mT = Integer.parseInt(toMinuteList.get(i));
-                        if (mT<mF) {
-                            toMinuteList.remove(i);
-                        }
+                hT = Integer.parseInt(hourTo);
+                for (int i=fromHourList.size()-1; i>=0; i--) {
+                    hF = Integer.parseInt(fromHourList.get(i));
+                    if (hF>hT) {
+                        fromHourList.remove(i);
                     }
                 }
 
@@ -442,10 +502,33 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
             case R.id.toMSpinner:
                 ((TextView) view).setTextColor(Color.BLACK);
+                fromMinuteList.clear();
+                fromMinuteList.add("00");
+                fromMinuteList.add("05");
+                fromMinuteList.add("10");
+                fromMinuteList.add("15");
+                fromMinuteList.add("20");
+                fromMinuteList.add("25");
+                fromMinuteList.add("30");
+                fromMinuteList.add("35");
+                fromMinuteList.add("40");
+                fromMinuteList.add("45");
+                fromMinuteList.add("50");
+                fromMinuteList.add("55");
                 minuteTo = parent.getItemAtPosition(position).toString().trim();
+                int mT = Integer.parseInt(minuteTo);
+                hF = Integer.parseInt(hourFrom);
+                hT = Integer.parseInt(hourTo);
+                if (hF==hT) {
+                    for (int i=fromMinuteList.size()-1; i>=0; i--) {
+                        mF = Integer.parseInt(fromMinuteList.get(i));
+                        if (mF>=mT) {
+                            fromMinuteList.remove(i);
+                        }
+                    }
+                }
 
                 break;
-
 
         }
 
