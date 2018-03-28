@@ -9,11 +9,17 @@ import android.graphics.Bitmap;
 public class AppUser {
     private String UID;
     private String name;
+    private String age;
+    private String gender;
+    private String about;
     private Bitmap profilePic;
 
-    public AppUser(String UID, String name, Bitmap profilePic) {
+    public AppUser(String UID, String name, String age, String gender, String about, Bitmap profilePic) {
         this.UID = UID;
         this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.about = about;
         this.profilePic = profilePic;
     }
 
@@ -31,6 +37,30 @@ public class AppUser {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     public Bitmap getProfilePic() {

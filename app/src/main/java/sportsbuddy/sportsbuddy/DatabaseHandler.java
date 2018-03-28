@@ -1,5 +1,6 @@
 package sportsbuddy.sportsbuddy;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.util.Log;
@@ -37,8 +38,6 @@ public class DatabaseHandler {
     private static DatabaseReference timeTableRef;
     private static DatabaseReference usersRef;
     private static SQLiteHelper sqLiteHelper;
-
-    private static UserInformation userInformation;
     private static List<UserTimeTable> userTimeTable;
 
 
@@ -86,7 +85,10 @@ public class DatabaseHandler {
     }
 
     /**
-     * Checks for matches of a specific type
+     * Checks for matches of a specific type.
+     * This method will only return a matches from a specific set of values. It will not return
+     * ALL of the matches for all sports that the user has entered.
+     * This must be done by calling this method with multiple different params.
      *
      * @param activity
      * @param day
@@ -175,25 +177,29 @@ public class DatabaseHandler {
 
     //Gets a user from the online database. Not used ATM
     //TODO: Adapt and use this when viewing other profiles
-    public void getUserInfoFromServer(String uID) {
-        usersRef.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getUserInfoFromServer(final String uID, final ViewProfileActivity activity) {
+        DatabaseReference ref = usersRef;
+
+        ref.child(uID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                AppUser user  = new AppUser(FirebaseAuth.getInstance().getCurrentUser().getUid(),null,null,null,null,null);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
+                    user.setUID(uID);
                     if (snapshot.getKey().equals("Name")) {
-                        userInformation.setName(snapshot.getValue().toString());
+                        user.setName(String.valueOf(snapshot.getValue()));
                     }
                     if (snapshot.getKey().equals("Age")) {
-                        userInformation.setAge(snapshot.getValue().toString());
+                        user.setAge(String.valueOf(snapshot.getValue()));
                     }
                     if (snapshot.getKey().equals("Gender")) {
-                        userInformation.setGender(snapshot.getValue().toString());
+                        user.setGender(String.valueOf(snapshot.getValue()));
                     }
                     if (snapshot.getKey().equals("About")) {
-                        userInformation.setAbout(snapshot.getValue().toString());
+                        user.setAbout(String.valueOf(snapshot.getValue()));
                     }
+
+                    activity.updateUserInfo(user);
                 }
                 usersRef.removeEventListener(this);
             }
@@ -241,7 +247,7 @@ public class DatabaseHandler {
 
 
     //returns an instance of the user information filled with data from the local database
-    public static UserInformation getUserInfoFromLocal() {
+    public static AppUser getUserInfoFromLocal() {
         String name = "blank";
         String age = "blank";
         String gender = "blank";
@@ -255,7 +261,6 @@ public class DatabaseHandler {
         Log.d("Reached", String.valueOf(empty));
         if (empty) {
             sqLiteHelper.insertPersonalProfileInfo(FirebaseAuth.getInstance().getUid(), "Blank", "0", "Blank", "Blank");
-            Log.d("Filled The table", "");
         } else {
             cursor = sqLiteHelper.getData("SELECT * FROM PROFILE");
             while (cursor.moveToNext()) {
@@ -265,8 +270,8 @@ public class DatabaseHandler {
                 about = cursor.getString(5);
             }
         }
-        userInformation = new UserInformation(FirebaseAuth.getInstance().getUid(), name, age, gender, about);
-        return userInformation;
+        AppUser appUser = new AppUser(FirebaseAuth.getInstance().getUid(), name, age, gender, about, null);
+        return appUser;
     }
 
     /**
@@ -308,7 +313,7 @@ public class DatabaseHandler {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot datum : dataSnapshot.getChildren()){
                     Log.e("Checking:",String.valueOf(datum.child("Name").getValue()));
-                    AppUser user = new AppUser(dataSnapshot.getKey(),null, null);
+                    AppUser user = new AppUser(dataSnapshot.getKey(),null, null,null,null,null);
                     //If the user's id is in the friends list
                     if(userListIDS.contains(datum.getKey())){
                         user.setName(String.valueOf(datum.child("Name").getValue()));
@@ -350,6 +355,10 @@ public class DatabaseHandler {
         DatabaseReference friendsRef = database.getReference("FriendsList")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         friendsRef.child(UID).removeValue();
+    }
+
+    public void sendRequest(){
+
     }
 
 
@@ -394,14 +403,6 @@ public class DatabaseHandler {
 
     public static void setFirebaseUser(FirebaseUser firebaseUser) {
         DatabaseHandler.firebaseUser = firebaseUser;
-    }
-
-    public static UserInformation getUserInformation() {
-        return userInformation;
-    }
-
-    public static void setUserInformation(UserInformation userInformation) {
-        DatabaseHandler.userInformation = userInformation;
     }
 
     public static List<UserTimeTable> getUserTimeTable() {

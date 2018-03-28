@@ -29,7 +29,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
     private TextView aboutText;
     private TextView genderText;
     private DatabaseHandler databaseHandler;
-    private UserInformation userInformation;
+    private AppUser appUser;
     String gender;
 
     @Override
@@ -52,13 +52,11 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
      * @param
      */
     private void updatePersonalProfile(){
-        userInformation = databaseHandler.getUserInfoFromLocal();
-        nameText.setText(userInformation.getName());
-        ageText.setText(userInformation.getAge());
-        aboutText.setText(userInformation.getAbout());
-        genderText.setText(userInformation.getGender());
-        Log.e("asdasasdasdasdasdasd",userInformation.getAge());
-
+        appUser = databaseHandler.getUserInfoFromLocal();
+        nameText.setText(appUser.getName());
+        ageText.setText(appUser.getAge());
+        aboutText.setText(appUser.getAbout());
+        genderText.setText(appUser.getGender());
     }
 
     /**
