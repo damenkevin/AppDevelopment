@@ -83,13 +83,13 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
                 // add elements for the spinner
                 List<String> dayList = new ArrayList<String>();
-                dayList.add("Mon");
-                dayList.add("Tue");
-                dayList.add("Wed");
-                dayList.add("Thu");
-                dayList.add("Fri");
-                dayList.add("Sat");
-                dayList.add("Sun");
+                dayList.add("Monday");
+                dayList.add("Tuesday");
+                dayList.add("Wednesday");
+                dayList.add("Thursday");
+                dayList.add("Friday");
+                dayList.add("Saturday");
+                dayList.add("Sunday");
 
                 // create an adapter for the spinner
                 ArrayAdapter<String> daySpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, dayList);
@@ -222,6 +222,36 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                     public void onClick(View view) {
                         timeFrom = hourFrom + ":" + minuteFrom;
                         timeTo = hourTo + ":" + minuteTo;
+                        switch (day) {
+
+                            case "Monday":
+                                day = "Mon";
+                                break;
+
+                            case "Tuesday":
+                                day = "Tue";
+                                break;
+
+                            case "Wednesday":
+                                day = "Wed";
+                                break;
+
+                            case "Thursday":
+                                day = "Thu";
+                                break;
+
+                            case "Friday":
+                                day = "Fri";
+                                break;
+
+                            case "Saturday":
+                                day = "Sat";
+                                break;
+
+                            case "Sunday":
+                                day = "Sun";
+                                break;
+                        }
                         databaseHandler.addNewTimeSlotToServerDatabase(sport, day, timeFrom, timeTo);
                         dialog.dismiss();
 
