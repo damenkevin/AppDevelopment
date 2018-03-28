@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -300,7 +301,9 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                         }
                         databaseHandler.addNewTimeSlotToServerDatabase(sport, day, timeFrom, timeTo);
                         dialog.dismiss();
-
+                        //to make sure that the timetable is updated once a new timeslot is added
+                        mShortSamples.clear();
+                        initData();
                     }
                 });
                 dialog.show();
@@ -360,7 +363,6 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
     private DateTimeFormatter getDateTimePattern() {
         return DateTimeFormat.forPattern("HH:mm");
     }
-
 
 
     private void loadData() {
