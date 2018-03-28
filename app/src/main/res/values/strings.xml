@@ -23,6 +23,7 @@
     <string name="item_accept">Accept</string>
     <string name="item_deny">Deny</string>
     <string name="item_remove">Remove Match</string>
+    <string name="friend_remove">Remove Friend</string>
     <string name="settings_dark">Dark Theme</string>
     <string name="settings_dutch">Dutch</string>
     <string name="settings_notification">Notifications</string>

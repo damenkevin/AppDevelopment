@@ -17,6 +17,8 @@ public class MatchesTab extends MatchesFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.matches_layout, container, false);
         gridView = (GridView) view.findViewById(R.id.gridView);
+
+        MatchesAdapter matchesAdapter = new MatchesAdapter(this.getContext());
         gridView.setAdapter(matchesAdapter);
 
         return view;
