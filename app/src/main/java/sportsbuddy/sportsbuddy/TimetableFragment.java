@@ -1,12 +1,10 @@
 package sportsbuddy.sportsbuddy;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.eunsiljo.timetablelib.data.TimeData;
 import com.github.eunsiljo.timetablelib.data.TimeTableData;
 import com.github.eunsiljo.timetablelib.view.TimeTableView;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -37,7 +35,7 @@ import java.util.Map;
  * Created by s165700 on 2/28/2018.
  */
 
-public class TimetableFragment extends Fragment implements OnItemSelectedListener{
+public class TimetableFragment extends Fragment implements OnItemSelectedListener {
     DatabaseHandler databaseHandler;
     String sport;
     String day;
@@ -47,6 +45,11 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
     String minuteTo;
     String timeFrom;
     String timeTo;
+    List<String> fromHourList;
+    List<String> fromMinuteList;
+    List<String> toHourList;
+    List<String> toMinuteList;
+
 
     @Nullable
     @Override
@@ -62,7 +65,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
         return view;
     }
 
-    public void Test(){
+    public void Test() {
 
     }
 
@@ -125,41 +128,32 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 sportSpinner.setAdapter(sportSpinnerAdapter);
 
 
-
                 // implement spinner element for fromHour
                 Spinner fromHSpinner = (Spinner) dialog.findViewById(R.id.fromHSpinner);
 
                 // set click listener for spinner
                 fromHSpinner.setOnItemSelectedListener(TimetableFragment.this);
 
-                // add elements for the spinner
-                List<String> hourList = new ArrayList<String>();
-                hourList.add("00");
-                hourList.add("01");
-                hourList.add("02");
-                hourList.add("03");
-                hourList.add("04");
-                hourList.add("05");
-                hourList.add("07");
-                hourList.add("08");
-                hourList.add("09");
-                hourList.add("10");
-                hourList.add("11");
-                hourList.add("12");
-                hourList.add("13");
-                hourList.add("14");
-                hourList.add("15");
-                hourList.add("16");
-                hourList.add("17");
-                hourList.add("18");
-                hourList.add("19");
-                hourList.add("20");
-                hourList.add("21");
-                hourList.add("22");
-                hourList.add("23");
+                // add elements for the hour spinners
+                fromHourList = new ArrayList<String>();
+                fromHourList.add("08");
+                fromHourList.add("09");
+                fromHourList.add("10");
+                fromHourList.add("11");
+                fromHourList.add("12");
+                fromHourList.add("13");
+                fromHourList.add("14");
+                fromHourList.add("15");
+                fromHourList.add("16");
+                fromHourList.add("17");
+                fromHourList.add("18");
+                fromHourList.add("19");
+                fromHourList.add("20");
+                fromHourList.add("21");
+                fromHourList.add("22");
 
                 // create an adapter for the spinner
-                ArrayAdapter<String> fromHSpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, hourList);
+                ArrayAdapter<String> fromHSpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, fromHourList);
                 fromHSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 //set the data adapter to the spinner
@@ -173,71 +167,23 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 fromMSpinner.setOnItemSelectedListener(TimetableFragment.this);
 
                 // add elements for the spinner
-                List<String> minuteList = new ArrayList<String>();
-                minuteList.add("00");
-                minuteList.add("01");
-                minuteList.add("02");
-                minuteList.add("03");
-                minuteList.add("04");
-                minuteList.add("05");
-                minuteList.add("06");
-                minuteList.add("07");
-                minuteList.add("08");
-                minuteList.add("09");
-                minuteList.add("10");
-                minuteList.add("11");
-                minuteList.add("12");
-                minuteList.add("13");
-                minuteList.add("14");
-                minuteList.add("15");
-                minuteList.add("16");
-                minuteList.add("17");
-                minuteList.add("18");
-                minuteList.add("19");
-                minuteList.add("20");
-                minuteList.add("21");
-                minuteList.add("22");
-                minuteList.add("23");
-                minuteList.add("24");
-                minuteList.add("25");
-                minuteList.add("26");
-                minuteList.add("27");
-                minuteList.add("28");
-                minuteList.add("29");
-                minuteList.add("30");
-                minuteList.add("31");
-                minuteList.add("32");
-                minuteList.add("33");
-                minuteList.add("34");
-                minuteList.add("35");
-                minuteList.add("36");
-                minuteList.add("37");
-                minuteList.add("38");
-                minuteList.add("39");
-                minuteList.add("40");
-                minuteList.add("41");
-                minuteList.add("42");
-                minuteList.add("43");
-                minuteList.add("44");
-                minuteList.add("45");
-                minuteList.add("46");
-                minuteList.add("47");
-                minuteList.add("48");
-                minuteList.add("49");
-                minuteList.add("50");
-                minuteList.add("51");
-                minuteList.add("52");
-                minuteList.add("53");
-                minuteList.add("54");
-                minuteList.add("55");
-                minuteList.add("56");
-                minuteList.add("57");
-                minuteList.add("58");
-                minuteList.add("59");
+                fromMinuteList = new ArrayList<String>();
+                fromMinuteList.add("00");
+                fromMinuteList.add("05");
+                fromMinuteList.add("10");
+                fromMinuteList.add("15");
+                fromMinuteList.add("20");
+                fromMinuteList.add("25");
+                fromMinuteList.add("30");
+                fromMinuteList.add("35");
+                fromMinuteList.add("40");
+                fromMinuteList.add("45");
+                fromMinuteList.add("50");
+                fromMinuteList.add("55");
 
 
                 // create an adapter for the spinner
-                ArrayAdapter<String> fromMSpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, minuteList);
+                ArrayAdapter<String> fromMSpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, fromMinuteList);
                 fromMSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 //set the data adapter to the spinner
@@ -251,8 +197,26 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 toHSpinner.setOnItemSelectedListener(TimetableFragment.this);
 
 
+                // add elements for the hour spinners
+                toHourList = new ArrayList<String>();
+                toHourList.add("08");
+                toHourList.add("09");
+                toHourList.add("10");
+                toHourList.add("11");
+                toHourList.add("12");
+                toHourList.add("13");
+                toHourList.add("14");
+                toHourList.add("15");
+                toHourList.add("16");
+                toHourList.add("17");
+                toHourList.add("18");
+                toHourList.add("19");
+                toHourList.add("20");
+                toHourList.add("21");
+                toHourList.add("22");
+
                 // create an adapter for the spinner
-                ArrayAdapter<String> toHSpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, hourList);
+                ArrayAdapter<String> toHSpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, toHourList);
                 toHSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 //set the data adapter to the spinner
@@ -265,13 +229,27 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 // set click listener for spinner
                 toMSpinner.setOnItemSelectedListener(TimetableFragment.this);
 
+                // add elements for the spinner
+                toMinuteList = new ArrayList<String>();
+                toMinuteList.add("00");
+                toMinuteList.add("05");
+                toMinuteList.add("10");
+                toMinuteList.add("15");
+                toMinuteList.add("20");
+                toMinuteList.add("25");
+                toMinuteList.add("30");
+                toMinuteList.add("35");
+                toMinuteList.add("40");
+                toMinuteList.add("45");
+                toMinuteList.add("50");
+                toMinuteList.add("55");
+
                 // create an adapter for the spinner
-                ArrayAdapter<String> toMSpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, minuteList);
+                ArrayAdapter<String> toMSpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, toMinuteList);
                 toMSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 //set the data adapter to the spinner
                 toMSpinner.setAdapter(toMSpinnerAdapter);
-
 
 
                 Button addButton = (Button) dialog.findViewById(R.id.buttonSetTimeslot);
@@ -282,6 +260,36 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                     public void onClick(View view) {
                         timeFrom = hourFrom + ":" + minuteFrom;
                         timeTo = hourTo + ":" + minuteTo;
+                        switch (day) {
+
+                            case "Monday":
+                                day = "Mon";
+                                break;
+
+                            case "Tuesday":
+                                day = "Tue";
+                                break;
+
+                            case "Wednesday":
+                                day = "Wed";
+                                break;
+
+                            case "Thursday":
+                                day = "Thu";
+                                break;
+
+                            case "Friday":
+                                day = "Fri";
+                                break;
+
+                            case "Saturday":
+                                day = "Sat";
+                                break;
+
+                            case "Sunday":
+                                day = "Sun";
+                                break;
+                        }
                         databaseHandler.addNewTimeSlotToServerDatabase(sport, day, timeFrom, timeTo);
                         dialog.dismiss();
 
@@ -304,7 +312,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
 
     private void initLayout(View view) {
-       // btnMode = view.findViewById(R.id.btnMode);
+        //btnMode = view.findViewById(R.id.btnMode);
         timeTable = (TimeTableView) view.findViewById(R.id.timeTable);
     }
 
@@ -315,7 +323,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 loadData();
                 //initShortSamples();
 
-                timeTable.setStartHour(8);
+                timeTable.setStartHour(6);
                 timeTable.setShowHeader(true);
                 timeTable.setTableMode(TimeTableView.TableMode.SHORT);
 
@@ -328,17 +336,16 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
     }
 
-
-    private void toogleMode() {
-        btnMode.setActivated(!btnMode.isActivated());
-    }
-
     // =============================================================================
     // Date format
     // =============================================================================
 
     private long getMillis(String day) {
-        DateTime date = getDateTimePattern().parseDateTime(day);
+        //get current date, with the given time
+        DateTime date = DateTime.now();
+        LocalTime time = getDateTimePattern().parseDateTime(day).toLocalTime();
+        date = date.withTime(time);
+        //timeslots are in millisecond
         return date.getMillis();
     }
 
@@ -346,16 +353,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
         return DateTimeFormat.forPattern("HH:mm");
     }
 
-    // =============================================================================
-    // Toast
-    // =============================================================================
 
-    private void showToast(Activity activity, String msg) {
-        Toast toast = Toast.makeText(activity, msg, Toast.LENGTH_SHORT);
-        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        if (v != null) v.setGravity(Gravity.CENTER);
-        toast.show();
-    }
 
     private void loadData() {
         List<UserTimeTable> data = DatabaseHandler.getUserTimeTable();
@@ -371,13 +369,12 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
         timeDataMap.put("Sat", new ArrayList<TimeData>());
         timeDataMap.put("Sun", new ArrayList<TimeData>());
 
-        int i = 0;
+        int i = 0; //variable that loops through keys.
         for (UserTimeTable item : data) {
             if (mShortHeaders.contains(item.getDay())) {
                 TimeData timeData = new TimeData(i++, item.getActivity(), R.color.color_table_1, getMillis(item.getTimeFrom()), getMillis(item.getTimeTo()));
                 timeDataMap.get(item.getDay()).add(timeData);
             }
-
         }
 
         ArrayList<TimeTableData> tables = new ArrayList<>();
@@ -409,6 +406,13 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
             case R.id.fromHSpinner:
                 ((TextView) view).setTextColor(Color.BLACK);
                 hourFrom = parent.getItemAtPosition(position).toString().trim();
+                int hF = Integer.parseInt(hourFrom);
+                for (int i=0; i<15; i++) {
+                    int hT = Integer.parseInt(toHourList.get(i));
+                    if (hT<hF) {
+                        toHourList.remove(i);
+                    }
+                }
 
                 break;
 
@@ -416,11 +420,23 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 ((TextView) view).setTextColor(Color.BLACK);
                 minuteFrom = parent.getItemAtPosition(position).toString().trim();
 
+
                 break;
 
             case R.id.toHSpinner:
                 ((TextView) view).setTextColor(Color.BLACK);
                 hourTo = parent.getItemAtPosition(position).toString().trim();
+                hF = Integer.parseInt(hourFrom);
+                int hT = Integer.parseInt(hourTo);
+                int mF = Integer.parseInt(minuteFrom);
+                if (hF==hT) {
+                    for (int i=0; i<12; i++) {
+                        int mT = Integer.parseInt(toMinuteList.get(i));
+                        if (mT<mF) {
+                            toMinuteList.remove(i);
+                        }
+                    }
+                }
 
                 break;
 
