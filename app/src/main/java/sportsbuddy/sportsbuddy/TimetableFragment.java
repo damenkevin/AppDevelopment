@@ -146,7 +146,6 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 hourList.add("20");
                 hourList.add("21");
                 hourList.add("22");
-                hourList.add("23");
 
                 // create an adapter for the spinner
                 ArrayAdapter<String> fromHSpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, hourList);
@@ -165,65 +164,17 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 // add elements for the spinner
                 List<String> minuteList = new ArrayList<String>();
                 minuteList.add("00");
-                minuteList.add("01");
-                minuteList.add("02");
-                minuteList.add("03");
-                minuteList.add("04");
                 minuteList.add("05");
-                minuteList.add("06");
-                minuteList.add("07");
-                minuteList.add("08");
-                minuteList.add("09");
                 minuteList.add("10");
-                minuteList.add("11");
-                minuteList.add("12");
-                minuteList.add("13");
-                minuteList.add("14");
                 minuteList.add("15");
-                minuteList.add("16");
-                minuteList.add("17");
-                minuteList.add("18");
-                minuteList.add("19");
                 minuteList.add("20");
-                minuteList.add("21");
-                minuteList.add("22");
-                minuteList.add("23");
-                minuteList.add("24");
                 minuteList.add("25");
-                minuteList.add("26");
-                minuteList.add("27");
-                minuteList.add("28");
-                minuteList.add("29");
                 minuteList.add("30");
-                minuteList.add("31");
-                minuteList.add("32");
-                minuteList.add("33");
-                minuteList.add("34");
                 minuteList.add("35");
-                minuteList.add("36");
-                minuteList.add("37");
-                minuteList.add("38");
-                minuteList.add("39");
                 minuteList.add("40");
-                minuteList.add("41");
-                minuteList.add("42");
-                minuteList.add("43");
-                minuteList.add("44");
                 minuteList.add("45");
-                minuteList.add("46");
-                minuteList.add("47");
-                minuteList.add("48");
-                minuteList.add("49");
                 minuteList.add("50");
-                minuteList.add("51");
-                minuteList.add("52");
-                minuteList.add("53");
-                minuteList.add("54");
                 minuteList.add("55");
-                minuteList.add("56");
-                minuteList.add("57");
-                minuteList.add("58");
-                minuteList.add("59");
 
 
                 // create an adapter for the spinner
