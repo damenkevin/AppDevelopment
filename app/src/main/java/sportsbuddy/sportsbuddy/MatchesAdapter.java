@@ -73,7 +73,7 @@ public class MatchesAdapter extends BaseAdapter {
             textNameProfile.setText(values1[i]);
             sports.setText(values2[i]);
             level.setText(values3[i]);
-            imageButton.setImageResource(values4[i]);
+            //imageButton.setImageResource(values4[i]);
 
         }
         return view;

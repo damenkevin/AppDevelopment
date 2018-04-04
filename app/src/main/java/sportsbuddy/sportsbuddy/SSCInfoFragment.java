@@ -32,6 +32,7 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ssc_info_page, container, false);
         Button testButton = (Button) view.findViewById(R.id.button);
+        /*Button testButton = (Button) view.findViewById(R.id.button);
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,8 +40,9 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
                 startActivity(intent);
             }
         });
+<<<<<<< HEAD
 
-
+        */
         locationSpinner = (Spinner) view.findViewById(R.id.locationSpinner);
 
 
@@ -64,7 +66,7 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
 
         //set the data adapter to the spinner
         locationSpinner.setAdapter(locationSpinnerAdapter);
-
+        
         return view;
     }
 

@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
         mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        int resourceId = getResources().getIdentifier("design_bottom_navigation_height", "dimen", this.getPackageName());
+        int height = 0;
+        if (resourceId > 0) {
+            height = getResources().getDimensionPixelSize(resourceId);
+            MatchesTab.setBottomViewHeight(height);
+        }
         toolbar.setTitle(getResources().getString(R.string.menu_matches));
         loadFragment(new MatchesFragment());
         mSelectedItem = R.id.menu_matches;
