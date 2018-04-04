@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        MatchesTab.setBottomViewHeight(mBottomNav.getMeasuredHeight());
+
+        Log.e("Spacing is:", String.valueOf(mBottomNav.getMeasuredHeight()));
         toolbar.setTitle(getResources().getString(R.string.menu_matches));
         loadFragment(new MatchesFragment());
         mSelectedItem = R.id.menu_matches;
