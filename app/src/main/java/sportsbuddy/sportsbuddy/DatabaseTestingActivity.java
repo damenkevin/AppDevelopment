@@ -59,7 +59,6 @@ public class DatabaseTestingActivity extends Activity {
         testButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseHandler.checkForMatches("Football", "Monday", "19:30", "20:10");
 
             }
         });
