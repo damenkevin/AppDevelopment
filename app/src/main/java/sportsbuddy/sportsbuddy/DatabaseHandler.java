@@ -95,7 +95,7 @@ public class DatabaseHandler {
      * @param timeFrom
      * @param timeTo
      */
-    public void checkForMatches(final String activity, final String day, final String timeFrom, final String timeTo) {
+    public void checkForMatches(final String activity, final String day, final String timeFrom, final String timeTo, final MatchesTab matchesTab) {
         DatabaseReference reference = database.getReference("TimeTableSlot");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -155,7 +155,7 @@ public class DatabaseHandler {
                         }
                     }
                 }
-                //TODO: Call the method in MatchesFragment to send the matches array and notify the adapter.
+                matchesTab.compareMatches(matches);
             }
 
             @Override
@@ -164,7 +164,6 @@ public class DatabaseHandler {
             }
         });
     }
-
 
     //Upadates the server and local database with the new user info
     public static void updateUserInfo(String name, String gender, String age, String about) {
@@ -361,6 +360,25 @@ public class DatabaseHandler {
 
     }
 
+    /**
+     *
+     * @return Array list with all matches stored in local database
+     */
+    public ArrayList<Match> getMatchesFromLocal(){
+        //TODO: Get all matches from local database
+        return new ArrayList<Match>();
+    }
+
+    /**
+     * Stores the matches from matchesList in the local database.
+     * @pre matchesList contains only matches that are not stored in local database
+     * @param matchesList
+     */
+    public void fillInLocalMatches(ArrayList<Match> matchesList){
+        //TODO: Fill in all local matches
+    }
+
+
 
 
     /*
@@ -378,6 +396,7 @@ public class DatabaseHandler {
                 ("CREATE TABLE IF NOT EXISTS Slots(Id INTEGER PRIMARY KEY AUTOINCREMENT, slotID VARCHAR, activity VARCHAR, day VARCHAR, timeFrom VARCHAR, timeTo VARCHAR)");
         sqLiteHelper.queryData
                 ("CREATE TABLE IF NOT EXISTS Profile(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, name VARCHAR, age VARCHAR, gender VARCHAR, about VARCHAR)");
+        sqLiteHelper.queryData("CREATE TABLE IF NTO EXISTS Matches(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, activity VARCHAR, overlapFrom VARCHAR, overlapTo VARCHAR, handled VARCHAR");
 
     }
 
