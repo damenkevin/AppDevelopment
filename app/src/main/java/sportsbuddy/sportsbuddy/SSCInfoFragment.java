@@ -31,7 +31,6 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ssc_info_page, container, false);
-        Button testButton = (Button) view.findViewById(R.id.button);
         /*Button testButton = (Button) view.findViewById(R.id.button);
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
