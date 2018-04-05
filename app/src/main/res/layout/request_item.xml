@@ -35,14 +35,14 @@
             android:id="@+id/Level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Level"
+            android:text="@string/level"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/Sports"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sports"
+            android:text="@string/sports"
             android:textSize="18sp" />
 
         <Button

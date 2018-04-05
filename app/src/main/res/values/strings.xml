@@ -32,6 +32,35 @@
     <string name="matches">Matches</string>
     <string name="requests">Requests</string>
     <string name="ssc_caption">SSC Information</string>
+    <string name="about">About</string>
+    <string name="send_friend_request">Send friend request</string>
+    <string name="send_a_message">Send a message</string>
+    <string name="gender">Gender</string>
+    <string name="name">Name</string>
+    <string name="a_verification_email_has_been_sent_to_your_email_address_please_verify_it_to_continue">A verification email has been sent to your email address. Please verify it to continue.</string>
+    <string name="btncontinue">Continue</string>
+    <string name="select_location">Select Location:</string>
+    <string name="address">Address:</string>
+    <string name="phone_number">Phone number:</string>
+    <string name="e_mail_website">E-mail/Website:</string>
+    <string name="facilities">Facilities:</string>
+    <string name="opening_times">Opening times:</string>
+    <string name="monday">Monday:</string>
+    <string name="thursday">Thursday:</string>
+    <string name="friday">Friday:</string>
+    <string name="wednesday">Wednesday:</string>
+    <string name="tuesday">Tuesday:</string>
+    <string name="saturday">Saturday:</string>
+    <string name="sunday">Sunday:</string>
+    <string name="textview">TextView</string>
+    <string name="log_out">Log Out</string>
+    <string name="cancel">Cancel</string>
+    <string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
+    <string name="level">Level</string>
+    <string name="sports">Sports</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
 
 
 </resources>
