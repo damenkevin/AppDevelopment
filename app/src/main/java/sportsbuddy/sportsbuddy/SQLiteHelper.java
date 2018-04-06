@@ -49,6 +49,22 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
+    public void insertMatch(String UID, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap){
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "INSERT INTO Matches VALUES (NULL,?,?,?,?,?,?)";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, UID);
+        statement.bindString(2, sportingActivity);
+
+        statement.bindString(3, day);
+        statement.bindString(4, timeFromOverlap);
+        statement.bindString(5, timeToOverlap);
+        statement.bindString(6, "false");
+        statement.executeInsert();
+        database.close();
+    }
+
     public void updatePersonalProfileData(String uID, String name, String age, String gender, String about){
         SQLiteDatabase database = getWritableDatabase();
         String sql = "UPDATE Profile SET uID = ?, name = ?, age = ?, gender = ?, about = ? WHERE id = ?";
@@ -60,6 +76,21 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         statement.bindString(4, gender);
         statement.bindString(5, about);
         statement.bindDouble(6,(double) id);
+        statement.execute();
+        database.close();
+    }
+
+    public void setMatchHandled(String UID, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap){
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "UPDATE Matches SET handled = ? WHERE UID = ?, sportingActivity = ?, day = ?, timeFromOverlap = ?, timeToOverlap = ?";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.bindString(1, "true");
+        statement.bindString(2, UID);
+        statement.bindString(3, sportingActivity);
+
+        statement.bindString(4, day);
+        statement.bindString(5, timeFromOverlap);
+        statement.bindString(6, timeToOverlap);
         statement.execute();
         database.close();
     }

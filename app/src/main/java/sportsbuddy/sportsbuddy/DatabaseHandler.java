@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.util.Log;
 
+import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -90,67 +91,66 @@ public class DatabaseHandler {
      * ALL of the matches for all sports that the user has entered.
      * This must be done by calling this method with multiple different params.
      *
-     * @param activity
-     * @param day
-     * @param timeFrom
-     * @param timeTo
+     * @param userTimeTable
      */
-    public void checkForMatches(final String activity, final String day, final String timeFrom, final String timeTo, final MatchesTab matchesTab) {
+    public void checkForMatches(final ArrayList<UserTimeTable> userTimeTable, final MatchesTab matchesTab) {
         DatabaseReference reference = database.getReference("TimeTableSlot");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<Match> matches = new ArrayList<Match>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    //If the current event we are looking at is not the same user
-                    if (!snapshot.child("User").getValue().equals(firebaseUser.getUid())) {
-                        String UIDsecond = String.valueOf(snapshot.child("User").getValue());
-                        if (snapshot.child("Event").child("Activity").getValue().equals(activity)) {
-                            if (snapshot.child("Event").child("Day").getValue().equals(day)) {
-                                String timeFromDB = String.valueOf(snapshot.child("Event").child("TimeFrom").getValue());
-                                String timeToDB = String.valueOf(snapshot.child("Event").child("TimeTo").getValue());
-                                timeFromDB = String.valueOf(timeFromDB.charAt(0)) +
-                                        String.valueOf(timeFromDB.charAt(1)) +
-                                        String.valueOf(timeFromDB.charAt(3)) +
-                                        String.valueOf(timeFromDB.charAt(4));
-                                timeToDB = String.valueOf(timeToDB.charAt(0)) +
-                                        String.valueOf(timeToDB.charAt(1)) +
-                                        String.valueOf(timeToDB.charAt(3)) +
-                                        String.valueOf(timeToDB.charAt(4));
-                                String timeFromF = String.valueOf(timeFrom.charAt(0)) +
-                                        String.valueOf(timeFrom.charAt(1)) +
-                                        String.valueOf(timeFrom.charAt(3)) +
-                                        String.valueOf(timeFrom.charAt(4));
-                                String timeToF = String.valueOf(timeTo.charAt(0)) +
-                                        String.valueOf(timeTo.charAt(1)) +
-                                        String.valueOf(timeTo.charAt(3)) +
-                                        String.valueOf(timeTo.charAt(4));
-                                int timeFromDBInt = Integer.parseInt(timeFromDB);
-                                int timeToDBInt = Integer.parseInt(timeToDB);
-                                int timeFromInt = Integer.parseInt(timeFromF);
-                                int timeToInt = Integer.parseInt(timeToF);
-                                Log.e(String.valueOf(timeFromInt) + " To ", String.valueOf(timeToInt));
-                                Log.e(String.valueOf(timeFromDBInt) + " To ", String.valueOf(timeToDBInt));
-                                if((timeFromInt>timeToDBInt && timeToDBInt > timeToInt)
-                                        || (timeFromDBInt > timeToInt && timeToInt > timeToDBInt)) {
-                                    String timeFromOverlap;
-                                    String timeToOverlap;
-                                    if (timeFromInt <= timeFromDBInt) {
-                                        timeFromOverlap = String.valueOf(timeFromDBInt);
-                                    } else {
-                                        timeFromOverlap = String.valueOf(timeFromInt);
-                                    }
-                                    if (timeToInt <= timeToDBInt) {
-                                        timeToOverlap = String.valueOf(timeToInt);
-                                    } else {
-                                        timeToOverlap = String.valueOf(timeToDBInt);
-                                    }
-                                    Match newMatch = new Match(FirebaseAuth.getInstance().getCurrentUser().getUid(), UIDsecond, activity, timeFromOverlap, timeToOverlap);
-                                    if (!matches.contains(newMatch)){
+                for(UserTimeTable userTimeTable1 : userTimeTable) {
+                    String activity = userTimeTable1.getActivity();
+                    String day = userTimeTable1.getDay();
+                    String timeFrom = userTimeTable1.getTimeFrom();
+                    String timeTo = userTimeTable1.getTimeTo();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        //If the current event we are looking at is not the same user
+                        if (!String.valueOf(snapshot.child("User").getValue()).equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                            String UIDsecond = String.valueOf(snapshot.child("User").getValue());
+                            if (String.valueOf(snapshot.child("Event").child("Activity").getValue()).equals(activity)) {
+                                if (String.valueOf(snapshot.child("Event").child("Day").getValue()).equals(day)) {
+                                    String timeFromDB = String.valueOf(snapshot.child("Event").child("TimeFrom").getValue());
+                                    String timeToDB = String.valueOf(snapshot.child("Event").child("TimeTo").getValue());
+                                    timeFromDB = String.valueOf(timeFromDB.charAt(0)) +
+                                            String.valueOf(timeFromDB.charAt(1)) +
+                                            String.valueOf(timeFromDB.charAt(3)) +
+                                            String.valueOf(timeFromDB.charAt(4));
+                                    timeToDB = String.valueOf(timeToDB.charAt(0)) +
+                                            String.valueOf(timeToDB.charAt(1)) +
+                                            String.valueOf(timeToDB.charAt(3)) +
+                                            String.valueOf(timeToDB.charAt(4));
+                                    String timeFromF = String.valueOf(timeFrom.charAt(0)) +
+                                            String.valueOf(timeFrom.charAt(1)) +
+                                            String.valueOf(timeFrom.charAt(3)) +
+                                            String.valueOf(timeFrom.charAt(4));
+                                    String timeToF = String.valueOf(timeTo.charAt(0)) +
+                                            String.valueOf(timeTo.charAt(1)) +
+                                            String.valueOf(timeTo.charAt(3)) +
+                                            String.valueOf(timeTo.charAt(4));
+                                    int timeFromDBInt = Integer.parseInt(timeFromDB);
+                                    int timeToDBInt = Integer.parseInt(timeToDB);
+                                    int timeFromInt = Integer.parseInt(timeFromF);
+                                    int timeToInt = Integer.parseInt(timeToF);
+                                    if ((timeFromInt <= timeToDBInt && timeToDBInt <= timeToInt)
+                                            || (timeFromDBInt <= timeToInt && timeToDBInt >= timeFromInt)) {
+                                        String timeFromOverlap;
+                                        String timeToOverlap;
+                                        if (timeFromInt <= timeFromDBInt) {
+                                            timeFromOverlap = String.valueOf(timeFromDBInt);
+                                        } else {
+                                            timeFromOverlap = String.valueOf(timeFromInt);
+                                        }
+                                        if (timeToInt <= timeToDBInt) {
+                                            timeToOverlap = String.valueOf(timeToInt);
+                                        } else {
+                                            timeToOverlap = String.valueOf(timeToDBInt);
+                                        }
+                                        Match newMatch = new Match(UIDsecond, activity, day, timeFromOverlap, timeToOverlap, false);
                                         matches.add(newMatch);
                                     }
-                                }
 
+                                }
                             }
                         }
                     }
@@ -311,14 +311,12 @@ public class DatabaseHandler {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot datum : dataSnapshot.getChildren()){
-                    Log.e("Checking:",String.valueOf(datum.child("Name").getValue()));
                     AppUser user = new AppUser(dataSnapshot.getKey(),null, null,null,null,null);
                     //If the user's id is in the friends list
                     if(userListIDS.contains(datum.getKey())){
                         user.setName(String.valueOf(datum.child("Name").getValue()));
                         user.setUID(datum.getKey());
                         if(!userList.contains(user)){
-                            Log.e("Added ","^^^");
                             userList.add(user);
                         }
 
@@ -366,7 +364,28 @@ public class DatabaseHandler {
      */
     public ArrayList<Match> getMatchesFromLocal(){
         //TODO: Get all matches from local database
-        return new ArrayList<Match>();
+        ArrayList<Match> matches = new ArrayList<Match>();
+        Cursor cursor = sqLiteHelper.getData("SELECT * FROM Matches");
+        String UID;
+        String sportingActivity;
+        String day;
+        String timeFromOverlap;
+        String timeToOverlap;
+        boolean handled;
+        while(cursor.moveToNext()){
+            UID = cursor.getString(1);
+            sportingActivity = cursor.getString(2);
+            day = cursor.getString(3);
+            timeFromOverlap = cursor.getString(4);
+            timeToOverlap = cursor.getString(5);
+            if(cursor.getString(6).equals("false")){
+                handled = false;
+            } else {
+                handled = true;
+            }
+            matches.add(new Match(UID, sportingActivity, day, timeFromOverlap, timeToOverlap, handled));
+        }
+        return matches;
     }
 
     /**
@@ -376,10 +395,43 @@ public class DatabaseHandler {
      */
     public void fillInLocalMatches(ArrayList<Match> matchesList){
         //TODO: Fill in all local matches
+        for(Match match : matchesList){
+            sqLiteHelper.insertMatch(match.getUID(),
+                    match.getSportingActivity(),
+                    match.getDay(),
+                    match.getTimeFromOverlap(),
+                    match.getTimeToOverlap());
+        }
     }
 
+    public void setMatchHandled(Match match){
+        sqLiteHelper.setMatchHandled(match.getUID(),
+                match.getSportingActivity(),
+                match.getDay(),
+                match.getTimeFromOverlap(),
+                match.getTimeToOverlap());
+    }
 
+    public void sendMatchRequest(Match match){
 
+    }
+
+    public ArrayList<UserTimeTable> getSlotsFromLocal(){
+        ArrayList<UserTimeTable> userTimeTableArray = new ArrayList<>();
+        Cursor c = sqLiteHelper.getData("SELECT * FROM Slots");
+        String activity;
+        String day;
+        String timeFrom;
+        String timeTo;
+        while(c.moveToNext()){
+            activity = c.getString(2);
+            day = c.getString(3);
+            timeFrom = c.getString(4);
+            timeTo = c.getString(5);
+            userTimeTableArray.add(new UserTimeTable(activity,day,timeFrom,timeTo));
+        }
+        return userTimeTableArray;
+    }
 
     /*
      * <--- Database management methods END --->
@@ -397,7 +449,7 @@ public class DatabaseHandler {
         sqLiteHelper.queryData
                 ("CREATE TABLE IF NOT EXISTS Profile(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, name VARCHAR, age VARCHAR, gender VARCHAR, about VARCHAR)");
         sqLiteHelper.queryData
-                ("CREATE TABLE IF NOT EXISTS Matches(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, activity VARCHAR, overlapFrom VARCHAR, overlapTo VARCHAR, handled VARCHAR)");
+                ("CREATE TABLE IF NOT EXISTS Matches(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, activity VARCHAR, day VARCHAR, overlapFrom VARCHAR, overlapTo VARCHAR, handled VARCHAR)");
 
     }
 

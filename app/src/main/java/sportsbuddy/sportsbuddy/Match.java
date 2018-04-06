@@ -5,26 +5,27 @@ package sportsbuddy.sportsbuddy;
  */
 
 public class Match {
-    private String UIDone;
-    private String UIDtwo;
+    //The user id in server of the person you have a match with
+    private String UID;
     private String sportingActivity;
+    private String day;
     private String timeFromOverlap;
     private String timeToOverlap;
+    //Indicates whether the match is already accepted/declined or not
+    private boolean handled;
 
-    public Match(String UIDone, String UIDtwo, String sportingActivity, String timeFromOverlap, String timeToOverlap) {
-        this.UIDone = UIDone;
-        this.UIDtwo = UIDtwo;
+    public Match(String UID, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap, boolean handled) {
+        this.UID = UID;
+        this.day = day;
         this.sportingActivity = sportingActivity;
         this.timeFromOverlap = timeFromOverlap;
         this.timeToOverlap = timeToOverlap;
+        this.handled = handled;
     }
 
-    public String getUIDone() {
-        return UIDone;
-    }
 
-    public String getUIDtwo() {
-        return UIDtwo;
+    public String getUID() {
+        return UID;
     }
 
     public String getSportingActivity() {
@@ -37,5 +38,21 @@ public class Match {
 
     public String getTimeToOverlap() {
         return timeToOverlap;
+    }
+
+    public boolean isHandled() {
+        return handled;
+    }
+
+    public void setHandled(boolean handled) {
+        this.handled = handled;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 }
