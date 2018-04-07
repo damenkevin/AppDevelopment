@@ -1,6 +1,8 @@
 package sportsbuddy.sportsbuddy;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,10 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.eunsiljo.timetablelib.data.TimeData;
+import com.github.eunsiljo.timetablelib.data.TimeGridData;
 import com.github.eunsiljo.timetablelib.data.TimeTableData;
 import com.github.eunsiljo.timetablelib.view.TimeTableView;
+import com.github.eunsiljo.timetablelib.viewholder.TimeTableItemViewHolder;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
@@ -61,7 +66,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
         databaseHandler = DatabaseHandler.getDatabaseHandler();
         setPopUpDialog(addNewSlotButton);
         initLayout(view);
-        //initListener();
+        initListener();
         initData();
         return view;
     }
@@ -321,9 +326,32 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
 
     private long mNow = 8;
 
+    /*Removes timeslot from timetable*/
+    private void initListener() {
+
+        timeTable.setOnTimeItemClickListener(new TimeTableItemViewHolder.OnTimeItemClickListener() {
+            @Override
+            public void onTimeItemClick(final View view, int position, TimeGridData item) {
+                final TimeData time = item.getTime();
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle(time.getTitle() + "  " + new DateTime(time.getStartMills()).toString(getDateTimePattern()) + "-" + new DateTime(time.getStopMills()).toString(getDateTimePattern()))
+                        .setMessage("Do you want to remove this timeslot?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                DatabaseHandler.removeTimeSlot(time.getKey().toString());
+                                //to make sure that the timetable is updated once a new timeslot is added
+                                mShortSamples.clear();
+                                initData();
+
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+            }
+        });
+    }
 
     private void initLayout(View view) {
-        //btnMode = view.findViewById(R.id.btnMode);
         timeTable = (TimeTableView) view.findViewById(R.id.timeTable);
     }
 
@@ -379,10 +407,9 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
         timeDataMap.put("Sat", new ArrayList<TimeData>());
         timeDataMap.put("Sun", new ArrayList<TimeData>());
 
-        int i = 0; //variable that loops through keys.
         for (UserTimeTable item : data) {
             if (mShortHeaders.contains(item.getDay())) {
-                TimeData timeData = new TimeData(i++, item.getActivity(), R.color.color_table_1, getMillis(item.getTimeFrom()), getMillis(item.getTimeTo()));
+                TimeData timeData = new TimeData(item.getKey(), item.getActivity(), R.color.color_table_1, getMillis(item.getTimeFrom()), getMillis(item.getTimeTo()));
                 timeDataMap.get(item.getDay()).add(timeData);
             }
         }
@@ -433,9 +460,9 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 toHourList.add("22");
                 hourFrom = parent.getItemAtPosition(position).toString().trim();
                 int hF = Integer.parseInt(hourFrom);
-                for (int i=toHourList.size()-1; i>=0; i--) {
+                for (int i = toHourList.size() - 1; i >= 0; i--) {
                     int hT = Integer.parseInt(toHourList.get(i));
-                    if (hT<hF) {
+                    if (hT < hF) {
                         toHourList.remove(i);
                     }
                 }
@@ -461,10 +488,10 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 int mF = Integer.parseInt(minuteFrom);
                 hF = Integer.parseInt(hourFrom);
                 int hT = Integer.parseInt(hourTo);
-                if (hF==hT) {
-                    for (int i=toMinuteList.size()-1; i>=0; i--) {
+                if (hF == hT) {
+                    for (int i = toMinuteList.size() - 1; i >= 0; i--) {
                         int mT = Integer.parseInt(toMinuteList.get(i));
-                        if (mT<=mF) {
+                        if (mT <= mF) {
                             toMinuteList.remove(i);
                         }
                     }
@@ -493,9 +520,9 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 fromHourList.add("22");
                 hourTo = parent.getItemAtPosition(position).toString().trim();
                 hT = Integer.parseInt(hourTo);
-                for (int i=fromHourList.size()-1; i>=0; i--) {
+                for (int i = fromHourList.size() - 1; i >= 0; i--) {
                     hF = Integer.parseInt(fromHourList.get(i));
-                    if (hF>hT) {
+                    if (hF > hT) {
                         fromHourList.remove(i);
                     }
                 }
@@ -521,10 +548,10 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 int mT = Integer.parseInt(minuteTo);
                 hF = Integer.parseInt(hourFrom);
                 hT = Integer.parseInt(hourTo);
-                if (hF==hT) {
-                    for (int i=fromMinuteList.size()-1; i>=0; i--) {
+                if (hF == hT) {
+                    for (int i = fromMinuteList.size() - 1; i >= 0; i--) {
                         mF = Integer.parseInt(fromMinuteList.get(i));
-                        if (mF>=mT) {
+                        if (mF >= mT) {
                             fromMinuteList.remove(i);
                         }
                     }

@@ -210,6 +210,7 @@ public class DatabaseHandler {
         });
     }
 
+
     //gets user time table from database.
     public static void getUserTimeTableFromServer(final Callback<List<UserTimeTable>> callback) {
         timeTableRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -221,13 +222,13 @@ public class DatabaseHandler {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     if (Objects.equals(snapshot.child("User").getValue(), firebaseUser.getUid())) {
-
+                        String key = snapshot.getKey();
                         String activity = snapshot.child("Event").child("Activity").getValue().toString();
                         String day = snapshot.child("Event").child("Day").getValue().toString();
                         String timeFrom = snapshot.child("Event").child("TimeFrom").getValue().toString();
                         String timeTo = snapshot.child("Event").child("TimeTo").getValue().toString();
 
-                        UserTimeTable timeSlot = new UserTimeTable(activity, day, timeFrom, timeTo);
+                        UserTimeTable timeSlot = new UserTimeTable(key, activity, day, timeFrom, timeTo);
 
                         userTimeTable.add(timeSlot);
                     }
@@ -243,7 +244,11 @@ public class DatabaseHandler {
         });
 
     }
+    //removes timeslot in user timetable
 
+    public static  void removeTimeSlot(String key){
+        timeTableRef.child(key).removeValue();
+    }
 
     //returns an instance of the user information filled with data from the local database
     public static AppUser getUserInfoFromLocal() {
@@ -419,16 +424,19 @@ public class DatabaseHandler {
     public ArrayList<UserTimeTable> getSlotsFromLocal(){
         ArrayList<UserTimeTable> userTimeTableArray = new ArrayList<>();
         Cursor c = sqLiteHelper.getData("SELECT * FROM Slots");
+        String key;
         String activity;
         String day;
         String timeFrom;
         String timeTo;
+
         while(c.moveToNext()){
+            key = c.getColumnName(1);
             activity = c.getString(2);
             day = c.getString(3);
             timeFrom = c.getString(4);
             timeTo = c.getString(5);
-            userTimeTableArray.add(new UserTimeTable(activity,day,timeFrom,timeTo));
+            userTimeTableArray.add(new UserTimeTable(key,activity,day,timeFrom,timeTo));
         }
         return userTimeTableArray;
     }
