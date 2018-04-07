@@ -61,6 +61,10 @@
     <string name="save_changes">Save Changes</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="addImage">Add Image From</string>
+
 
 
 </resources>
