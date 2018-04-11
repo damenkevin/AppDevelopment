@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.content.Context;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 public class MatchesAdapter extends BaseAdapter {
 
     private Context context;
-    private int[] values4 = {R.drawable.matches, R.drawable.com_facebook_profile_picture_blank_portrait, R.drawable.com_facebook_profile_picture_blank_square};
     View view;
     private LayoutInflater layoutInflater;
     private ArrayList<AppUser> appUsers;
@@ -70,6 +70,9 @@ public class MatchesAdapter extends BaseAdapter {
         TextView timeFrom = view.findViewById(R.id.timeFromMatches);
         TextView timeTo = view.findViewById(R.id.timeToMatches);
         ImageButton imageButton = view.findViewById(R.id.profileImg);
+        Button sendButton = view.findViewById(R.id.buttonSendRequest);
+        Button deleteButton = view.findViewById(R.id.buttonDeleteMatch);
+
         //Proper time display:
         timeFromString = matches.get(i).getTimeFromOverlap();
         if(timeFromString.length() == 3){
@@ -95,6 +98,20 @@ public class MatchesAdapter extends BaseAdapter {
                 matchesTab.viewProfile(appUsers.get(i));
             }
         });
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                matchesTab.setMatchHandled(appUsers.get(i), matches.get(i), true);
+            }
+        });
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                matchesTab.setMatchHandled(appUsers.get(i), matches.get(i), false);
+            }
+        });
+
+
         //imageButton.setImageResource(values4[i]);
         return view;
     }

@@ -133,8 +133,12 @@ public class MatchesTab extends MatchesFragment {
     }
 
 
-    //Use this method when a match is accepted or removed.
-    private void setMatchHandled(Match match, boolean isAccepted){
+
+    public void setMatchHandled(AppUser appUser, Match match, boolean isAccepted){
+        appUsersToDisplay.remove(appUser);
+        matchesToDisplay.remove(match);
+        matchesAdapter.updateMatchesList(appUsersToDisplay,matchesToDisplay);
+        matchesAdapter.notifyDataSetChanged();
         databaseHandler.setMatchHandled(match);
         if(isAccepted){
             databaseHandler.sendMatchRequest(match);

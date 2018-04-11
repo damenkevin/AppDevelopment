@@ -427,7 +427,13 @@ public class DatabaseHandler {
     }
 
     public void sendMatchRequest(Match match){
-
+        DatabaseReference ref = database.getReference("Requests").push();
+        ref.child("RequestFrom").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        ref.child("RequestTo").setValue(match.getUID());
+        ref.child("Sport").setValue(match.getSportingActivity());
+        ref.child("TimeFrom").setValue(match.getTimeFromOverlap());
+        ref.child("TimeTo").setValue(match.getTimeToOverlap());
+        ref.child("Handled").setValue("false");
     }
 
     public ArrayList<UserTimeTable> getSlotsFromLocal(){
@@ -473,6 +479,65 @@ public class DatabaseHandler {
                     }
                 }
                 matchesTab.updateUsersToDisplay(userToReturn);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void getRequests(final RequestsTab requestsTab){
+        DatabaseReference ref = database.getReference("UserEvents");
+        final ArrayList<Request> requests = new ArrayList<Request>();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    if(String.valueOf(data.child("RequestTo").getValue()).equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) &&
+                            String.valueOf(data.child("Handled").getValue()).equals("false")){
+                        String UID = String.valueOf(data.child("RequestFrom").getValue());
+                        String sport = String.valueOf(data.child("Sport").getValue());
+                        String timeFrom = String.valueOf(data.child("TimeFrom").getValue());
+                        String timeTo = String.valueOf(data.child("TimeTo").getValue());
+                        String day = String.valueOf(data.child("Day").getValue());
+                        requests.add(new Request(UID, sport,day, timeFrom, timeTo,false));
+                    }
+                }
+                getRequestsUsers(requests, requestsTab);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getRequestsUsers(final ArrayList<Request> requests, final RequestsTab requestsTab){
+        final ArrayList<String> userIDs = new ArrayList<String>();
+        final ArrayList<AppUser> appUsers = new ArrayList<AppUser>();
+        for(Request request : requests){
+            userIDs.add(request.getUID());
+        }
+
+        DatabaseReference ref = database.getReference("UsersInfo");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    if(userIDs.contains(String.valueOf(data.getKey()))){
+                        String name = String.valueOf(data.child("Name").getValue());
+                        String age = String.valueOf(data.child("Age").getValue());
+                        String gender = String.valueOf(data.child("Gender").getValue());
+                        String about = String.valueOf(data.child("About").getValue());
+                        String UID = String.valueOf(data.getKey());
+                        appUsers.add(new AppUser(UID,name,age,gender,about,null));
+                    }
+                }
+                requestsTab.setRequests(requests,appUsers);
             }
 
             @Override
