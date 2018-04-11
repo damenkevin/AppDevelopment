@@ -1,5 +1,6 @@
 package sportsbuddy.sportsbuddy;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Layout;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -46,10 +48,9 @@ public class MatchesTab extends MatchesFragment {
         databaseHandler = DatabaseHandler.getDatabaseHandler();
         matchesToDisplay = new ArrayList<Match>();
 
-        matchesAdapter = new MatchesAdapter(this.getContext(), appUsersToDisplay, matchesToDisplay);
+        matchesAdapter = new MatchesAdapter(this.getContext(), appUsersToDisplay, matchesToDisplay, MatchesTab.this);
         gridView.setAdapter(matchesAdapter);
-        LinearLayout linearLayout = view.findViewById(R.id.matchesLayout);
-        //TODO: make on item click listeners to the gridview from where one can view the match profile
+        //TODO: make on item click listeners to the gridView from where one can view the match profile
         searchForMatches();
         return view;
     }
@@ -68,6 +69,7 @@ public class MatchesTab extends MatchesFragment {
      * duplication and save match status - accepted or declined
      * @param serverMatches
      */
+    //TODO: Compare matches to requests to make sure you are not displaying matches that you already have a request received for.
     public void compareMatches(ArrayList<Match> serverMatches){
         ArrayList<Match> localMatches = databaseHandler.getMatchesFromLocal();
         ArrayList<Match> matchesToFillIn = new ArrayList<Match>();
@@ -139,7 +141,9 @@ public class MatchesTab extends MatchesFragment {
         }
     }
 
-    public static void setBottomViewHeight(int i){
-        bottomViewHeight = i;
+    public void viewProfile(AppUser appUser){
+        ViewProfileActivity.setUserToDisplay(appUser);
+        Intent intent = new Intent(getActivity(), ViewProfileActivity.class);
+        startActivity(intent);
     }
 }
