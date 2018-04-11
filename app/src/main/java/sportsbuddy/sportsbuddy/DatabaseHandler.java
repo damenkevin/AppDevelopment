@@ -3,6 +3,8 @@ package sportsbuddy.sportsbuddy;
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
+import android.graphics.Bitmap;
+import android.util.AndroidRuntimeException;
 import android.util.Log;
 
 import com.firebase.ui.auth.data.model.User;
@@ -71,7 +73,7 @@ public class DatabaseHandler {
     /**
      * Adds a new Timeslot to the server database
      */
-    public static void addNewTimeSlotToServerDatabase(String sport, String day, String timeFrom, String timeTo) {
+    public static void addNewTimeSlotToServerDatabase(String sport,String level, String day, String timeFrom, String timeTo) {
         //Create a timetable slot in the server database with a unique ID
         DatabaseReference newTimeTableSlot = timeTableRef.push().getRef();
         //Add the unique userID which is final and consistent with the database
@@ -81,8 +83,9 @@ public class DatabaseHandler {
         newTimeTableSlot.child("Event").child("Day").setValue(day);
         newTimeTableSlot.child("Event").child("TimeFrom").setValue(timeFrom);
         newTimeTableSlot.child("Event").child("TimeTo").setValue(timeTo);
+        newTimeTableSlot.child("Event").child("level").setValue(level);
         //Insert into the local database
-        sqLiteHelper.insertTimeTableSlotDetails(newTimeTableSlot.getKey(), sport, day, timeFrom, timeTo);
+        sqLiteHelper.insertTimeTableSlotDetails(newTimeTableSlot.getKey(),level, sport, day, timeFrom, timeTo);
     }
 
     /**
@@ -112,6 +115,7 @@ public class DatabaseHandler {
                                 if (String.valueOf(snapshot.child("Event").child("Day").getValue()).equals(day)) {
                                     String timeFromDB = String.valueOf(snapshot.child("Event").child("TimeFrom").getValue());
                                     String timeToDB = String.valueOf(snapshot.child("Event").child("TimeTo").getValue());
+                                    String level = String.valueOf(snapshot.child("Event").child("Level").getValue());
                                     timeFromDB = String.valueOf(timeFromDB.charAt(0)) +
                                             String.valueOf(timeFromDB.charAt(1)) +
                                             String.valueOf(timeFromDB.charAt(3)) +
@@ -146,7 +150,8 @@ public class DatabaseHandler {
                                         } else {
                                             timeToOverlap = String.valueOf(timeToDBInt);
                                         }
-                                        Match newMatch = new Match(UIDsecond, activity, day, timeFromOverlap, timeToOverlap, false);
+                                        Log.e("Found a Match with",UIDsecond);
+                                        Match newMatch = new Match(UIDsecond,level, activity, day, timeFromOverlap, timeToOverlap, false);
                                         matches.add(newMatch);
                                     }
 
@@ -223,12 +228,13 @@ public class DatabaseHandler {
 
                     if (Objects.equals(snapshot.child("User").getValue(), firebaseUser.getUid())) {
                         String key = snapshot.getKey();
-                        String activity = snapshot.child("Event").child("Activity").getValue().toString();
-                        String day = snapshot.child("Event").child("Day").getValue().toString();
-                        String timeFrom = snapshot.child("Event").child("TimeFrom").getValue().toString();
-                        String timeTo = snapshot.child("Event").child("TimeTo").getValue().toString();
+                        String activity = String.valueOf(snapshot.child("Event").child("Activity").getValue());
+                        String day = String.valueOf(snapshot.child("Event").child("Day").getValue());
+                        String timeFrom = String.valueOf(snapshot.child("Event").child("TimeFrom").getValue());
+                        String timeTo = String.valueOf(snapshot.child("Event").child("TimeTo").getValue());
+                        String level = String.valueOf(snapshot.child("Event").child("Level").getValue());
 
-                        UserTimeTable timeSlot = new UserTimeTable(key, activity, day, timeFrom, timeTo);
+                        UserTimeTable timeSlot = new UserTimeTable(key, level, activity, day, timeFrom, timeTo);
 
                         userTimeTable.add(timeSlot);
                     }
@@ -368,10 +374,10 @@ public class DatabaseHandler {
      * @return Array list with all matches stored in local database
      */
     public ArrayList<Match> getMatchesFromLocal(){
-        //TODO: Get all matches from local database
         ArrayList<Match> matches = new ArrayList<Match>();
         Cursor cursor = sqLiteHelper.getData("SELECT * FROM Matches");
         String UID;
+        String level;
         String sportingActivity;
         String day;
         String timeFromOverlap;
@@ -379,16 +385,17 @@ public class DatabaseHandler {
         boolean handled;
         while(cursor.moveToNext()){
             UID = cursor.getString(1);
-            sportingActivity = cursor.getString(2);
-            day = cursor.getString(3);
-            timeFromOverlap = cursor.getString(4);
-            timeToOverlap = cursor.getString(5);
-            if(cursor.getString(6).equals("false")){
+            level = cursor.getString(2);
+            sportingActivity = cursor.getString(3);
+            day = cursor.getString(4);
+            timeFromOverlap = cursor.getString(5);
+            timeToOverlap = cursor.getString(6);
+            if(cursor.getString(7).equals("false")){
                 handled = false;
             } else {
                 handled = true;
             }
-            matches.add(new Match(UID, sportingActivity, day, timeFromOverlap, timeToOverlap, handled));
+            matches.add(new Match(UID,level, sportingActivity, day, timeFromOverlap, timeToOverlap, handled));
         }
         return matches;
     }
@@ -402,6 +409,7 @@ public class DatabaseHandler {
         //TODO: Fill in all local matches
         for(Match match : matchesList){
             sqLiteHelper.insertMatch(match.getUID(),
+                    match.getLevel(),
                     match.getSportingActivity(),
                     match.getDay(),
                     match.getTimeFromOverlap(),
@@ -411,6 +419,7 @@ public class DatabaseHandler {
 
     public void setMatchHandled(Match match){
         sqLiteHelper.setMatchHandled(match.getUID(),
+                match.getLevel(),
                 match.getSportingActivity(),
                 match.getDay(),
                 match.getTimeFromOverlap(),
@@ -425,6 +434,7 @@ public class DatabaseHandler {
         ArrayList<UserTimeTable> userTimeTableArray = new ArrayList<>();
         Cursor c = sqLiteHelper.getData("SELECT * FROM Slots");
         String key;
+        String level;
         String activity;
         String day;
         String timeFrom;
@@ -432,13 +442,45 @@ public class DatabaseHandler {
 
         while(c.moveToNext()){
             key = c.getColumnName(1);
-            activity = c.getString(2);
-            day = c.getString(3);
-            timeFrom = c.getString(4);
-            timeTo = c.getString(5);
-            userTimeTableArray.add(new UserTimeTable(key,activity,day,timeFrom,timeTo));
+            level = c.getString(2);
+            activity = c.getString(3);
+            day = c.getString(4);
+            timeFrom = c.getString(5);
+            timeTo = c.getString(6);
+            userTimeTableArray.add(new UserTimeTable(key,level,activity,day,timeFrom,timeTo));
         }
         return userTimeTableArray;
+    }
+
+    public void getMatchUsers(final ArrayList<Match> matches, final MatchesTab matchesTab){
+        DatabaseReference ref = database.getReference("UsersInfo");
+        final ArrayList<AppUser> userToReturn = new ArrayList<>();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    for(Match match : matches){
+                        if(match.getUID().equals(String.valueOf(data.getKey()))){
+                            userToReturn.add(new AppUser(
+                                    String.valueOf(data.getKey()),
+                                    String.valueOf(data.child("Name").getValue()),
+                                    String.valueOf(data.child("Age").getValue()),
+                                    String.valueOf(data.child("Gender").getValue()),
+                                    String.valueOf(data.child("About").getValue()),
+                                    null
+                                    ));
+                        }
+                    }
+                }
+                matchesTab.updateUsersToDisplay(userToReturn);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     /*
@@ -452,12 +494,14 @@ public class DatabaseHandler {
     //sets up the local database.
     public static void setSqLiteHelper(SQLiteHelper _sqLiteHelper) {
         sqLiteHelper = _sqLiteHelper;
+        //TODO: Uncomment the bottom line, delete your app and install it again if it crashes. Then comment this line back.
+        //sqLiteHelper.queryData("DROP TABLE Slots");
         sqLiteHelper.queryData
-                ("CREATE TABLE IF NOT EXISTS Slots(Id INTEGER PRIMARY KEY AUTOINCREMENT, slotID VARCHAR, activity VARCHAR, day VARCHAR, timeFrom VARCHAR, timeTo VARCHAR)");
+                ("CREATE TABLE IF NOT EXISTS Slots(Id INTEGER PRIMARY KEY AUTOINCREMENT, slotID VARCHAR, level VARCHAR, activity VARCHAR, day VARCHAR, timeFrom VARCHAR, timeTo VARCHAR)");
         sqLiteHelper.queryData
                 ("CREATE TABLE IF NOT EXISTS Profile(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, name VARCHAR, age VARCHAR, gender VARCHAR, about VARCHAR)");
         sqLiteHelper.queryData
-                ("CREATE TABLE IF NOT EXISTS Matches(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, activity VARCHAR, day VARCHAR, overlapFrom VARCHAR, overlapTo VARCHAR, handled VARCHAR)");
+                ("CREATE TABLE IF NOT EXISTS Matches(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, level VARCHAR, activity VARCHAR, day VARCHAR, overlapFrom VARCHAR, overlapTo VARCHAR, handled VARCHAR)");
 
     }
 

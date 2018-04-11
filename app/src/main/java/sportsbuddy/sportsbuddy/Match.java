@@ -7,6 +7,7 @@ package sportsbuddy.sportsbuddy;
 public class Match {
     //The user id in server of the person you have a match with
     private String UID;
+    private String level;
     private String sportingActivity;
     private String day;
     private String timeFromOverlap;
@@ -14,8 +15,9 @@ public class Match {
     //Indicates whether the match is already accepted/declined or not
     private boolean handled;
 
-    public Match(String UID, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap, boolean handled) {
+    public Match(String UID,String level, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap, boolean handled) {
         this.UID = UID;
+        this.level = level;
         this.day = day;
         this.sportingActivity = sportingActivity;
         this.timeFromOverlap = timeFromOverlap;
@@ -54,5 +56,13 @@ public class Match {
 
     public void setDay(String day) {
         this.day = day;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

@@ -21,16 +21,17 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.execSQL(sql);
     }
 
-    public void insertTimeTableSlotDetails(String slotID, String activity, String day,String timeFrom, String timeTo){
+    public void insertTimeTableSlotDetails(String slotID,String level, String activity, String day,String timeFrom, String timeTo){
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "INSERT INTO Slots VALUES (NULL,?,?,?,?,?)";
+        String sql = "INSERT INTO Slots VALUES (NULL,?,?,?,?,?,?)";
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
         statement.bindString(1, slotID);
-        statement.bindString(2, activity);
-        statement.bindString(3, day);
-        statement.bindString(4, timeFrom);
-        statement.bindString(5, timeTo);
+        statement.bindString(2,level);
+        statement.bindString(3, activity);
+        statement.bindString(4, day);
+        statement.bindString(5, timeFrom);
+        statement.bindString(6, timeTo);
         statement.executeInsert();
         database.close();
     }
@@ -49,18 +50,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
-    public void insertMatch(String UID, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap){
+    public void insertMatch(String UID,String level, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap){
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "INSERT INTO Matches VALUES (NULL,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Matches VALUES (NULL,?,?,?,?,?,?,?)";
         SQLiteStatement statement = database.compileStatement(sql);
         statement.clearBindings();
         statement.bindString(1, UID);
-        statement.bindString(2, sportingActivity);
-
-        statement.bindString(3, day);
-        statement.bindString(4, timeFromOverlap);
-        statement.bindString(5, timeToOverlap);
-        statement.bindString(6, "false");
+        statement.bindString(2, level);
+        statement.bindString(3, sportingActivity);
+        statement.bindString(4, day);
+        statement.bindString(5, timeFromOverlap);
+        statement.bindString(6, timeToOverlap);
+        statement.bindString(7, "false");
         statement.executeInsert();
         database.close();
     }
@@ -80,17 +81,17 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
-    public void setMatchHandled(String UID, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap){
+    public void setMatchHandled(String UID,String level, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap){
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "UPDATE Matches SET handled = ? WHERE UID = ?, sportingActivity = ?, day = ?, timeFromOverlap = ?, timeToOverlap = ?";
+        String sql = "UPDATE Matches SET handled = ? WHERE UID = ?,level = ? sportingActivity = ?, day = ?, timeFromOverlap = ?, timeToOverlap = ?";
         SQLiteStatement statement = database.compileStatement(sql);
         statement.bindString(1, "true");
         statement.bindString(2, UID);
-        statement.bindString(3, sportingActivity);
-
-        statement.bindString(4, day);
-        statement.bindString(5, timeFromOverlap);
-        statement.bindString(6, timeToOverlap);
+        statement.bindString(3,level);
+        statement.bindString(4, sportingActivity);
+        statement.bindString(5, day);
+        statement.bindString(6, timeFromOverlap);
+        statement.bindString(7, timeToOverlap);
         statement.execute();
         database.close();
     }

@@ -70,4 +70,5 @@ public class AppUser {
     public void setProfilePic(Bitmap profilePic) {
         this.profilePic = profilePic;
     }
+
 }

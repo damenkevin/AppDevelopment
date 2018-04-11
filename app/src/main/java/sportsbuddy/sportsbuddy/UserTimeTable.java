@@ -12,7 +12,15 @@ import android.media.Image;
  * Used for easier communication between classes
  */
 public class UserTimeTable {
-    public UserTimeTable(String key, String activity, String day, String timeFrom, String timeTo) {
+
+    private String key;
+    private String level;
+    private String activity;
+    private String day;
+    private String timeFrom;
+    private String timeTo;
+    public UserTimeTable(String key,String level, String activity, String day, String timeFrom, String timeTo) {
+        this.level = level;
         this.activity = activity;
         this.day = day;
         this.timeFrom = timeFrom;
@@ -20,9 +28,6 @@ public class UserTimeTable {
         this.key = key;
     }
 
-    private String activity;
-    private String day;
-    private String key;
 
     public String getActivity() {
         return activity;
@@ -64,6 +69,11 @@ public class UserTimeTable {
         this.timeTo = timeTo;
     }
 
-    private String timeFrom;
-    private String timeTo;
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
 }

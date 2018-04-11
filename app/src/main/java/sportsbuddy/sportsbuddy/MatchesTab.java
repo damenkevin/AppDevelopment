@@ -35,6 +35,8 @@ public class MatchesTab extends MatchesFragment {
     private static int bottomViewHeight;
     DatabaseHandler databaseHandler;
     private ArrayList<Match> matchesToDisplay;
+    private ArrayList<AppUser> appUsersToDisplay;
+    MatchesAdapter matchesAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +46,7 @@ public class MatchesTab extends MatchesFragment {
         databaseHandler = DatabaseHandler.getDatabaseHandler();
         matchesToDisplay = new ArrayList<Match>();
 
-        MatchesAdapter matchesAdapter = new MatchesAdapter(this.getContext());
+        matchesAdapter = new MatchesAdapter(this.getContext(), appUsersToDisplay, matchesToDisplay);
         gridView.setAdapter(matchesAdapter);
         LinearLayout linearLayout = view.findViewById(R.id.matchesLayout);
         //TODO: make on item click listeners to the gridview from where one can view the match profile
@@ -99,19 +101,11 @@ public class MatchesTab extends MatchesFragment {
             matchesToDisplay = serverMatches;
         }
         databaseHandler.fillInLocalMatches(matchesToFillIn);
+        databaseHandler.getMatchUsers(matchesToDisplay, MatchesTab.this);
         displayMatches();
-
-
     }
 
-    /**
-     * When this method is called then already the matches are retrieved and and you can
-     * safely use the matches to display array to display the matches.
-     */
     private void displayMatches(){
-        //TODO: All logic after getting the matches must be placed here
-        //TODO: Pass matchesToDisplay to adapter and display the matches
-        //TODO: Get user's profile pic for each match
         /**
          * Use this for debugging. It shows the matches you have.
          */
@@ -129,8 +123,13 @@ public class MatchesTab extends MatchesFragment {
         Log.e("Total of", String.valueOf(i) + " matches");
         //DEBUGGING END
 
-
     }
+
+    public void updateUsersToDisplay(ArrayList<AppUser> appUsersToDisplay){
+        matchesAdapter.updateMatchesList(appUsersToDisplay,matchesToDisplay);
+        matchesAdapter.notifyDataSetChanged();
+    }
+
 
     //Use this method when a match is accepted or removed.
     private void setMatchHandled(Match match, boolean isAccepted){
