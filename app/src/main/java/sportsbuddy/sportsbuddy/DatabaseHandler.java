@@ -494,7 +494,7 @@ public class DatabaseHandler {
     //sets up the local database.
     public static void setSqLiteHelper(SQLiteHelper _sqLiteHelper) {
         sqLiteHelper = _sqLiteHelper;
-        //TODO: Uncomment the bottom line, delete your app and install it again if it crashes. Then comment this line back.
+        //TODO: Uncomment the line below, delete your app and install it again if it crashes. Then comment this line back.
         //sqLiteHelper.queryData("DROP TABLE Slots");
         sqLiteHelper.queryData
                 ("CREATE TABLE IF NOT EXISTS Slots(Id INTEGER PRIMARY KEY AUTOINCREMENT, slotID VARCHAR, level VARCHAR, activity VARCHAR, day VARCHAR, timeFrom VARCHAR, timeTo VARCHAR)");
