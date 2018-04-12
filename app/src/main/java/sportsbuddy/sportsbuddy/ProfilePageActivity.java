@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,7 +27,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +62,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
         databaseHandler = DatabaseHandler.getDatabaseHandler();
         ImageButton editProfileButton = (ImageButton) findViewById(R.id.editProfileButton);
         setEditProfileButton(editProfileButton);
-        updatePersonalProfile();
+
         imageutils =new Imageutils(this);
 
         iv_attachment=(ImageView)findViewById(R.id.imageView);
@@ -69,6 +73,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
                 imageutils.imagepicker(1);
             }
         });
+        updatePersonalProfile();
 
     }
 
@@ -82,7 +87,22 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
         ageText.setText(appUser.getAge());
         aboutText.setText(appUser.getAbout());
         genderText.setText(appUser.getGender());
-        iv_attachment.setImageBitmap(appUser.getProfilePic());
+        String profPic = appUser.getprofilePicture();
+        byte[] bytes = new byte[0];
+        if (profPic != "") {
+            try {
+                bytes = Base64.decode(profPic,Base64.DEFAULT);
+            } catch(Exception e) {
+                e.getMessage();
+            }
+        }
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        if (bitmap == null) {
+
+        } else {
+            iv_attachment.setImageBitmap(bitmap);
+        }
     }
 
     /**
@@ -166,7 +186,11 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
         this.bitmap=file;
         this.file_name=filename;
         iv_attachment.setImageBitmap(file);
-        //update file in the server
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        file.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        String profilePictureString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        databaseHandler.updateProfilePicture(profilePictureString);
 
         String path =  Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
         imageutils.createImage(file,filename,path,false);

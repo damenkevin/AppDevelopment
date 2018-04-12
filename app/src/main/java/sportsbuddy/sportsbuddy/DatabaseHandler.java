@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -179,6 +180,12 @@ public class DatabaseHandler {
         sqLiteHelper.updatePersonalProfileData(FirebaseAuth.getInstance().getUid(), name, age, gender, about);
     }
 
+    //Upadates the server and local database with the new user info
+    public static void updateProfilePicture(String profilePicture) {
+        usersRef.child(firebaseUser.getUid()).child("ProfilePicture").setValue(profilePicture);
+        sqLiteHelper.updateProfilePicture(FirebaseAuth.getInstance().getUid(), profilePicture);
+    }
+
     //Gets a user from the online database. Not used ATM
     //TODO: Adapt and use this when viewing other profiles
     public void getUserInfoFromServer(final String uID, final ViewProfileActivity activity) {
@@ -262,6 +269,7 @@ public class DatabaseHandler {
         String age = "blank";
         String gender = "blank";
         String about = "blank";
+        String profilePicture = null;
         Cursor cursor = sqLiteHelper.getData("SELECT COUNT(*) FROM Profile");
         boolean empty = true;
         if (cursor != null && cursor.moveToFirst()) {
@@ -270,7 +278,7 @@ public class DatabaseHandler {
         cursor.close();
         Log.d("Reached", String.valueOf(empty));
         if (empty) {
-            sqLiteHelper.insertPersonalProfileInfo(FirebaseAuth.getInstance().getUid(), "Blank", "0", "Blank", "Blank");
+            sqLiteHelper.insertPersonalProfileInfo(FirebaseAuth.getInstance().getUid(), "Blank", "0", "Blank", "Blank", "");
         } else {
             cursor = sqLiteHelper.getData("SELECT * FROM PROFILE");
             while (cursor.moveToNext()) {
@@ -278,9 +286,10 @@ public class DatabaseHandler {
                 age = cursor.getString(3);
                 gender = cursor.getString(4);
                 about = cursor.getString(5);
+                profilePicture = cursor.getString(6);
             }
         }
-        AppUser appUser = new AppUser(FirebaseAuth.getInstance().getUid(), name, age, gender, about, null);
+        AppUser appUser = new AppUser(FirebaseAuth.getInstance().getUid(), name, age, gender, about, profilePicture);
         return appUser;
     }
 
@@ -565,7 +574,7 @@ public class DatabaseHandler {
         sqLiteHelper.queryData
                 ("CREATE TABLE IF NOT EXISTS Slots(Id INTEGER PRIMARY KEY AUTOINCREMENT, slotID VARCHAR, level VARCHAR, activity VARCHAR, day VARCHAR, timeFrom VARCHAR, timeTo VARCHAR)");
         sqLiteHelper.queryData
-                ("CREATE TABLE IF NOT EXISTS Profile(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, name VARCHAR, age VARCHAR, gender VARCHAR, about VARCHAR)");
+                ("CREATE TABLE IF NOT EXISTS Profile(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, name VARCHAR, age VARCHAR, gender VARCHAR, about VARCHAR, profilePicture VARCHAR)");
         sqLiteHelper.queryData
                 ("CREATE TABLE IF NOT EXISTS Matches(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, level VARCHAR, activity VARCHAR, day VARCHAR, overlapFrom VARCHAR, overlapTo VARCHAR, handled VARCHAR)");
 
