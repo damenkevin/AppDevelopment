@@ -16,12 +16,13 @@ public class Request {
     //Indicates whether the match is already accepted/declined or not
     private boolean handled;
 
-    public Request(String UID, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap, boolean handled) {
+    public Request(String UID, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap, String level, boolean handled) {
         this.UID = UID;
         this.day = day;
         this.sportingActivity = sportingActivity;
         this.timeFromOverlap = timeFromOverlap;
         this.timeToOverlap = timeToOverlap;
+        this.level = level;
         this.handled = handled;
     }
 
@@ -56,5 +57,13 @@ public class Request {
 
     public void setDay(String day) {
         this.day = day;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

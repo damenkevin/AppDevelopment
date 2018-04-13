@@ -1,6 +1,8 @@
 package sportsbuddy.sportsbuddy;
 
 import android.os.Bundle;
+import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,5 +33,12 @@ public class RequestsTab extends MatchesFragment {
     public void setRequests(ArrayList<Request> _requests, ArrayList<AppUser> _requestUsers){
         requests = _requests;
         requestsUsers = _requestUsers;
+    }
+
+    public void DebugRequests(){
+        for(int i=0; i< requests.size(); i++){
+            Log.e("Match With", requestsUsers.get(i).getName());
+            Log.e("Level", requests.get(i).getLevel());
+        }
     }
 }

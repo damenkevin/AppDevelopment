@@ -47,6 +47,7 @@ public class MatchesTab extends MatchesFragment {
         gridView = (GridView) view.findViewById(R.id.gridView);
         databaseHandler = DatabaseHandler.getDatabaseHandler();
         matchesToDisplay = new ArrayList<Match>();
+        appUsersToDisplay = new ArrayList<AppUser>();
 
         matchesAdapter = new MatchesAdapter(this.getContext(), appUsersToDisplay, matchesToDisplay, MatchesTab.this);
         gridView.setAdapter(matchesAdapter);
@@ -127,7 +128,8 @@ public class MatchesTab extends MatchesFragment {
 
     }
 
-    public void updateUsersToDisplay(ArrayList<AppUser> appUsersToDisplay){
+    public void updateUsersToDisplay(ArrayList<AppUser> _appUsersToDisplay){
+        this.appUsersToDisplay = _appUsersToDisplay;
         matchesAdapter.updateMatchesList(appUsersToDisplay,matchesToDisplay);
         matchesAdapter.notifyDataSetChanged();
     }
@@ -139,7 +141,7 @@ public class MatchesTab extends MatchesFragment {
         matchesToDisplay.remove(match);
         matchesAdapter.updateMatchesList(appUsersToDisplay,matchesToDisplay);
         matchesAdapter.notifyDataSetChanged();
-        databaseHandler.setMatchHandled(match);
+        //databaseHandler.setMatchHandled(match);
         if(isAccepted){
             databaseHandler.sendMatchRequest(match);
         }

@@ -98,7 +98,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public void setMatchHandled(String UID,String level, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap){
         SQLiteDatabase database = getWritableDatabase();
-        String sql = "UPDATE Matches SET handled = ? WHERE UID = ?,level = ? sportingActivity = ?, day = ?, timeFromOverlap = ?, timeToOverlap = ?";
+        String sql = "UPDATE Matches SET handled = ? WHERE UID = ?, level = ?, sportingActivity = ?, day = ?, timeFromOverlap = ?, timeToOverlap = ?";
         SQLiteStatement statement = database.compileStatement(sql);
         statement.bindString(1, "true");
         statement.bindString(2, UID);
