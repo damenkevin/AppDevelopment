@@ -185,6 +185,26 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
     public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
         this.bitmap=file;
         this.file_name=filename;
+        if (file.getWidth() >= file.getHeight()){
+
+            file = Bitmap.createBitmap(
+                    file,
+                    file.getWidth()/2 - file.getHeight()/2,
+                    0,
+                    file.getHeight(),
+                    file.getHeight()
+            );
+
+        }else{
+
+            file = Bitmap.createBitmap(
+                    file,
+                    0,
+                    file.getHeight()/2 - file.getWidth()/2,
+                    file.getWidth(),
+                    file.getWidth()
+            );
+        }
         iv_attachment.setImageBitmap(file);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         file.compress(Bitmap.CompressFormat.PNG, 100, stream);
