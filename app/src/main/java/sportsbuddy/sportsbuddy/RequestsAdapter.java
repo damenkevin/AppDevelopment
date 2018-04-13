@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by s165700 on 3/5/2018.
  */
@@ -20,17 +22,18 @@ import android.widget.TextView;
 public class RequestsAdapter extends BaseAdapter {
 
     private Context context;
-    private String[] values1 = {"Bob", "Bob", "Bill"};
-    private String[] values2 = {"Tennis", "Fitness", "Swimming"};
-    private String[] values3 = {"Intermediate", "Beginner", "Beginner"};
+    private ArrayList<AppUser> users;
+    private ArrayList<Request> requests;
     private int[] values4 = {R.drawable.matches, R.drawable.com_facebook_profile_picture_blank_portrait, R.drawable.com_facebook_profile_picture_blank_square};
     View view;
     private LayoutInflater layoutInflater;
 
 
 
-    public RequestsAdapter(Context context){
+    public RequestsAdapter(Context context, ArrayList<AppUser> users, ArrayList<Request> requests){
         this.context = context;
+        this.users = users;
+        this.requests = requests;
 
         //get the requests from the database
 
@@ -40,17 +43,17 @@ public class RequestsAdapter extends BaseAdapter {
     //change the getcount to count the amuont of requests instaad of values1
     @Override
     public int getCount() {
-        return values1.length;
+        return requests.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return requests.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
 
@@ -69,12 +72,18 @@ public class RequestsAdapter extends BaseAdapter {
             TextView level = view.findViewById(R.id.Level);
             ImageButton imageButton = view.findViewById(R.id.profileImg);
 
-            textNameProfile.setText(values1[i]);
-            sports.setText(values2[i]);
-            level.setText(values3[i]);
+            textNameProfile.setText(users.get(i).getName());
+            sports.setText(requests.get(i).getSportingActivity());
+            level.setText(requests.get(i).getLevel());
             //imageButton.setImageResource(values4[i]);
 
         }
         return view;
     }
+
+    public void updateRequests(ArrayList<AppUser> users, ArrayList<Request> requests){
+        this.users = users;
+        this.requests = requests;
+    }
+
 }

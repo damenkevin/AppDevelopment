@@ -77,7 +77,7 @@ public class DatabaseHandler {
         newTimeTableSlot.child("Event").child("Day").setValue(day);
         newTimeTableSlot.child("Event").child("TimeFrom").setValue(timeFrom);
         newTimeTableSlot.child("Event").child("TimeTo").setValue(timeTo);
-        newTimeTableSlot.child("Event").child("level").setValue(level);
+        newTimeTableSlot.child("Event").child("Level").setValue(level);
         //Insert into the local database
         sqLiteHelper.insertTimeTableSlotDetails(newTimeTableSlot.getKey(),level, sport, day, timeFrom, timeTo);
     }
@@ -492,7 +492,7 @@ public class DatabaseHandler {
     }
 
     public void getRequests(final RequestsTab requestsTab){
-        DatabaseReference ref = database.getReference("UserEvents");
+        DatabaseReference ref = database.getReference("Requests");
         final ArrayList<Request> requests = new ArrayList<Request>();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -505,6 +505,7 @@ public class DatabaseHandler {
                         String timeFrom = String.valueOf(data.child("TimeFrom").getValue());
                         String timeTo = String.valueOf(data.child("TimeTo").getValue());
                         String day = String.valueOf(data.child("Day").getValue());
+                        Log.e("Added new Request", sport );
                         requests.add(new Request(UID, sport,day, timeFrom, timeTo,"blank",false));
                     }
                 }
@@ -557,11 +558,12 @@ public class DatabaseHandler {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.getChildren()){
                     for(AppUser user : users) {
-                        if (data.getKey().equals(user.getUID())){
+                        if (String.valueOf(data.child("User").getValue()).equals(user.getUID())){
+                            Log.e("Reached", "FirstIf");
                             //Check if the request is aimed at the currentUser
                             for(Request request : requests) {
-                                if (String.valueOf(data.child("User")).equals(user.getUID()) &&
-                                        String.valueOf(data.child("Event").child("Activity")).equals(request.getLevel())) {
+                                if (String.valueOf(data.child("Event").child("Activity").getValue()).equals(request.getSportingActivity())) {
+                                    Log.e("Reached", "SecondIf");
                                         request.setLevel(String.valueOf(data.child("Event").child("Level").getValue()));
                                 }
                             }
