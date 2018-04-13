@@ -578,6 +578,37 @@ public class DatabaseHandler {
         });
     }
 
+    public void addToFriends(String UID){
+        DatabaseReference myRef = database.getReference("FriendsLists").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push();
+        DatabaseReference friendsRef = database.getReference("FriendsLists").child(UID).push();
+        myRef.setValue(UID);
+        friendsRef.setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+    }
+
+    public void setRequestHandled(final AppUser appUser, final Request request, Boolean isAccepted){
+        final DatabaseReference reference = database.getReference("Requests");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    if(String.valueOf(data.child("RequestTo").getValue()).equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) &&
+                            String.valueOf(data.child("RequestFrom").getValue()).equals(appUser.getUID()) &&
+                            String.valueOf(data.child("Sport").getValue()).equals(request.getSportingActivity()) &&
+                            String.valueOf(data.child("TimeFrom").getValue()).equals(request.getTimeFromOverlap()) &&
+                            String.valueOf(data.child("TimeTo").getValue()).equals(request.getTimeToOverlap())){
+                        DatabaseReference databaseReference = database.getReference("Requests").child(data.getKey()).child("Handled");
+                        databaseReference.setValue("true");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     /*
      * <--- Database management methods END --->
      */

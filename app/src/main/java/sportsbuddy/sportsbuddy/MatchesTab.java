@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.data.model.User;
 
@@ -141,9 +142,12 @@ public class MatchesTab extends MatchesFragment {
         matchesToDisplay.remove(match);
         matchesAdapter.updateMatchesList(appUsersToDisplay,matchesToDisplay);
         matchesAdapter.notifyDataSetChanged();
-        //databaseHandler.setMatchHandled(match);
+        databaseHandler.setMatchHandled(match);
         if(isAccepted){
             databaseHandler.sendMatchRequest(match);
+            Toast.makeText(getActivity(), "A request is sent to: " + appUser.getName(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Match has been deleted", Toast.LENGTH_SHORT).show();
         }
     }
 
