@@ -505,7 +505,7 @@ public class DatabaseHandler {
                         String timeFrom = String.valueOf(data.child("TimeFrom").getValue());
                         String timeTo = String.valueOf(data.child("TimeTo").getValue());
                         String day = String.valueOf(data.child("Day").getValue());
-                        requests.add(new Request(UID, sport,day, timeFrom, timeTo,false));
+                        requests.add(new Request(UID, sport,day, timeFrom, timeTo,"blank",false));
                     }
                 }
                 getRequestsUsers(requests, requestsTab);
@@ -539,7 +539,7 @@ public class DatabaseHandler {
                         appUsers.add(new AppUser(UID,name,age,gender,about,null));
                     }
                 }
-                requestsTab.setRequests(requests,appUsers);
+                getRequestedUserLevels(requests,appUsers,requestsTab);
             }
 
             @Override
@@ -548,6 +548,34 @@ public class DatabaseHandler {
             }
         });
 
+    }
+
+    public void getRequestedUserLevels(final ArrayList<Request> requests, final ArrayList<AppUser> users, final RequestsTab requestsTab){
+        final DatabaseReference reference = database.getReference("TimeTableSlot");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+                    for(AppUser user : users) {
+                        if (data.getKey().equals(user.getUID())){
+                            //Check if the request is aimed at the currentUser
+                            for(Request request : requests) {
+                                if (String.valueOf(data.child("User")).equals(user.getUID()) &&
+                                        String.valueOf(data.child("Event").child("Activity")).equals(request.getLevel())) {
+                                        request.setLevel(String.valueOf(data.child("Event").child("Level").getValue()));
+                                }
+                            }
+                        }
+                    }
+                }
+                requestsTab.setRequests(requests, users);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     /*
