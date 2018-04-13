@@ -20,6 +20,8 @@ public class ViewProfileActivity extends Activity {
     private String gender;
     private String about;
     private Bitmap image;
+
+    private static AppUser userToDisplay;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,25 +31,18 @@ public class ViewProfileActivity extends Activity {
         TextView ageText = (TextView) findViewById(R.id.viewProfileAge);
         TextView genderText = (TextView) findViewById(R.id.viewProfileGender);
         TextView aboutText = (TextView) findViewById(R.id.viewProfileAbout);
-        Button buttonSendFriendRequest = (Button) findViewById(R.id.buttonAddToFriends);
-        Button buttonSendMessage = (Button) findViewById(R.id.buttonSendMessage);
+        nameText.setText(userToDisplay.getName());
+        ageText.setText(userToDisplay.getAge());
+        genderText.setText(userToDisplay.getGender());
+        aboutText.setText(userToDisplay.getAbout());
 
-        buttonSendFriendRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        buttonSendMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: Open a new messaging activity or something or send an email or something Í don't know.
-            }
-        });
     }
 
     public void updateUserInfo(AppUser _user){
 
+    }
+
+    public static void setUserToDisplay(AppUser appUser){
+        userToDisplay = appUser;
     }
 }

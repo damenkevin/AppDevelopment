@@ -1,7 +1,5 @@
 package sportsbuddy.sportsbuddy;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by s165700 on 3/26/2018.
  */
@@ -12,15 +10,15 @@ public class AppUser {
     private String age;
     private String gender;
     private String about;
-    private Bitmap profilePic;
+    private String profilePicture;
 
-    public AppUser(String UID, String name, String age, String gender, String about, Bitmap profilePic) {
+    public AppUser(String UID, String name, String age, String gender, String about, String profilePicture) {
         this.UID = UID;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.about = about;
-        this.profilePic = profilePic;
+        this.profilePicture = profilePicture;
     }
 
     public String getUID() {
@@ -63,11 +61,12 @@ public class AppUser {
         this.about = about;
     }
 
-    public Bitmap getProfilePic() {
-        return profilePic;
+    public String getprofilePicture() {
+        return profilePicture;
     }
 
-    public void setProfilePic(Bitmap profilePic) {
-        this.profilePic = profilePic;
+    public void setprofilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
+
 }

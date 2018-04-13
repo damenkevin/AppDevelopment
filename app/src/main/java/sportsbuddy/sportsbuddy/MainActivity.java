@@ -57,12 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         mBottomNav = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        int resourceId = getResources().getIdentifier("design_bottom_navigation_height", "dimen", this.getPackageName());
-        int height = 0;
-        if (resourceId > 0) {
-            height = getResources().getDimensionPixelSize(resourceId);
-            MatchesTab.setBottomViewHeight(height);
-        }
         toolbar.setTitle(getResources().getString(R.string.menu_matches));
         loadFragment(new MatchesFragment());
         mSelectedItem = R.id.menu_matches;

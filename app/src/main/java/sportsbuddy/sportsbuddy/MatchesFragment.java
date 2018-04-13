@@ -23,9 +23,6 @@ import android.widget.TextView;
  * matchesAdapter to requestsAdapter. The adapter on its turn loads the information, if any, and displays it in the gridView.
  */
 public class MatchesFragment extends Fragment {
-
-    MatchesAdapter matchesAdapter;
-    RequestsAdapter requestsAdapter;
     GridView gridView;
 
     private FragmentTabHost tabHost;

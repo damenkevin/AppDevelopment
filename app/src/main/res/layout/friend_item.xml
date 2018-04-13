@@ -28,21 +28,21 @@
             android:id="@+id/textNameProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="@string/profile_name"
             android:textSize="30sp" />
 
         <TextView
             android:id="@+id/age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Level"
+            android:text="@string/level"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sports"
+            android:text="@string/sports"
             android:textSize="18sp" />
 
         <Button
