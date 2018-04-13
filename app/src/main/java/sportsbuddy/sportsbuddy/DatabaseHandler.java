@@ -559,11 +559,9 @@ public class DatabaseHandler {
                 for(DataSnapshot data: dataSnapshot.getChildren()){
                     for(AppUser user : users) {
                         if (String.valueOf(data.child("User").getValue()).equals(user.getUID())){
-                            Log.e("Reached", "FirstIf");
                             //Check if the request is aimed at the currentUser
                             for(Request request : requests) {
                                 if (String.valueOf(data.child("Event").child("Activity").getValue()).equals(request.getSportingActivity())) {
-                                    Log.e("Reached", "SecondIf");
                                         request.setLevel(String.valueOf(data.child("Event").child("Level").getValue()));
                                 }
                             }
