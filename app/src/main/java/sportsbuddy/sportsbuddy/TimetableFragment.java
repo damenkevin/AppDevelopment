@@ -6,8 +6,8 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.eunsiljo.timetablelib.data.TimeData;
 import com.github.eunsiljo.timetablelib.data.TimeGridData;
@@ -51,6 +50,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
     String minuteTo;
     String timeFrom;
     String timeTo;
+    String level;
     List<String> fromHourList;
     List<String> fromMinuteList;
     List<String> toHourList;
@@ -62,7 +62,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.timetable_page, container, false);
-        Button addNewSlotButton = (Button) view.findViewById(R.id.buttonAddNewSlot);
+        FloatingActionButton addNewSlotButton = (FloatingActionButton ) view.findViewById(R.id.buttonAddNewSlot);
         databaseHandler = DatabaseHandler.getDatabaseHandler();
         setPopUpDialog(addNewSlotButton);
         initLayout(view);
@@ -79,7 +79,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
      * Sets the onClick listener to the button supposed to create the popup
      * and manages the popup
      */
-    void setPopUpDialog(Button _button) {
+    void setPopUpDialog(FloatingActionButton  _button) {
         _button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -265,6 +265,27 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 toMSpinner.setSelection(11);
                 minuteTo = toMinuteList.get(11);
 
+                // implement spinner element for level
+                Spinner levelSpinner = (Spinner) dialog.findViewById(R.id.levelSpinner);
+
+                // set click listener for spinner
+                levelSpinner.setOnItemSelectedListener(TimetableFragment.this);
+
+                // add elements for the spinner
+                List<String> levelList = new ArrayList<String>();
+                levelList.add("Beginner");
+                levelList.add("Intermediate");
+                levelList.add("Advanced");
+                levelList.add("Expert");
+
+
+                // create an adapter for the spinner
+                ArrayAdapter<String> levelSpinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, levelList);
+                levelSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                //set the data adapter to the spinner
+                levelSpinner.setAdapter(levelSpinnerAdapter);
+
 
                 Button addButton = (Button) dialog.findViewById(R.id.buttonSetTimeslot);
                 //TODO: Add spinners with values from strings file and remove textFields.
@@ -304,8 +325,8 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                                 day = "Sun";
                                 break;
                         }
-                        //TODO: INSERT THE LEVEL
-                        databaseHandler.addNewTimeSlotToServerDatabase(sport,"", day, timeFrom, timeTo);
+
+                        databaseHandler.addNewTimeSlotToServerDatabase(sport, level, day, timeFrom, timeTo);
                         dialog.dismiss();
                         //to make sure that the timetable is updated once a new timeslot is added
                         mShortSamples.clear();
@@ -438,6 +459,12 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
             case R.id.sportSpinner:
                 ((TextView) view).setTextColor(Color.BLACK);
                 sport = parent.getItemAtPosition(position).toString().trim();
+
+                break;
+
+            case R.id.levelSpinner:
+                ((TextView) view).setTextColor(Color.BLACK);
+                level = parent.getItemAtPosition(position).toString().trim();
 
                 break;
 

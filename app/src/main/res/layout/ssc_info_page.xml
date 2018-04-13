@@ -151,7 +151,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<<<<<<< HEAD!-->
+
         <TextView
             android:id="@+id/monText"
             android:layout_width="wrap_content"
@@ -168,6 +168,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.535" />
+>>>>>>> d14d908c831c97ef67ecfef199172922213ddad0
 
         <TextView
             android:id="@+id/ThuText"
