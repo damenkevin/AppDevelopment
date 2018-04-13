@@ -475,7 +475,7 @@ public class DatabaseHandler {
                                     String.valueOf(data.child("Age").getValue()),
                                     String.valueOf(data.child("Gender").getValue()),
                                     String.valueOf(data.child("About").getValue()),
-                                    null
+                                    String.valueOf(data.child("ProfilePicture").getValue())
                                     ));
                         }
                     }

@@ -2,8 +2,10 @@ package sportsbuddy.sportsbuddy;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,6 +37,22 @@ public class ViewProfileActivity extends Activity {
         ageText.setText(userToDisplay.getAge());
         genderText.setText(userToDisplay.getGender());
         aboutText.setText(userToDisplay.getAbout());
+        String profPic = userToDisplay.getprofilePicture();
+        byte[] bytes = new byte[0];
+        if (profPic != "") {
+            try {
+                bytes = Base64.decode(profPic,Base64.DEFAULT);
+            } catch(Exception e) {
+                e.getMessage();
+            }
+        }
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        if (bitmap == null) {
+
+        } else {
+            profilePic.setImageBitmap(bitmap);
+        }
 
     }
 
