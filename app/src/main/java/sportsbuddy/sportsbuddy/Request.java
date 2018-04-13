@@ -11,6 +11,8 @@ public class Request {
     private String day;
     private String timeFromOverlap;
     private String timeToOverlap;
+    private String level;
+
     //Indicates whether the match is already accepted/declined or not
     private boolean handled;
 
