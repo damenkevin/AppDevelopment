@@ -1,5 +1,6 @@
 package sportsbuddy.sportsbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
@@ -25,7 +26,7 @@ public class RequestsTab extends MatchesFragment {
         View view = inflater.inflate(R.layout.matches_layout, container, false);
         gridView = (GridView) view.findViewById(R.id.gridView);
 
-        requestsAdapter = new RequestsAdapter(this.getContext(),requestsUsers,requests);
+        requestsAdapter = new RequestsAdapter(this.getContext(),requestsUsers,requests,this);
         gridView.setAdapter(requestsAdapter);
         databaseHandler.getRequests(RequestsTab.this);
         return view;
@@ -36,13 +37,11 @@ public class RequestsTab extends MatchesFragment {
         requestsUsers = _requestUsers;
         requestsAdapter.updateRequests(requestsUsers,requests);
         requestsAdapter.notifyDataSetChanged();
-        DebugRequests();
     }
 
-    public void DebugRequests(){
-        for(int i=0; i< requests.size(); i++){
-            Log.e("Request From", requestsUsers.get(i).getName());
-            Log.e("Level", requests.get(i).getLevel());
-        }
+    public void visitProfile(AppUser appUser){
+        ViewProfileActivity.setUserToDisplay(appUser);
+        Intent intent = new Intent(getActivity(), ViewProfileActivity.class);
+        startActivity(intent);
     }
 }
