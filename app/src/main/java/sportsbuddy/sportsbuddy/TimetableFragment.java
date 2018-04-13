@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -62,7 +63,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.timetable_page, container, false);
-        Button addNewSlotButton = (Button) view.findViewById(R.id.buttonAddNewSlot);
+        FloatingActionButton addNewSlotButton = (FloatingActionButton ) view.findViewById(R.id.buttonAddNewSlot);
         databaseHandler = DatabaseHandler.getDatabaseHandler();
         setPopUpDialog(addNewSlotButton);
         initLayout(view);
@@ -79,7 +80,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
      * Sets the onClick listener to the button supposed to create the popup
      * and manages the popup
      */
-    void setPopUpDialog(Button _button) {
+    void setPopUpDialog(FloatingActionButton  _button) {
         _button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
