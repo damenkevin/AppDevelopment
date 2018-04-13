@@ -33,6 +33,7 @@ public class RequestsTab extends MatchesFragment {
     public void setRequests(ArrayList<Request> _requests, ArrayList<AppUser> _requestUsers){
         requests = _requests;
         requestsUsers = _requestUsers;
+        DebugRequests();
     }
 
     public void DebugRequests(){
