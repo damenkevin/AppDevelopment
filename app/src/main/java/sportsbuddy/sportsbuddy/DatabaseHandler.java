@@ -1,13 +1,8 @@
 package sportsbuddy.sportsbuddy;
 
-import android.app.Activity;
 import android.database.Cursor;
-import android.database.CursorIndexOutOfBoundsException;
-import android.graphics.Bitmap;
-import android.util.AndroidRuntimeException;
 import android.util.Log;
 
-import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -16,11 +11,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 /**
  * Created by s165700 on 3/19/2018.
@@ -569,8 +562,8 @@ public class DatabaseHandler {
     public static void setSqLiteHelper(SQLiteHelper _sqLiteHelper) {
         sqLiteHelper = _sqLiteHelper;
         //TODO: Uncomment the two lines below, delete your app and install it again if it crashes. Then comment this line back.
-        //sqLiteHelper.queryData("DROP TABLE Slots");
-        //sqLiteHelper.queryData("DROP TABLE Matches");
+        sqLiteHelper.queryData("DROP TABLE Slots");
+        sqLiteHelper.queryData("DROP TABLE Matches");
         sqLiteHelper.queryData
                 ("CREATE TABLE IF NOT EXISTS Slots(Id INTEGER PRIMARY KEY AUTOINCREMENT, slotID VARCHAR, level VARCHAR, activity VARCHAR, day VARCHAR, timeFrom VARCHAR, timeTo VARCHAR)");
         sqLiteHelper.queryData

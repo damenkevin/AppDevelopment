@@ -324,7 +324,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                                 day = "Sun";
                                 break;
                         }
-                        
+
                         databaseHandler.addNewTimeSlotToServerDatabase(sport, level, day, timeFrom, timeTo);
                         dialog.dismiss();
                         //to make sure that the timetable is updated once a new timeslot is added

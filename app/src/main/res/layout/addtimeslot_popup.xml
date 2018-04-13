@@ -140,8 +140,8 @@
 
     <Spinner
         android:id="@+id/levelSpinner"
-        android:layout_width="216"
-        android:layout_height="31"
+        android:layout_width="216dp"
+        android:layout_height="31dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
