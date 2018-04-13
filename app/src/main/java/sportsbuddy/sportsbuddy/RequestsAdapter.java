@@ -1,5 +1,8 @@
 package sportsbuddy.sportsbuddy;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +83,22 @@ public class RequestsAdapter extends BaseAdapter {
             textNameProfile.setText(users.get(i).getName());
             sports.setText(requests.get(i).getSportingActivity());
             level.setText(requests.get(i).getLevel());
+            String profPic = users.get(i).getprofilePicture();
+            byte[] bytes = new byte[0];
+            if (profPic != "") {
+                try {
+                    bytes = Base64.decode(profPic,Base64.DEFAULT);
+                } catch(Exception e) {
+                    e.getMessage();
+                }
+            }
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            if (bitmap == null) {
+
+            } else {
+                imageButton.setImageBitmap(bitmap);
+            }
 
             //Proper time display:
             timeFromString = requests.get(i).getTimeFromOverlap();
