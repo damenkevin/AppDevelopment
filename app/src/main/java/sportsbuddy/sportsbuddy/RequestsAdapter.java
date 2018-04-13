@@ -76,7 +76,7 @@ public class RequestsAdapter extends BaseAdapter {
             TextView timeTo = view.findViewById(R.id.timeToRequest);
             ImageView imageButton = view.findViewById(R.id.profileImg);
             Button acceptButton = view.findViewById(R.id.btnAccept);
-            Button denyButton = view.findViewById(R.id.btnDeny);
+            final Button denyButton = view.findViewById(R.id.btnDeny);
             textNameProfile.setText(users.get(i).getName());
             sports.setText(requests.get(i).getSportingActivity());
             level.setText(requests.get(i).getLevel());
@@ -107,14 +107,14 @@ public class RequestsAdapter extends BaseAdapter {
             acceptButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    requestsTab.handleRequest(users.get(i),requests.get(i),true);
                 }
             });
 
             denyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    requestsTab.handleRequest(users.get(i),requests.get(i), false);
                 }
             });
 

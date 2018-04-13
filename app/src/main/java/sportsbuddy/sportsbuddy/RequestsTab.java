@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import bolts.Bolts;
 
 /**
  * Created by s166928 on 27 Mar 2018.
@@ -44,4 +47,19 @@ public class RequestsTab extends MatchesFragment {
         Intent intent = new Intent(getActivity(), ViewProfileActivity.class);
         startActivity(intent);
     }
+
+    public void handleRequest(AppUser appUser, Request request, Boolean isAccepted){
+        requests.remove(request);
+        requestsUsers.remove(appUser);
+        requestsAdapter.updateRequests(requestsUsers,requests);
+        requestsAdapter.notifyDataSetChanged();
+        databaseHandler.setRequestHandled(appUser, request, isAccepted);
+        if(isAccepted){
+            databaseHandler.addToFriends(appUser.getUID());
+            Toast.makeText(getActivity(), "Accepted friend request with: " + appUser.getName(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Friend request denied!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
