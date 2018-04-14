@@ -71,7 +71,7 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        ((TextView) view).setTextColor(Color.BLACK);
+        ((TextView) view).setTextColor(getResources().getColor(R.color.colorAccent));
         String location = locationSpinner.getItemAtPosition(position).toString();
         TextView addressOut = (TextView) getView().findViewById(R.id.addressOutText);
         TextView phoneOut = (TextView) getView().findViewById(R.id.phoneOutText);

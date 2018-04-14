@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +38,7 @@ import java.util.List;
  * Created by s165700 on 2/28/2018.
  */
 
-public class ProfilePageActivity extends Activity implements OnItemSelectedListener,
+public class ProfilePageActivity extends AppCompatActivity implements OnItemSelectedListener,
         Imageutils.ImageAttachmentListener{
     private TextView nameText;
     private TextView ageText;

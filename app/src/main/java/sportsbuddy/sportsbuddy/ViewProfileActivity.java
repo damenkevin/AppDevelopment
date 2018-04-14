@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,7 @@ import android.widget.TextView;
  * Created by s165700 on 3/19/2018.
  */
 
-public class ViewProfileActivity extends Activity {
+public class ViewProfileActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler = DatabaseHandler.getDatabaseHandler();
     private String name;
     private String age;

@@ -3,6 +3,7 @@ package sportsbuddy.sportsbuddy;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Adapter;
 import android.widget.GridView;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * Created by s165700 on 3/26/2018.
  */
 
-public class FriendsActivity extends Activity {
+public class FriendsActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler = DatabaseHandler.getDatabaseHandler();
     private ArrayList<String> userListIDS;
     private ArrayList<AppUser> userList;

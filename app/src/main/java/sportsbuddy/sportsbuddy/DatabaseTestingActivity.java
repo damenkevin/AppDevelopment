@@ -3,6 +3,7 @@ package sportsbuddy.sportsbuddy;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
  */
 
 
-public class DatabaseTestingActivity extends Activity {
+public class DatabaseTestingActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
     DatabaseReference timeTableRef;
     FirebaseUser user;
