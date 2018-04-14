@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,7 @@ public class ProfilePageActivity extends AppCompatActivity implements OnItemSele
         genderText = (TextView) findViewById(R.id.textGenderProfile);
         aboutText = (TextView) findViewById(R.id.textAboutProfile);
         databaseHandler = DatabaseHandler.getDatabaseHandler();
-        Button editProfileButton = (Button) findViewById(R.id.editProfileButton);
+        FloatingActionButton editProfileButton = (FloatingActionButton) findViewById(R.id.editProfileButton);
         setEditProfileButton(editProfileButton);
 
         imageutils =new Imageutils(this);
@@ -111,7 +112,7 @@ public class ProfilePageActivity extends AppCompatActivity implements OnItemSele
      * then sends the changes to the DatabaseHandler
      * @param button
      */
-    private void setEditProfileButton(Button button){
+    private void setEditProfileButton(FloatingActionButton button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
