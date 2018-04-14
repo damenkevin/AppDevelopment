@@ -37,7 +37,6 @@
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        app:itemBackground="@android:color/white"
         app:itemIconTint="@drawable/background"
         app:itemTextColor="@drawable/background"
         android:layout_width="match_parent"
