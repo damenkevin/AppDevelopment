@@ -60,7 +60,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
         genderText = (TextView) findViewById(R.id.textGenderProfile);
         aboutText = (TextView) findViewById(R.id.textAboutProfile);
         databaseHandler = DatabaseHandler.getDatabaseHandler();
-        ImageButton editProfileButton = (ImageButton) findViewById(R.id.editProfileButton);
+        Button editProfileButton = (Button) findViewById(R.id.editProfileButton);
         setEditProfileButton(editProfileButton);
 
         imageutils =new Imageutils(this);
@@ -110,7 +110,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
      * then sends the changes to the DatabaseHandler
      * @param button
      */
-    private void setEditProfileButton(ImageButton button){
+    private void setEditProfileButton(Button button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -6,6 +6,9 @@
     <color name="colorAccent">#f44336</color>
     <color name="colorAccentDark">#ba000d</color>
     <color name="colorAccentLight">#ff7961</color>
+    <color name="graylight">#fafafa</color>
+    <color name="startblue">#09c6df</color>
+    <color name="endblue">#0bcce6</color>
 
     <color name="color_table_1">#007fe4</color>
     <color name="color_table_2">#5B399E</color>
