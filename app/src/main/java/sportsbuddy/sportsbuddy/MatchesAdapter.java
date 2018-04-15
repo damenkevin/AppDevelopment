@@ -1,6 +1,9 @@
 package sportsbuddy.sportsbuddy;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +95,22 @@ public class MatchesAdapter extends BaseAdapter {
         level.setText(matches.get(i).getLevel());
         timeFrom.setText(timeFromString);
         timeTo.setText(timeToString);
+        String profPic = appUsers.get(i).getprofilePicture();
+        byte[] bytes = new byte[0];
+        if (profPic != "") {
+            try {
+                bytes = Base64.decode(profPic,Base64.DEFAULT);
+            } catch(Exception e) {
+                e.getMessage();
+            }
+        }
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        if (bitmap == null) {
+
+        } else {
+            imageButton.setImageBitmap(bitmap);
+        }
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

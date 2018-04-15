@@ -77,7 +77,7 @@ public class DatabaseHandler {
         newTimeTableSlot.child("Event").child("Day").setValue(day);
         newTimeTableSlot.child("Event").child("TimeFrom").setValue(timeFrom);
         newTimeTableSlot.child("Event").child("TimeTo").setValue(timeTo);
-        newTimeTableSlot.child("Event").child("level").setValue(level);
+        newTimeTableSlot.child("Event").child("Level").setValue(level);
         //Insert into the local database
         sqLiteHelper.insertTimeTableSlotDetails(newTimeTableSlot.getKey(),level, sport, day, timeFrom, timeTo);
     }
@@ -475,7 +475,7 @@ public class DatabaseHandler {
                                     String.valueOf(data.child("Age").getValue()),
                                     String.valueOf(data.child("Gender").getValue()),
                                     String.valueOf(data.child("About").getValue()),
-                                    null
+                                    String.valueOf(data.child("ProfilePicture").getValue())
                                     ));
                         }
                     }
@@ -492,7 +492,7 @@ public class DatabaseHandler {
     }
 
     public void getRequests(final RequestsTab requestsTab){
-        DatabaseReference ref = database.getReference("UserEvents");
+        DatabaseReference ref = database.getReference("Requests");
         final ArrayList<Request> requests = new ArrayList<Request>();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -505,6 +505,7 @@ public class DatabaseHandler {
                         String timeFrom = String.valueOf(data.child("TimeFrom").getValue());
                         String timeTo = String.valueOf(data.child("TimeTo").getValue());
                         String day = String.valueOf(data.child("Day").getValue());
+                        Log.e("Added new Request", sport );
                         requests.add(new Request(UID, sport,day, timeFrom, timeTo,"blank",false));
                     }
                 }
@@ -557,11 +558,10 @@ public class DatabaseHandler {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.getChildren()){
                     for(AppUser user : users) {
-                        if (data.getKey().equals(user.getUID())){
+                        if (String.valueOf(data.child("User").getValue()).equals(user.getUID())){
                             //Check if the request is aimed at the currentUser
                             for(Request request : requests) {
-                                if (String.valueOf(data.child("User")).equals(user.getUID()) &&
-                                        String.valueOf(data.child("Event").child("Activity")).equals(request.getLevel())) {
+                                if (String.valueOf(data.child("Event").child("Activity").getValue()).equals(request.getSportingActivity())) {
                                         request.setLevel(String.valueOf(data.child("Event").child("Level").getValue()));
                                 }
                             }
@@ -569,6 +569,37 @@ public class DatabaseHandler {
                     }
                 }
                 requestsTab.setRequests(requests, users);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void addToFriends(String UID){
+        DatabaseReference myRef = database.getReference("FriendsLists").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push();
+        DatabaseReference friendsRef = database.getReference("FriendsLists").child(UID).push();
+        myRef.setValue(UID);
+        friendsRef.setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+    }
+
+    public void setRequestHandled(final AppUser appUser, final Request request, Boolean isAccepted){
+        final DatabaseReference reference = database.getReference("Requests");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    if(String.valueOf(data.child("RequestTo").getValue()).equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) &&
+                            String.valueOf(data.child("RequestFrom").getValue()).equals(appUser.getUID()) &&
+                            String.valueOf(data.child("Sport").getValue()).equals(request.getSportingActivity()) &&
+                            String.valueOf(data.child("TimeFrom").getValue()).equals(request.getTimeFromOverlap()) &&
+                            String.valueOf(data.child("TimeTo").getValue()).equals(request.getTimeToOverlap())){
+                        DatabaseReference databaseReference = database.getReference("Requests").child(data.getKey()).child("Handled");
+                        databaseReference.setValue("true");
+                    }
+                }
             }
 
             @Override
@@ -596,8 +627,7 @@ public class DatabaseHandler {
                 ("CREATE TABLE IF NOT EXISTS Slots(Id INTEGER PRIMARY KEY AUTOINCREMENT, slotID VARCHAR, level VARCHAR, activity VARCHAR, day VARCHAR, timeFrom VARCHAR, timeTo VARCHAR)");
         sqLiteHelper.queryData
                 ("CREATE TABLE IF NOT EXISTS Profile(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, name VARCHAR, age VARCHAR, gender VARCHAR, about VARCHAR, profilePicture VARCHAR)");
-        sqLiteHelper.queryData
-                ("CREATE TABLE IF NOT EXISTS Matches(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, level VARCHAR, activity VARCHAR, day VARCHAR, overlapFrom VARCHAR, overlapTo VARCHAR, handled VARCHAR)");
+        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS Matches(Id INTEGER PRIMARY KEY AUTOINCREMENT, uID VARCHAR, level VARCHAR, activity VARCHAR, day VARCHAR, overlapFrom VARCHAR, overlapTo VARCHAR, handled VARCHAR)");
 
     }
 

@@ -2,10 +2,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:color="@color/colorPrimaryDark"
+        android:color="?attr/bottomIconNot"
         android:state_checked="false"/>
     <item
-        android:color="@color/colorAccent"
+        android:color="?attr/android:colorAccent"
         android:state_checked="true"/>
 
 </selector>

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,7 +41,7 @@ import static com.firebase.ui.auth.ui.email.CheckEmailFragment.TAG;
  * TODO: Add Twitter sign up
  *
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends AppCompatActivity {
     //integer for reference to the RequestCode
     private static final int RC_SIGN_IN = 123;
 

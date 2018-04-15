@@ -12,8 +12,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +39,7 @@ import java.util.List;
  * Created by s165700 on 2/28/2018.
  */
 
-public class ProfilePageActivity extends Activity implements OnItemSelectedListener,
+public class ProfilePageActivity extends AppCompatActivity implements OnItemSelectedListener,
         Imageutils.ImageAttachmentListener{
     private TextView nameText;
     private TextView ageText;
@@ -60,7 +62,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
         genderText = (TextView) findViewById(R.id.textGenderProfile);
         aboutText = (TextView) findViewById(R.id.textAboutProfile);
         databaseHandler = DatabaseHandler.getDatabaseHandler();
-        ImageButton editProfileButton = (ImageButton) findViewById(R.id.editProfileButton);
+        FloatingActionButton editProfileButton = (FloatingActionButton) findViewById(R.id.editProfileButton);
         setEditProfileButton(editProfileButton);
 
         imageutils =new Imageutils(this);
@@ -110,7 +112,7 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
      * then sends the changes to the DatabaseHandler
      * @param button
      */
-    private void setEditProfileButton(ImageButton button){
+    private void setEditProfileButton(FloatingActionButton button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,6 +187,26 @@ public class ProfilePageActivity extends Activity implements OnItemSelectedListe
     public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
         this.bitmap=file;
         this.file_name=filename;
+        if (file.getWidth() >= file.getHeight()){
+
+            file = Bitmap.createBitmap(
+                    file,
+                    file.getWidth()/2 - file.getHeight()/2,
+                    0,
+                    file.getHeight(),
+                    file.getHeight()
+            );
+
+        }else{
+
+            file = Bitmap.createBitmap(
+                    file,
+                    0,
+                    file.getHeight()/2 - file.getWidth()/2,
+                    file.getWidth(),
+                    file.getWidth()
+            );
+        }
         iv_attachment.setImageBitmap(file);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         file.compress(Bitmap.CompressFormat.PNG, 100, stream);

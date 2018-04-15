@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sportsbuddy.sportsbuddy">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -10,51 +10,71 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.Base">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:configChanges="locale"
+            android:theme="@style/AppTheme.Base">
 
         </activity>
-        <activity android:name=".SplashScreen">
+        <activity
+            android:name=".SplashScreen"
+            android:configChanges="locale">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="locale">
 
         </activity>
-        <activity android:name=".ProfilePageActivity">
+        <activity
+            android:name=".ProfilePageActivity"
+            android:configChanges="locale">
 
         </activity>
-        <activity android:name=".SettingsActivity">
+        <activity
+            android:name=".SettingsActivity"
+            android:configChanges="locale">
 
         </activity>
-        <activity android:name=".DatabaseTestingActivity">
+        <activity
+            android:name=".DatabaseTestingActivity"
+            android:configChanges="locale">
 
         </activity>
-        <activity android:name=".ViewProfileActivity">
+        <activity
+            android:name=".ViewProfileActivity"
+            android:configChanges="locale">
 
         </activity>
-        <activity android:name=".VerifyEmailActivity">
+        <activity
+            android:name=".VerifyEmailActivity"
+            android:configChanges="locale">
 
         </activity>
-        <activity android:name=".FriendsActivity">
+        <activity
+            android:name=".FriendsActivity"
+            android:configChanges="locale">
 
         </activity>
+
         <service
-            android:name=".NotificationService">
+            android:name=".NotificationService"
+            android:configChanges="locale">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <service
-            android:name=".NotificationInstanceIdService">
+            android:name=".NotificationInstanceIdService"
+            android:configChanges="locale">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 

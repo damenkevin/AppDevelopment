@@ -2,11 +2,13 @@ package sportsbuddy.sportsbuddy;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -36,7 +38,6 @@ import com.google.android.gms.tasks.Task;
  * separate classes. Please do not make changes to them from here to keep things consistent :)
  */
 public class MainActivity extends AppCompatActivity {
-
     private static final String SELECTED_ITEM = "menu_matches";
     private BottomNavigationView mBottomNav;
     private Toolbar toolbar;
