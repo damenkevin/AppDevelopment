@@ -2,17 +2,24 @@ package sportsbuddy.sportsbuddy;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+
+import android.util.Log;
+import android.util.TypedValue;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -22,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,6 +53,7 @@ public class ProfilePageActivity extends AppCompatActivity implements OnItemSele
     private Bitmap bitmap;
     private String file_name;
     Imageutils imageutils;
+    private int color;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +78,11 @@ public class ProfilePageActivity extends AppCompatActivity implements OnItemSele
             }
         });
         updatePersonalProfile();
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = this.getTheme();
+        theme.resolveAttribute(android.R.attr.textColor, typedValue, true);
+        color = typedValue.data;
 
     }
 
@@ -149,6 +163,12 @@ public class ProfilePageActivity extends AppCompatActivity implements OnItemSele
                 spinner.setSelection(defaultPosition);
 
                 Button buttonSaveChanges = (Button) dialog.findViewById(R.id.buttonSaveChanges);
+                editName.setText(appUser.getName());
+                editAge.setText(appUser.getAge());
+                editAbout.setText(appUser.getAbout());
+                if(appUser.getGender().equals("Female")){
+                    spinner.setSelection(1);
+                }
 
                 buttonSaveChanges.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -169,7 +189,12 @@ public class ProfilePageActivity extends AppCompatActivity implements OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // when selecting a spinner item
-        ((TextView) view).setTextColor(Color.BLACK);
+        SharedPreferences edit = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        if(edit.getBoolean("NIGHT_MODE", false)){
+            ((TextView) view).setTextColor(Color.WHITE);
+        } else {
+            ((TextView) view).setTextColor(Color.BLACK);
+        }
         gender = parent.getItemAtPosition(position).toString().trim();
     }
 
