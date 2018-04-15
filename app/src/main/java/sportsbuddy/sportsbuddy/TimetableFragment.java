@@ -3,8 +3,10 @@ package sportsbuddy.sportsbuddy;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -447,29 +449,45 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // when selecting a spinner
-
+        SharedPreferences edit = PreferenceManager.getDefaultSharedPreferences(getContext());
         switch (parent.getId()) {
 
             case R.id.daySpinner:
-                ((TextView) view).setTextColor(Color.BLACK);
+                if(edit.getBoolean("NIGHT_MODE", false)){
+                    ((TextView) view).setTextColor(Color.WHITE);
+                } else {
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
                 day = parent.getItemAtPosition(position).toString().trim();
 
                 break;
 
             case R.id.sportSpinner:
-                ((TextView) view).setTextColor(Color.BLACK);
+                if(edit.getBoolean("NIGHT_MODE", false)){
+                    ((TextView) view).setTextColor(Color.WHITE);
+                } else {
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
                 sport = parent.getItemAtPosition(position).toString().trim();
 
                 break;
 
             case R.id.levelSpinner:
-                ((TextView) view).setTextColor(Color.BLACK);
+                if(edit.getBoolean("NIGHT_MODE", false)){
+                    ((TextView) view).setTextColor(Color.WHITE);
+                } else {
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
                 level = parent.getItemAtPosition(position).toString().trim();
 
                 break;
 
             case R.id.fromHSpinner:
-                ((TextView) view).setTextColor(Color.BLACK);
+                if(edit.getBoolean("NIGHT_MODE", false)){
+                    ((TextView) view).setTextColor(Color.WHITE);
+                } else {
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
                 toHourList.clear();
                 toHourList.add("08");
                 toHourList.add("09");
@@ -498,7 +516,11 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 break;
 
             case R.id.fromMSpinner:
-                ((TextView) view).setTextColor(Color.BLACK);
+                if(edit.getBoolean("NIGHT_MODE", false)){
+                    ((TextView) view).setTextColor(Color.WHITE);
+                } else {
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
                 toMinuteList.clear();
                 toMinuteList.add("00");
                 toMinuteList.add("05");
@@ -529,7 +551,11 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 break;
 
             case R.id.toHSpinner:
-                ((TextView) view).setTextColor(Color.BLACK);
+                if(edit.getBoolean("NIGHT_MODE", false)){
+                    ((TextView) view).setTextColor(Color.WHITE);
+                } else {
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
                 fromHourList.clear();
                 fromHourList.add("08");
                 fromHourList.add("09");
@@ -558,7 +584,11 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
                 break;
 
             case R.id.toMSpinner:
-                ((TextView) view).setTextColor(Color.BLACK);
+                if(edit.getBoolean("NIGHT_MODE", false)){
+                    ((TextView) view).setTextColor(Color.WHITE);
+                } else {
+                    ((TextView) view).setTextColor(Color.BLACK);
+                }
                 fromMinuteList.clear();
                 fromMinuteList.add("00");
                 fromMinuteList.add("05");
