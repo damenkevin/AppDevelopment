@@ -1,8 +1,6 @@
 package sportsbuddy.sportsbuddy;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,25 +11,20 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,6 +112,8 @@ public class ProfilePageActivity extends AppCompatActivity implements OnItemSele
                 final Dialog dialog = new Dialog(ProfilePageActivity.this);
                 dialog.setContentView(R.layout.editprofile_popup);
 
+
+
                 // implement spinner element
                 Spinner spinner = (Spinner) dialog.findViewById(R.id.spinner);
 
@@ -141,6 +136,18 @@ public class ProfilePageActivity extends AppCompatActivity implements OnItemSele
                 final EditText editName = (EditText) dialog.findViewById(R.id.editProfileName);
                 final EditText editAge = (EditText) dialog.findViewById(R.id.editProfileAge);
                 final EditText editAbout = (EditText) dialog.findViewById(R.id.editProfileAbout);
+
+                editName.setText(appUser.getName());
+                editAge.setText(appUser.getAge());
+                editAbout.setText(appUser.getAbout());
+                int defaultPosition;
+                if (genderText.getText().toString().trim().equals("Male")) {
+                    defaultPosition = 0;
+                } else {
+                    defaultPosition = 1;
+                }
+                spinner.setSelection(defaultPosition);
+
                 Button buttonSaveChanges = (Button) dialog.findViewById(R.id.buttonSaveChanges);
 
                 buttonSaveChanges.setOnClickListener(new View.OnClickListener() {
