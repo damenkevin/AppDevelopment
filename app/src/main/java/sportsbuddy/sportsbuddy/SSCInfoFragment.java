@@ -1,6 +1,5 @@
 package sportsbuddy.sportsbuddy;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -50,7 +48,7 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
 
         // add elements for the spinner
         List<String> locationList = new ArrayList<String>();
-        locationList.add("Studentensportcenter");
+        locationList.add("Studentsportcenter");
         locationList.add("SSC Swimming pool");
         locationList.add("Hockey-/Tennispaviljoen");
         locationList.add("Sportpark Hondsheuvels");
@@ -86,7 +84,7 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
         TextView sunOut = (TextView) getView().findViewById(R.id.sunOutText);
 
         switch (location) {
-            case "Studentensportcenter":
+            case "Studentsportcenter":
                 addressOut.setText("Onze Lieve Vrouwestraat 1");
                 phoneOut.setText("(040) 2473232");
                 webOut.setText("sciinfo@tue.nl");
@@ -126,7 +124,7 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
                 thuOut.setText("09:00 - 23:00");
                 friOut.setText("09:00 - 23:00");
                 satOut.setText("09:00 - 21:00");
-                sunOut.setText("10:00 - 17:00 (only in April, May, June, September en October)");
+                sunOut.setText("10:00 - 17:00 (only in April, May, June, September and October)");
 
                 break;
 
