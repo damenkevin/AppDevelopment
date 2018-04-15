@@ -57,6 +57,7 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
     List<String> toMinuteList;
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,6 +86,8 @@ public class TimetableFragment extends Fragment implements OnItemSelectedListene
             public void onClick(View view) {
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setContentView(R.layout.addtimeslot_popup);
+
+
 
                 // implement spinner element for days
                 Spinner daySpinner = (Spinner) dialog.findViewById(R.id.daySpinner);
