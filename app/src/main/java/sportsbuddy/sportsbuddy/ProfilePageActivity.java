@@ -16,10 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-
-import android.util.Log;
 import android.util.TypedValue;
-
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -29,7 +26,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -163,13 +159,7 @@ public class ProfilePageActivity extends AppCompatActivity implements OnItemSele
                 spinner.setSelection(defaultPosition);
 
                 Button buttonSaveChanges = (Button) dialog.findViewById(R.id.buttonSaveChanges);
-                editName.setText(appUser.getName());
-                editAge.setText(appUser.getAge());
-                editAbout.setText(appUser.getAbout());
-                if(appUser.getGender().equals("Female")){
-                    spinner.setSelection(1);
-                }
-
+                
                 buttonSaveChanges.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
