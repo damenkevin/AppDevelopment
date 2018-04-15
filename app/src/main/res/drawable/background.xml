@@ -5,7 +5,7 @@
         android:color="?attr/bottomIconNot"
         android:state_checked="false"/>
     <item
-        android:color="@color/colorAccent"
+        android:color="?attr/android:colorAccent"
         android:state_checked="true"/>
 
 </selector>
