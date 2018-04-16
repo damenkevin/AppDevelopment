@@ -131,16 +131,16 @@ public class DatabaseHandler {
                                     int timeToDBInt = Integer.parseInt(timeToDB);
                                     int timeFromInt = Integer.parseInt(timeFromF);
                                     int timeToInt = Integer.parseInt(timeToF);
-                                    if ((timeFromInt <= timeToDBInt && timeToDBInt <= timeToInt)
-                                            || (timeFromDBInt <= timeToInt && timeToDBInt >= timeFromInt)) {
+                                    if ((timeFromInt < timeToDBInt && timeToDBInt < timeToInt)
+                                            || (timeFromDBInt < timeToInt && timeToDBInt > timeFromInt)) {
                                         String timeFromOverlap;
                                         String timeToOverlap;
-                                        if (timeFromInt <= timeFromDBInt) {
+                                        if (timeFromInt < timeFromDBInt) {
                                             timeFromOverlap = String.valueOf(timeFromDBInt);
                                         } else {
                                             timeFromOverlap = String.valueOf(timeFromInt);
                                         }
-                                        if (timeToInt <= timeToDBInt) {
+                                        if (timeToInt < timeToDBInt) {
                                             timeToOverlap = String.valueOf(timeToInt);
                                         } else {
                                             timeToOverlap = String.valueOf(timeToDBInt);
@@ -220,18 +220,22 @@ public class DatabaseHandler {
                 for(Match oldMatch : oldMatches){
                     //Log.e("Comparing", String.valueOf(newMatch) + " To " + String.valueOf(oldMatch));
                     //Check if the matches stats are different
-                    if(!newMatch.getSportingActivity().equals(oldMatch.getSportingActivity()) ||
+                    /*if(!newMatch.getSportingActivity().equals(oldMatch.getSportingActivity()) ||
                             !newMatch.getDay().equals(oldMatch.getDay()) ||
                             !newMatch.getTimeFromOverlap().equals(oldMatch.getTimeFromOverlap()) ||
                             !newMatch.getTimeToOverlap().equals(oldMatch.getTimeToOverlap())){
 
-                    } else
+                    } else*/
                     if(newMatch.getMatchUser1().equals(oldMatch.getMatchUser1()) ||
                             newMatch.getMatchUser1().equals(oldMatch.getMatchUser2()) ||
                             newMatch.getMatchUser2().equals(oldMatch.getMatchUser1()) ||
-                            newMatch.getMatchUser2().equals(oldMatch.getMatchUser2())){
+                            newMatch.getMatchUser2().equals(oldMatch.getMatchUser2()) &&
+                            newMatch.getSportingActivity().equals(oldMatch.getSportingActivity()) &&
+                            newMatch.getDay().equals(oldMatch.getDay()) &&
+                            newMatch.getTimeFromOverlap().equals(oldMatch.getTimeFromOverlap()) &&
+                            newMatch.getTimeToOverlap().equals(oldMatch.getTimeToOverlap())){
                         Log.e("They are", "The same");
-                        if(!oldMatch.isHandled()){
+                        if(!oldMatch.isHandled() && !finalMatches.contains(oldMatch)){
                             finalMatches.add(oldMatch);
                         }
                     } else {
@@ -251,8 +255,9 @@ public class DatabaseHandler {
                         Log.e("UID2", oldMatch.getMatchUser2());
                         Log.e("From", oldMatch.getTimeFromOverlap());
                         Log.e("To", oldMatch.getTimeToOverlap());
-
-                        matchesToBeAdded.add(newMatch);
+                        if(!matchesToBeAdded.contains(newMatch)){
+                            matchesToBeAdded.add(newMatch);
+                        }
                     }
                 }
             }
