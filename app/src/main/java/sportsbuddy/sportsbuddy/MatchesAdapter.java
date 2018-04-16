@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -92,7 +94,11 @@ public class MatchesAdapter extends BaseAdapter {
 
         textNameProfile.setText(appUsers.get(i).getName());
         sports.setText(matches.get(i).getSportingActivity());
-        level.setText(matches.get(i).getLevel());
+        if(matches.get(i).getMatchUser1().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+            level.setText(matches.get(i).getLevelUser2());
+        } else {
+            level.setText(matches.get(i).getLevelUser1());
+        }
         timeFrom.setText(timeFromString);
         timeTo.setText(timeToString);
         String profPic = appUsers.get(i).getprofilePicture();

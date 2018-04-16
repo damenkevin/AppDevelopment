@@ -51,22 +51,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
-    public void insertMatch(String UID,String level, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap){
-        SQLiteDatabase database = getWritableDatabase();
-        String sql = "INSERT INTO Matches VALUES (NULL,?,?,?,?,?,?,?)";
-        SQLiteStatement statement = database.compileStatement(sql);
-        statement.clearBindings();
-        statement.bindString(1, UID);
-        statement.bindString(2, level);
-        statement.bindString(3, sportingActivity);
-        statement.bindString(4, day);
-        statement.bindString(5, timeFromOverlap);
-        statement.bindString(6, timeToOverlap);
-        statement.bindString(7, "false");
-        statement.executeInsert();
-        database.close();
-    }
-
     public void updatePersonalProfileData(String uID, String name, String age, String gender, String about){
         SQLiteDatabase database = getWritableDatabase();
         String sql = "UPDATE Profile SET uID = ?, name = ?, age = ?, gender = ?, about = ? WHERE id = ?";
@@ -90,21 +74,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         statement.bindString(1, uID);
         statement.bindString(2, profilePicture);
         statement.bindDouble(3,(double) id);
-        statement.execute();
-        database.close();
-    }
-
-    public void setMatchHandled(String UID,String level, String sportingActivity, String day, String timeFromOverlap, String timeToOverlap){
-        SQLiteDatabase database = getWritableDatabase();
-        String sql = "UPDATE Matches SET handled = ? WHERE UID = ?,level = ?, sportingActivity = ?, day = ?, timeFromOverlap = ?, timeToOverlap = ?";
-        SQLiteStatement statement = database.compileStatement(sql);
-        statement.bindString(1, "true");
-        statement.bindString(2, UID);
-        statement.bindString(3,level);
-        statement.bindString(4, sportingActivity);
-        statement.bindString(5, day);
-        statement.bindString(6, timeFromOverlap);
-        statement.bindString(7, timeToOverlap);
         statement.execute();
         database.close();
     }

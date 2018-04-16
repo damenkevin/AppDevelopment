@@ -65,51 +65,8 @@ public class MatchesTab extends MatchesFragment {
         databaseHandler.checkForMatches(userTimeTableArrayList, this);
     }
 
-    /**
-     * Called from DatabaseHandler
-     * Receives the matches from the server and compares them to local matches to avoid match
-     * duplication and save match status - accepted or declined
-     * @param serverMatches
-     */
-    //TODO: Compare matches to requests to make sure you are not displaying matches that you already have a request received for.
-    public void compareMatches(ArrayList<Match> serverMatches){
-        ArrayList<Match> localMatches = databaseHandler.getMatchesFromLocal();
-        ArrayList<Match> matchesToFillIn = new ArrayList<Match>();
-        for(Match serverMatch : serverMatches){
-            for(Match localMatch : localMatches){
-                //Check if the match is stored in the local DB
-                if(serverMatch.getUID().equals(localMatch.getUID()) &&
-                        serverMatch.getSportingActivity().equals(localMatch.getSportingActivity()) &&
-                        serverMatch.getDay().equals(localMatch.getDay()) &&
-                        serverMatch.getTimeFromOverlap().equals(localMatch.getTimeFromOverlap()) &&
-                        serverMatch.getTimeToOverlap().equals(localMatch.getTimeToOverlap())){
-                    //Then the match is already stored in the local db
-                    if(!localMatch.isHandled()){
-                        //If the match is not handled already then add it to the display matches
-                        //check if it is not already filled in
-                        if(!matchesToDisplay.contains(serverMatch)){
-                            matchesToDisplay.add(serverMatch);
-                        }
-                    }
-                } else {
-                    //check if it is already in
-                    if(!matchesToDisplay.contains(serverMatch)){
-                        //and display it
-                        matchesToDisplay.add(serverMatch);
-                    }
-                }
-            }
-        }//If local db is empty then display all server matches and add them to the local DB
-        if(localMatches.isEmpty()){
-            matchesToFillIn = serverMatches;
-            matchesToDisplay = serverMatches;
-        }
-        databaseHandler.fillInLocalMatches(matchesToFillIn);
-        databaseHandler.getMatchUsers(matchesToDisplay, MatchesTab.this);
-        displayMatches();
-    }
-
-    private void displayMatches(){
+    public void displayMatches(ArrayList<Match> matches){
+        matchesToDisplay = matches;
         /**
          * Use this for debugging. It shows the matches you have.
          */
@@ -129,7 +86,8 @@ public class MatchesTab extends MatchesFragment {
 
     }
 
-    public void updateUsersToDisplay(ArrayList<AppUser> _appUsersToDisplay){
+    public void updateMatches(ArrayList<AppUser> _appUsersToDisplay, ArrayList<Match> matches){
+        this.matchesToDisplay = matches;
         this.appUsersToDisplay = _appUsersToDisplay;
         matchesAdapter.updateMatchesList(appUsersToDisplay,matchesToDisplay);
         matchesAdapter.notifyDataSetChanged();
@@ -142,7 +100,6 @@ public class MatchesTab extends MatchesFragment {
         matchesToDisplay.remove(match);
         matchesAdapter.updateMatchesList(appUsersToDisplay,matchesToDisplay);
         matchesAdapter.notifyDataSetChanged();
-        databaseHandler.setMatchHandled(match);
         if(isAccepted){
             databaseHandler.sendMatchRequest(match);
             Toast.makeText(getActivity(), "A request is sent to: " + appUser.getName(), Toast.LENGTH_SHORT).show();
