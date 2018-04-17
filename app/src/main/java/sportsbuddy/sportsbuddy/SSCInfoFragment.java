@@ -3,7 +3,6 @@ package sportsbuddy.sportsbuddy;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,11 +33,9 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
 
 
         TextView activityLink = (TextView) view.findViewById(R.id.link1);
-        activityLink.setText(Html.fromHtml("@string/activity_link"));
         activityLink.setMovementMethod(LinkMovementMethod.getInstance());
 
         TextView occupancyLink = (TextView) view.findViewById(R.id.link2);
-        occupancyLink.setText(Html.fromHtml("@string/occupancy_link"));
         occupancyLink.setMovementMethod(LinkMovementMethod.getInstance());
 
         locationSpinner = (Spinner) view.findViewById(R.id.locationSpinner);
