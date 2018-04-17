@@ -25,13 +25,14 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
 
     // implement spinner element
     Spinner locationSpinner;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ssc_info_page, container, false);
 
-        
+
         TextView activityLink = (TextView) view.findViewById(R.id.link1);
         activityLink.setText(Html.fromHtml("@string/activity_link"));
         activityLink.setMovementMethod(LinkMovementMethod.getInstance());
@@ -41,7 +42,6 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
         occupancyLink.setMovementMethod(LinkMovementMethod.getInstance());
 
         locationSpinner = (Spinner) view.findViewById(R.id.locationSpinner);
-
 
 
         // set click listener for spinner
@@ -64,7 +64,7 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
 
         //set the data adapter to the spinner
         locationSpinner.setAdapter(locationSpinnerAdapter);
-        
+
         return view;
     }
 
@@ -159,7 +159,6 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
                 sunOut.setText("N/A");
 
 
-
                 break;
 
             case "Bow and arrow court":
@@ -222,4 +221,4 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
 
 
     }
-}                                                                                                                                                                                                                                                                                           
+}

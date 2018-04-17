@@ -48,7 +48,6 @@ public class DatabaseHandler {
             userTimeTable = new ArrayList<>();
             isSetUp = true;
         }
-
         return databaseHandler;
     }
 
@@ -261,11 +260,19 @@ public class DatabaseHandler {
                         Log.e("From", oldMatch.getTimeFromOverlap());
                         Log.e("To", oldMatch.getTimeToOverlap());*/
                         if(!matchesToBeAdded.contains(newMatch) && !finalMatches.contains(newMatch) && !finalMatches.contains(oldMatch)){
-                           // Log.e("Adding them", "NOW");
-                            matchesToBeAdded.add(newMatch);
+                            // Log.e("Adding them", "NOW");
                             finalMatches.add(newMatch);
                         }
+
                     }
+                }
+            }
+        }
+        for(Match newMatch : newMatches){
+            for(Match oldMatch : oldMatches){
+                if(!matchesToBeAdded.contains(newMatch) && !finalMatches.contains(newMatch) && !finalMatches.contains(oldMatch)){
+                    // Log.e("Adding them", "NOW");
+                    matchesToBeAdded.add(newMatch);
                 }
             }
         }

@@ -17,9 +17,6 @@ import java.util.ArrayList;
 
 public class FriendsAdapter extends BaseAdapter {
     private Context context;
-    private String[] values1 = {"Bob", "Jim", "Janette"};
-    private String[] values2 = {"Male", "Male", "Female"};
-    private int[] values3 = {19, 21, 20};
     private int[] values4 = {R.drawable.matches, R.drawable.com_facebook_profile_picture_blank_portrait, R.drawable.com_facebook_profile_picture_blank_square};
     View view;
     private LayoutInflater layoutInflater;
@@ -37,17 +34,17 @@ public class FriendsAdapter extends BaseAdapter {
     //change the getcount to count the userlist instead of values1
     @Override
     public int getCount() {
-        return values1.length;
+        return userList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return userList.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
@@ -63,13 +60,17 @@ public class FriendsAdapter extends BaseAdapter {
             TextView age = view.findViewById(R.id.age);
             ImageButton imageButton = view.findViewById(R.id.profileImg);
 
-            textNameProfile.setText(values1[i]);
-            gender.setText(values2[i]);
-            age.setText(Integer.toString(values3[i]));
-            imageButton.setImageResource(values4[i]);
+            textNameProfile.setText(userList.get(i).getName());
+            gender.setText(userList.get(i).getAbout());
+            age.setText(userList.get(i).getAge());
+            //imageButton.setImageResource(userList.get(i).getprofilePicture());
         }
 
 
         return view;
+    }
+
+    public void upadateFriendsList(){
+
     }
 }
