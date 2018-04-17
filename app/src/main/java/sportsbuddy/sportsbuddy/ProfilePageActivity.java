@@ -159,7 +159,7 @@ public class ProfilePageActivity extends AppCompatActivity implements OnItemSele
                 spinner.setSelection(defaultPosition);
 
                 Button buttonSaveChanges = (Button) dialog.findViewById(R.id.buttonSaveChanges);
-                
+
                 buttonSaveChanges.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

@@ -1,9 +1,10 @@
 package sportsbuddy.sportsbuddy;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,18 +30,18 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ssc_info_page, container, false);
-        /*Button testButton = (Button) view.findViewById(R.id.button);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), DatabaseTestingActivity.class);
-                startActivity(intent);
-            }
-        });
-<<<<<<< HEAD
 
-        */
+        
+        TextView activityLink = (TextView) view.findViewById(R.id.link1);
+        activityLink.setText(Html.fromHtml("@string/activity_link"));
+        activityLink.setMovementMethod(LinkMovementMethod.getInstance());
+
+        TextView occupancyLink = (TextView) view.findViewById(R.id.link2);
+        occupancyLink.setText(Html.fromHtml("@string/occupancy_link"));
+        occupancyLink.setMovementMethod(LinkMovementMethod.getInstance());
+
         locationSpinner = (Spinner) view.findViewById(R.id.locationSpinner);
+
 
 
         // set click listener for spinner
@@ -221,5 +222,4 @@ public class SSCInfoFragment extends Fragment implements OnItemSelectedListener 
 
 
     }
-}
-
+}                                                                                                                                                                                                                                                                                           
