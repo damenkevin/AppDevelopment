@@ -210,7 +210,7 @@
     <TextView
         android:id="@+id/facilOutText"
         android:layout_width="217dp"
-        android:layout_height="53dp"
+        android:layout_height="82dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
@@ -218,7 +218,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/facilText"
         app:layout_constraintStart_toStartOf="@+id/locationSpinner"
         app:layout_constraintTop_toTopOf="@+id/facilText"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintVertical_bias="0.112" />
 
     <TextView
         android:id="@+id/monOutText"
