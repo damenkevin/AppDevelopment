@@ -1,6 +1,7 @@
 package sportsbuddy.sportsbuddy;
 
 import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -285,6 +286,31 @@ public class DatabaseHandler {
             ref.child("TimeTo").setValue(match.getTimeToOverlap());
             ref.child("Handled").setValue("false");
         }
+    }
+
+    public void setMatchHandled(final Match match){
+        DatabaseReference ref = database.getReference("Matches");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    if(match.getMatchUser1().equals(String.valueOf(data.child("UID1").getValue()))&&
+                            match.getMatchUser2().equals(String.valueOf(data.child("UID2").getValue())) &&
+                            match.getDay().equals(String.valueOf(data.child("Day").getValue())) &&
+                            match.getSportingActivity().equals(String.valueOf(data.child("Sport").getValue())) &&
+                            match.getTimeFromOverlap().equals(String.valueOf(data.child("TimeFrom").getValue())) &&
+                            match.getTimeToOverlap().equals(String.valueOf(data.child("TimeTo").getValue()))){
+                        DatabaseReference ref = database.getReference("Matches").child(data.getKey()).child("Handled");
+                        ref.setValue("true");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //Upadates the server and local database with the new user info

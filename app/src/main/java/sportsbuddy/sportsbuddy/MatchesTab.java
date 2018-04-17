@@ -100,6 +100,7 @@ public class MatchesTab extends MatchesFragment {
         matchesToDisplay.remove(match);
         matchesAdapter.updateMatchesList(appUsersToDisplay,matchesToDisplay);
         matchesAdapter.notifyDataSetChanged();
+        databaseHandler.setMatchHandled(match);
         if(isAccepted){
             databaseHandler.sendMatchRequest(match);
             Toast.makeText(getActivity(), "A request is sent to: " + appUser.getName(), Toast.LENGTH_SHORT).show();
