@@ -213,7 +213,6 @@ public class DatabaseHandler {
         ArrayList<Match> matchesToBeAdded = new ArrayList<Match>();
         if(oldMatches.isEmpty()){
             finalMatches = newMatches;
-            matchesToBeAdded = newMatches;
         } else {
             for(Match newMatch : newMatches){
                 for(Match oldMatch : oldMatches){
