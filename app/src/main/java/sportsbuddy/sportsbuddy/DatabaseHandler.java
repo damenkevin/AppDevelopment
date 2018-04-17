@@ -220,7 +220,7 @@ public class DatabaseHandler {
                     if(!oldMatch.isHandled()){
                         finalMatches.add(oldMatch);
                     }
-                    Log.e(newMatch.getSportingActivity(),oldMatch.getSportingActivity());
+                    //Log.e(newMatch.getSportingActivity(),oldMatch.getSportingActivity());
                     //Log.e("Comparing", String.valueOf(newMatch) + " To " + String.valueOf(oldMatch));
                     //Check if the matches stats are different
                     /*if(!newMatch.getSportingActivity().equals(oldMatch.getSportingActivity()) ||
@@ -237,13 +237,13 @@ public class DatabaseHandler {
                             newMatch.getDay().equals(oldMatch.getDay()) &&
                             newMatch.getTimeFromOverlap().equals(oldMatch.getTimeFromOverlap()) &&
                             newMatch.getTimeToOverlap().equals(oldMatch.getTimeToOverlap())){
-                        Log.e("They are", "The same");
+                        //Log.e("They are", "The same");
                         if(!oldMatch.isHandled() && !finalMatches.contains(oldMatch)){
                             finalMatches.add(oldMatch);
                         }
                     } else {
                         // Used for debugging DONT DELETE
-                        Log.e("They are", "different");
+                        /*Log.e("They are", "different");
                         Log.e("Now Showing","New Match");
                         Log.e("Sport", newMatch.getSportingActivity());
                         Log.e("Day", newMatch.getDay());
@@ -257,7 +257,7 @@ public class DatabaseHandler {
                         Log.e("UID1", oldMatch.getMatchUser1());
                         Log.e("UID2", oldMatch.getMatchUser2());
                         Log.e("From", oldMatch.getTimeFromOverlap());
-                        Log.e("To", oldMatch.getTimeToOverlap());
+                        Log.e("To", oldMatch.getTimeToOverlap());*/
                         if(!matchesToBeAdded.contains(newMatch) && !finalMatches.contains(newMatch) && !finalMatches.contains(oldMatch)){
                             Log.e("Adding them", "NOW");
                             matchesToBeAdded.add(newMatch);
