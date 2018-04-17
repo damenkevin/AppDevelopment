@@ -46,10 +46,15 @@
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/buttonSendText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send Message" />
+
+        <Button
             android:id="@+id/btnRemove"
             android:layout_width="132dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:text="@string/friend_remove" />
     </LinearLayout>
 </LinearLayout>

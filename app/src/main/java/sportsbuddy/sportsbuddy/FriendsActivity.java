@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Adapter;
 import android.widget.GridView;
 
@@ -17,6 +18,7 @@ public class FriendsActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler = DatabaseHandler.getDatabaseHandler();
     private ArrayList<String> userListIDS;
     private ArrayList<AppUser> userList;
+    FriendsAdapter friendsAdapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,11 +28,9 @@ public class FriendsActivity extends AppCompatActivity {
 
         //------------------------
         GridView gridView = (GridView) findViewById(R.id.grid_friends);
-
+        friendsAdapter = new FriendsAdapter(FriendsActivity.this,R.layout.friends_layout, userList, FriendsActivity.this);
+        gridView.setAdapter(friendsAdapter);
         databaseHandler.getFriendsListIDS(userListIDS,this);
-
-        FriendsAdapter adapter = new FriendsAdapter(FriendsActivity.this,R.layout.friends_layout, userList);
-        gridView.setAdapter(adapter);
     }
 
     public void setFriendsListIDS(ArrayList<String> _userListIDS){
@@ -39,6 +39,13 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     public void setFriendsList(ArrayList<AppUser> _userList){
+        Log.e("Upadting", "Adapter");
         userList = _userList;
+        friendsAdapter.upadateFriendsList(userList);
+        friendsAdapter.notifyDataSetChanged();
+    }
+
+    public void sendText(AppUser appUser){
+
     }
 }

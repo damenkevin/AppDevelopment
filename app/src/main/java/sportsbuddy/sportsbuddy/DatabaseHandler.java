@@ -449,19 +449,20 @@ public class DatabaseHandler {
      * @param userList
      */
     public void getFriendsListIDS(final ArrayList<String> userList, final FriendsActivity activity){
-        DatabaseReference friendsRef = database.getReference("FriendsList").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        DatabaseReference friendsRef = database.getReference("FriendsLists").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         friendsRef.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot datum : dataSnapshot.getChildren()){
-                    if(!userList.contains(datum.getKey())){
-                        userList.add(datum.getKey());
+                    Log.e("Checking...",String.valueOf(datum.getValue()));
+                    if(!userList.contains(String.valueOf(datum.getValue()))){
+                        Log.e("Adding", "Friends ID");
+                        userList.add(String.valueOf(datum.getValue()));
                     }
                 }
                 activity.setFriendsListIDS(userList);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -484,7 +485,11 @@ public class DatabaseHandler {
                     AppUser user = new AppUser(dataSnapshot.getKey(),null, null,null,null,null);
                     //If the user's id is in the friends list
                     if(userListIDS.contains(datum.getKey())){
+                        Log.e("Adding a new friend", "");
                         user.setName(String.valueOf(datum.child("Name").getValue()));
+                        user.setAge(String.valueOf(datum.child("Age").getValue()));
+                        user.setAbout(String.valueOf(datum.child("About").getValue()));
+                        user.setGender(String.valueOf(datum.child("Gender").getValue()));
                         user.setUID(datum.getKey());
                         if(!userList.contains(user)){
                             userList.add(user);
