@@ -217,7 +217,7 @@ public class DatabaseHandler {
         } else {
             for(Match newMatch : newMatches){
                 for(Match oldMatch : oldMatches){
-                    if(!oldMatch.isHandled()){
+                    if(!oldMatch.isHandled() && !finalMatches.contains(oldMatch)){
                         finalMatches.add(oldMatch);
                     }
                     //Log.e(newMatch.getSportingActivity(),oldMatch.getSportingActivity());
@@ -238,8 +238,9 @@ public class DatabaseHandler {
                             newMatch.getTimeFromOverlap().equals(oldMatch.getTimeFromOverlap()) &&
                             newMatch.getTimeToOverlap().equals(oldMatch.getTimeToOverlap())){
                         //Log.e("They are", "The same");
-                        if(!oldMatch.isHandled() && !finalMatches.contains(oldMatch)){
-                            finalMatches.add(oldMatch);
+                        if(!oldMatch.isHandled() && !finalMatches.contains(oldMatch) && !finalMatches.contains(newMatch)){
+                            //Log.e("Adding...","");
+                            finalMatches.add(newMatch);
                         }
                     } else {
                         // Used for debugging DONT DELETE
@@ -259,7 +260,7 @@ public class DatabaseHandler {
                         Log.e("From", oldMatch.getTimeFromOverlap());
                         Log.e("To", oldMatch.getTimeToOverlap());*/
                         if(!matchesToBeAdded.contains(newMatch) && !finalMatches.contains(newMatch) && !finalMatches.contains(oldMatch)){
-                            Log.e("Adding them", "NOW");
+                           // Log.e("Adding them", "NOW");
                             matchesToBeAdded.add(newMatch);
                             finalMatches.add(newMatch);
                         }
