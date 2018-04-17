@@ -29,7 +29,6 @@ import java.util.Objects;
 public class DatabaseHandler {
     private static boolean isSetUp = false;
     private static DatabaseHandler databaseHandler = new DatabaseHandler();
-
     private static FirebaseDatabase database;
     private static FirebaseUser firebaseUser;
     private static DatabaseReference timeTableRef;
@@ -371,6 +370,7 @@ public class DatabaseHandler {
 
     public static  void removeTimeSlot(String key){
         timeTableRef.child(key).removeValue();
+        sqLiteHelper.deleteTimeTableSlot(key);
     }
 
     //returns an instance of the user information filled with data from the local database
@@ -390,7 +390,7 @@ public class DatabaseHandler {
         if (empty) {
             sqLiteHelper.insertPersonalProfileInfo(FirebaseAuth.getInstance().getUid(), "Blank", "0", "Blank", "Blank", "");
         } else {
-            cursor = sqLiteHelper.getData("SELECT * FROM PROFILE");
+            cursor = sqLiteHelper.getData("SELECT * FROM Profile");
             while (cursor.moveToNext()) {
                 name = cursor.getString(2);
                 age = cursor.getString(3);
@@ -691,8 +691,8 @@ public class DatabaseHandler {
     public static void setSqLiteHelper(SQLiteHelper _sqLiteHelper) {
         sqLiteHelper = _sqLiteHelper;
         //TODO: Uncomment the two lines below, delete your app and install it again if it crashes. Then comment this line back.
-        //sqLiteHelper.queryData("DROP TABLE Slots");
-        //sqLiteHelper.queryData("DROP TABLE Matches");
+        //sqLiteHelper.queryData("DROP TABLE IF EXISTS Slots");
+        //sqLiteHelper.queryData("DROP TABLE Profile");
         sqLiteHelper.queryData
                 ("CREATE TABLE IF NOT EXISTS Slots(Id INTEGER PRIMARY KEY AUTOINCREMENT, slotID VARCHAR, level VARCHAR, activity VARCHAR, day VARCHAR, timeFrom VARCHAR, timeTo VARCHAR)");
         sqLiteHelper.queryData

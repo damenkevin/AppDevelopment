@@ -78,6 +78,17 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         database.close();
     }
 
+    public void deleteTimeTableSlot(String slotID){
+        SQLiteDatabase database = getWritableDatabase();
+
+        String sql = "DELETE FROM Slots WHERE slotID = ?";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, slotID );
+        statement.execute();
+        database.close();
+    }
+
 
 
     @Override
