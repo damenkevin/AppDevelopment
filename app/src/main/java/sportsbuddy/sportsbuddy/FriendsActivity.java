@@ -47,6 +47,7 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     public void sendText(AppUser appUser){
+        MessagingActivity messagingActivity = new MessagingActivity();
         MessagingActivity.setAppUser(appUser);
         Intent intent = new Intent(FriendsActivity.this, MessagingActivity.class);
         startActivity(intent);

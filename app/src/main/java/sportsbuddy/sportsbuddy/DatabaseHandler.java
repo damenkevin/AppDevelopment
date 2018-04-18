@@ -101,62 +101,93 @@ public class DatabaseHandler {
                     String timeFrom = userTimeTable1.getTimeFrom();
                     String timeTo = userTimeTable1.getTimeTo();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        //If the current event we are looking at is not the same user
-                        if (!String.valueOf(snapshot.child("User").getValue()).equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                            String UIDsecond = String.valueOf(snapshot.child("User").getValue());
-                            if (String.valueOf(snapshot.child("Event").child("Activity").getValue()).equals(activity)) {
-                                if (String.valueOf(snapshot.child("Event").child("Day").getValue()).equals(day)) {
-                                    String timeFromDB = String.valueOf(snapshot.child("Event").child("TimeFrom").getValue());
-                                    String timeToDB = String.valueOf(snapshot.child("Event").child("TimeTo").getValue());
-                                    String levelUser2 = String.valueOf(snapshot.child("Event").child("Level").getValue());
-                                    String levelUser1 = userTimeTable1.getLevel();
-                                    timeFromDB = String.valueOf(timeFromDB.charAt(0)) +
-                                            String.valueOf(timeFromDB.charAt(1)) +
-                                            String.valueOf(timeFromDB.charAt(3)) +
-                                            String.valueOf(timeFromDB.charAt(4));
-                                    timeToDB = String.valueOf(timeToDB.charAt(0)) +
-                                            String.valueOf(timeToDB.charAt(1)) +
-                                            String.valueOf(timeToDB.charAt(3)) +
-                                            String.valueOf(timeToDB.charAt(4));
-                                    String timeFromF = String.valueOf(timeFrom.charAt(0)) +
-                                            String.valueOf(timeFrom.charAt(1)) +
-                                            String.valueOf(timeFrom.charAt(3)) +
-                                            String.valueOf(timeFrom.charAt(4));
-                                    String timeToF = String.valueOf(timeTo.charAt(0)) +
-                                            String.valueOf(timeTo.charAt(1)) +
-                                            String.valueOf(timeTo.charAt(3)) +
-                                            String.valueOf(timeTo.charAt(4));
-                                    int timeFromDBInt = Integer.parseInt(timeFromDB);
-                                    int timeToDBInt = Integer.parseInt(timeToDB);
-                                    int timeFromInt = Integer.parseInt(timeFromF);
-                                    int timeToInt = Integer.parseInt(timeToF);
-                                    if ((timeFromInt < timeToDBInt && timeToDBInt < timeToInt)
-                                            || (timeFromDBInt < timeToInt && timeToDBInt > timeFromInt)) {
-                                        String timeFromOverlap;
-                                        String timeToOverlap;
-                                        if (timeFromInt < timeFromDBInt) {
-                                            timeFromOverlap = String.valueOf(timeFromDBInt);
-                                        } else {
-                                            timeFromOverlap = String.valueOf(timeFromInt);
-                                        }
-                                        if (timeToInt < timeToDBInt) {
-                                            timeToOverlap = String.valueOf(timeToInt);
-                                        } else {
-                                            timeToOverlap = String.valueOf(timeToDBInt);
-                                        }
+                        //Get data for user to be compared
+                        String userIDSecond = String.valueOf(snapshot.child("User").getValue());
+                        String sportSecond = String.valueOf(snapshot.child("Event").child("Activity").getValue());
+                        String daySecond = String.valueOf(snapshot.child("Event").child("Day").getValue());
+                        String timeFromDB = String.valueOf(snapshot.child("Event").child("TimeFrom").getValue());
+                        String timeToDB = String.valueOf(snapshot.child("Event").child("TimeTo").getValue());
+                        String levelUser2 = String.valueOf(snapshot.child("Event").child("Level").getValue());
+                        //Check if its a different user doing the same activity for the same day
+                        if (!userIDSecond.equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) &&
+                                sportSecond.equals(activity) &&
+                                daySecond.equals(day)) {
+                            String levelUser1 = userTimeTable1.getLevel();
+                            //Get the timing values
+                            timeFromDB = String.valueOf(timeFromDB.charAt(0)) +
+                                    String.valueOf(timeFromDB.charAt(1)) +
+                                    String.valueOf(timeFromDB.charAt(3)) +
+                                    String.valueOf(timeFromDB.charAt(4));
+                            timeToDB = String.valueOf(timeToDB.charAt(0)) +
+                                    String.valueOf(timeToDB.charAt(1)) +
+                                    String.valueOf(timeToDB.charAt(3)) +
+                                    String.valueOf(timeToDB.charAt(4));
+                            String timeFromF = String.valueOf(timeFrom.charAt(0)) +
+                                    String.valueOf(timeFrom.charAt(1)) +
+                                    String.valueOf(timeFrom.charAt(3)) +
+                                    String.valueOf(timeFrom.charAt(4));
+                            String timeToF = String.valueOf(timeTo.charAt(0)) +
+                                    String.valueOf(timeTo.charAt(1)) +
+                                    String.valueOf(timeTo.charAt(3)) +
+                                    String.valueOf(timeTo.charAt(4));
+                            int timeFromDBInt = Integer.parseInt(timeFromDB);
+                            int timeToDBInt = Integer.parseInt(timeToDB);
+                            int timeFromInt = Integer.parseInt(timeFromF);
+                            int timeToInt = Integer.parseInt(timeToF);
+                            //Check if it is an overlapping timeslot
+                            boolean isOverlapping = false;
+                            String finalTimeFrom = "";
+                            String finalTimeTo = "";
+                            if(timeFromInt < timeFromDBInt && timeToInt > timeToDBInt){
+                                //Case when the current user's timeslot is completely covering the databases timeslot
+                                isOverlapping = true;
+                                finalTimeFrom = String.valueOf(timeFromDBInt);
+                                finalTimeTo = String.valueOf(timeToDBInt);
 
-                                        Match newMatch = new Match(FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                                                UIDsecond,
-                                                levelUser1,
-                                                levelUser2,
-                                                activity,
-                                                day,
-                                                timeFromOverlap,
-                                                timeToOverlap,
-                                                false);
-                                        matches.add(newMatch);
+                            } else
+                            if(timeFromDBInt< timeFromInt && timeToDBInt > timeToInt){
+                                //case when the current user's timeslot is being completely overlapped by the database timeslot
+                                isOverlapping = true;
+                                finalTimeFrom = String.valueOf(timeFromInt);
+                                finalTimeTo = String.valueOf(timeToInt);
+
+                            } else
+                            if(timeFromInt < timeFromDBInt && timeFromInt< timeToDBInt && timeToInt< timeToDBInt){
+                                //case when the current user's timeslot is overlapping with the dabase timeslot but the current users time slot is to the right of the database timeslot
+                                isOverlapping = true;
+                                finalTimeFrom = String.valueOf(timeFromDBInt);
+                                finalTimeTo = String.valueOf(timeToInt);
+                            } else
+                            if(timeFromDBInt < timeFromInt && timeFromDBInt < timeToDBInt && timeToDBInt < timeToInt ){
+                                //case when the current user's timeslot is overlapping with the dabase timeslot but the current users time slot is to the left of the database timeslot
+                                isOverlapping = true;
+                                finalTimeFrom = String.valueOf(timeFromInt);
+                                finalTimeTo = String.valueOf(timeToDBInt);
+                            }
+                            if(isOverlapping){
+                                boolean isTheSame = false;
+                                Match newMatch = new Match(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                                        userIDSecond,
+                                        levelUser1,
+                                        levelUser2,
+                                        sportSecond,
+                                        daySecond,
+                                        finalTimeFrom,
+                                        finalTimeTo,
+                                        false);
+                                for(Match match : matches){
+                                    if(newMatch.getMatchUser2().equals(match.getMatchUser2()) &&
+                                            newMatch.getSportingActivity().equals(match.getSportingActivity()) &&
+                                            newMatch.getDay().equals(match.getDay()) &&
+                                            newMatch.getTimeFromOverlap().equals(match.getTimeFromOverlap()) &&
+                                            newMatch.getTimeToOverlap().equals(match.getTimeToOverlap())){
+                                        isTheSame = true;
                                     }
-
+                                }
+                                if(!isTheSame) {
+                                    Log.e("User is", userIDSecond);
+                                    Log.e("Event is", snapshot.getKey());
+                                    matches.add(newMatch);
                                 }
                             }
                         }
@@ -209,16 +240,17 @@ public class DatabaseHandler {
     }
 
     public void compareMatches(ArrayList<Match> newMatches, ArrayList<Match> oldMatches, MatchesTab matchesTab){
+        Log.e("Number of new matches:", String.valueOf(newMatches.size()));
         ArrayList<Match> finalMatches = new ArrayList<Match>();
         ArrayList<Match> matchesToBeAdded = new ArrayList<Match>();
         if(oldMatches.isEmpty()){
             finalMatches = newMatches;
+            matchesToBeAdded = newMatches;
         } else {
+            finalMatches = oldMatches;
             for(Match newMatch : newMatches){
+                boolean isTheSame = false;
                 for(Match oldMatch : oldMatches){
-                    if(!oldMatch.isHandled() && !finalMatches.contains(oldMatch)){
-                        finalMatches.add(oldMatch);
-                    }
                     //Log.e(newMatch.getSportingActivity(),oldMatch.getSportingActivity());
                     //Log.e("Comparing", String.valueOf(newMatch) + " To " + String.valueOf(oldMatch));
                     //Check if the matches stats are different
@@ -236,14 +268,10 @@ public class DatabaseHandler {
                             newMatch.getDay().equals(oldMatch.getDay()) &&
                             newMatch.getTimeFromOverlap().equals(oldMatch.getTimeFromOverlap()) &&
                             newMatch.getTimeToOverlap().equals(oldMatch.getTimeToOverlap())){
-                        //Log.e("They are", "The same");
-                        if(!oldMatch.isHandled() && !finalMatches.contains(oldMatch) && !finalMatches.contains(newMatch)){
-                            //Log.e("Adding...","");
-                            finalMatches.add(newMatch);
-                        }
-                    } else {
+                        isTheSame = true;
+                    }/* else {
                         // Used for debugging DONT DELETE
-                        /*Log.e("They are", "different");
+                        Log.e("They are", "different");
                         Log.e("Now Showing","New Match");
                         Log.e("Sport", newMatch.getSportingActivity());
                         Log.e("Day", newMatch.getDay());
@@ -257,22 +285,23 @@ public class DatabaseHandler {
                         Log.e("UID1", oldMatch.getMatchUser1());
                         Log.e("UID2", oldMatch.getMatchUser2());
                         Log.e("From", oldMatch.getTimeFromOverlap());
-                        Log.e("To", oldMatch.getTimeToOverlap());*/
-                        if(!matchesToBeAdded.contains(newMatch) && !finalMatches.contains(newMatch) && !finalMatches.contains(oldMatch)){
+                        Log.e("To", oldMatch.getTimeToOverlap());
+                        if(!matchesToBeAdded.contains(newMatch) && !finalMatches.contains(newMatch)){
                             // Log.e("Adding them", "NOW");
                             finalMatches.add(newMatch);
                         }
 
-                    }
+                    }*/
+                }
+                if(!isTheSame){
+                    finalMatches.add(newMatch);
                 }
             }
         }
-        for(Match newMatch : newMatches){
-            for(Match oldMatch : oldMatches){
-                if(!matchesToBeAdded.contains(newMatch) && !finalMatches.contains(newMatch) && !finalMatches.contains(oldMatch)){
-                    // Log.e("Adding them", "NOW");
-                    matchesToBeAdded.add(newMatch);
-                }
+        for(Match match : finalMatches){
+            if(!matchesToBeAdded.contains(match) && !oldMatches.contains(match)){
+                // Log.e("Adding them", "NOW");
+                matchesToBeAdded.add(match);
             }
         }
         addMatchesToDatabase(matchesToBeAdded);
@@ -572,16 +601,24 @@ public class DatabaseHandler {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data : dataSnapshot.getChildren()){
-                    for(Match match : matches){
-                        String UID;
-                        if(!String.valueOf(data.getKey()).equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                for(Match match : matches){
+                    for(DataSnapshot data : dataSnapshot.getChildren()){
+                        //Who is the current user
+                        int userNumber = 1;
+                        if(match.getMatchUser2().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                            //In this case we are looking for an entry with matchUser1
                             if(match.getMatchUser1().equals(String.valueOf(data.getKey()))){
-                                UID = match.getMatchUser1();
-                            } else {
-                                UID = match.getMatchUser2();
+                                userToReturn.add(new AppUser(
+                                        String.valueOf(data.getKey()),
+                                        String.valueOf(data.child("Name").getValue()),
+                                        String.valueOf(data.child("Age").getValue()),
+                                        String.valueOf(data.child("Gender").getValue()),
+                                        String.valueOf(data.child("About").getValue()),
+                                        String.valueOf(data.child("ProfilePicture").getValue())
+                                ));
                             }
-                            if(UID.equals(String.valueOf(data.getKey()))){
+                        } else {
+                            if(match.getMatchUser2().equals(String.valueOf(data.getKey()))){
                                 userToReturn.add(new AppUser(
                                         String.valueOf(data.getKey()),
                                         String.valueOf(data.child("Name").getValue()),
