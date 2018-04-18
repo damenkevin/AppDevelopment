@@ -240,25 +240,30 @@ public class DatabaseHandler {
     public void compareMatches(ArrayList<Match> newMatches, ArrayList<Match> oldMatches, MatchesTab matchesTab){
         ArrayList<Match> finalMatches = new ArrayList<Match>();
         ArrayList<Match> matchesToBeAdded = new ArrayList<Match>();
+
+        boolean isTheSame;
         if(oldMatches.isEmpty()){
             finalMatches = newMatches;
             matchesToBeAdded = newMatches;
         } else {
-            finalMatches = oldMatches;
+            for(Match match : oldMatches){
+                finalMatches.add(match);
+            }
             for(Match newMatch : newMatches){
-                boolean isTheSame = false;
+                isTheSame = false;
                 for(Match oldMatch : oldMatches){
-
-                    if((newMatch.getMatchUser1().equals(oldMatch.getMatchUser1()) ||
-                            newMatch.getMatchUser1().equals(oldMatch.getMatchUser2()) ||
-                            newMatch.getMatchUser2().equals(oldMatch.getMatchUser1()) ||
-                            newMatch.getMatchUser2().equals(oldMatch.getMatchUser2())) &&
+                    if(((newMatch.getMatchUser1().equals(oldMatch.getMatchUser1()) &&
+                            newMatch.getMatchUser2().equals(oldMatch.getMatchUser2())) ||
+                            (newMatch.getMatchUser2().equals(oldMatch.getMatchUser1()) &&
+                            newMatch.getMatchUser1().equals(oldMatch.getMatchUser2()))) &&
                             newMatch.getSportingActivity().equals(oldMatch.getSportingActivity()) &&
                             newMatch.getDay().equals(oldMatch.getDay()) &&
                             newMatch.getTimeFromOverlap().equals(oldMatch.getTimeFromOverlap()) &&
                             newMatch.getTimeToOverlap().equals(oldMatch.getTimeToOverlap())){
+                        newMatch.setHandled(oldMatch.isHandled());
                         isTheSame = true;
-                    }/* else {
+                    }
+                    /* else {
                         // Used for debugging DONT DELETE
                         Log.e("They are", "different");
                         Log.e("Now Showing","New Match");
@@ -279,7 +284,6 @@ public class DatabaseHandler {
                             // Log.e("Adding them", "NOW");
                             finalMatches.add(newMatch);
                         }
-
                     }*/
                 }
                 if(!isTheSame){
