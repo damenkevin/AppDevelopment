@@ -185,8 +185,6 @@ public class DatabaseHandler {
                                     }
                                 }
                                 if(!isTheSame) {
-                                    Log.e("User is", userIDSecond);
-                                    Log.e("Event is", snapshot.getKey());
                                     matches.add(newMatch);
                                 }
                             }
@@ -240,7 +238,6 @@ public class DatabaseHandler {
     }
 
     public void compareMatches(ArrayList<Match> newMatches, ArrayList<Match> oldMatches, MatchesTab matchesTab){
-        Log.e("Number of new matches:", String.valueOf(newMatches.size()));
         ArrayList<Match> finalMatches = new ArrayList<Match>();
         ArrayList<Match> matchesToBeAdded = new ArrayList<Match>();
         if(oldMatches.isEmpty()){
@@ -483,9 +480,7 @@ public class DatabaseHandler {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot datum : dataSnapshot.getChildren()){
-                    Log.e("Checking...",String.valueOf(datum.getValue()));
                     if(!userList.contains(String.valueOf(datum.getValue()))){
-                        Log.e("Adding", "Friends ID");
                         userList.add(String.valueOf(datum.getValue()));
                     }
                 }
@@ -513,7 +508,6 @@ public class DatabaseHandler {
                     AppUser user = new AppUser(dataSnapshot.getKey(),null, null,null,null,null);
                     //If the user's id is in the friends list
                     if(userListIDS.contains(datum.getKey())){
-                        Log.e("Adding a new friend", "");
                         user.setName(String.valueOf(datum.child("Name").getValue()));
                         user.setAge(String.valueOf(datum.child("Age").getValue()));
                         user.setAbout(String.valueOf(datum.child("About").getValue()));
@@ -604,29 +598,22 @@ public class DatabaseHandler {
                 for(Match match : matches){
                     for(DataSnapshot data : dataSnapshot.getChildren()){
                         //Who is the current user
-                        int userNumber = 1;
+                        AppUser appUser = new AppUser(
+                                String.valueOf(data.getKey()),
+                                String.valueOf(data.child("Name").getValue()),
+                                String.valueOf(data.child("Age").getValue()),
+                                String.valueOf(data.child("Gender").getValue()),
+                                String.valueOf(data.child("About").getValue()),
+                                String.valueOf(data.child("ProfilePicture").getValue())
+                        );
                         if(match.getMatchUser2().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
                             //In this case we are looking for an entry with matchUser1
                             if(match.getMatchUser1().equals(String.valueOf(data.getKey()))){
-                                userToReturn.add(new AppUser(
-                                        String.valueOf(data.getKey()),
-                                        String.valueOf(data.child("Name").getValue()),
-                                        String.valueOf(data.child("Age").getValue()),
-                                        String.valueOf(data.child("Gender").getValue()),
-                                        String.valueOf(data.child("About").getValue()),
-                                        String.valueOf(data.child("ProfilePicture").getValue())
-                                ));
+                                userToReturn.add(appUser);
                             }
                         } else {
                             if(match.getMatchUser2().equals(String.valueOf(data.getKey()))){
-                                userToReturn.add(new AppUser(
-                                        String.valueOf(data.getKey()),
-                                        String.valueOf(data.child("Name").getValue()),
-                                        String.valueOf(data.child("Age").getValue()),
-                                        String.valueOf(data.child("Gender").getValue()),
-                                        String.valueOf(data.child("About").getValue()),
-                                        String.valueOf(data.child("ProfilePicture").getValue())
-                                ));
+                                userToReturn.add(appUser);
                             }
                         }
                     }
@@ -656,7 +643,6 @@ public class DatabaseHandler {
                         String timeFrom = String.valueOf(data.child("TimeFrom").getValue());
                         String timeTo = String.valueOf(data.child("TimeTo").getValue());
                         String day = String.valueOf(data.child("Day").getValue());
-                        Log.e("Added new Request", sport );
                         requests.add(new Request(UID, sport,day, timeFrom, timeTo,"blank",false));
                     }
                 }
@@ -751,6 +737,84 @@ public class DatabaseHandler {
                         databaseReference.setValue("true");
                     }
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void createConversation(final AppUser appUser, final MessagingActivity messagingActivity){
+        final DatabaseReference ref = database.getReference("Messages");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean exists = false;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    if((String.valueOf(snapshot.child("Users").child("User1").getValue()).equals(appUser.getUID()) &&
+                            String.valueOf(snapshot.child("Users").child("User2").getValue()).equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) ||
+                            (String.valueOf(snapshot.child("Users").child("User2").getValue()).equals(appUser.getUID()) &&
+                                    String.valueOf(snapshot.child("Users").child("User1").getValue()).equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))){
+                        exists = true;
+                        messagingActivity.setConversationID(snapshot.getKey());
+                    }
+                }
+                if(!exists){
+                    DatabaseReference reference = ref.push();
+                    reference.child("Users").child("User1").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    reference.child("Users").child("User2").setValue(appUser.getUID());
+                    messagingActivity.setConversationID(reference.getKey());
+                }
+                ref.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getMessages(String conversationID, AppUser appUser, final MessagingActivity activity){
+        final ArrayList<Message> messages = new ArrayList<Message>();
+        DatabaseReference ref = database.getReference("Messages").child(conversationID).child("Messages");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot message : dataSnapshot.getChildren()){
+                    String content = String.valueOf(message.child("Content").getValue());
+                    String sender = String.valueOf(message.child("Sender").getValue());
+                    String timeSent = String.valueOf(message.child("TimeSent").getValue());
+                    //check if the sender is the current user
+                    messages.add(new Message(content,sender,timeSent));
+                }
+                activity.setMessages(messages);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void sendMessage(final Message message, String conversationID, AppUser appUser, MessagingActivity messagingActivity){
+        DatabaseReference ref = database.getReference("Messages").child(conversationID).child("Messages").push();
+        ref.child("Sender").setValue(message.getSender());
+        ref.child("Content").setValue(message.getMsgContent());
+        ref.child("TimeSend").setValue(message.getTimeSent());
+        getMessages(conversationID,appUser,messagingActivity);
+    }
+
+    public void getMyPicture(final MessagingActivity messagingActivity){
+        DatabaseReference ref = database.getReference("UsersInfo").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String profilePic = String.valueOf(dataSnapshot.child("ProfilePicture").getValue());
+                messagingActivity.setMyPic(profilePic);
             }
 
             @Override

@@ -15,7 +15,7 @@
     <color name="color_table_3">#FF9923</color>
     <color name="color_table_4">#e63c23</color>
     <color name="color_table_5">#f03158</color>
-    <color name="color_table_6">#1bc1ed</color>
+    <color name="color_table_6">#01718d</color>
     <color name="color_table_7">#88d533</color>
 
     <color name="color_table_1_light">#cce5fa</color>
@@ -49,7 +49,7 @@
     <!-- app/src/main/res/values/colors.xml -->
     <color name="darkColorPrimary">#1e2756</color>
     <color name="darkColorPrimaryDark">#141831</color>
-    <color name="darkColorAccent">#2aac4b</color>
+    <color name="darkColorAccent">#005315</color>
 
 </resources>
 
