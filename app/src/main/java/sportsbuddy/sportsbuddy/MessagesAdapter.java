@@ -88,7 +88,9 @@ public class MessagesAdapter extends BaseAdapter {
         return view;
     }
 
-    public void setMessages(ArrayList<Message> messages){
+    public void setMessages(ArrayList<Message> messages)
+    {
+        Log.e("Number of messages:" , String.valueOf(getCount()));
         this.messages = messages;
     }
 

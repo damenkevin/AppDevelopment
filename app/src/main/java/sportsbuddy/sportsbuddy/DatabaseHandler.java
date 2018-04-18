@@ -138,27 +138,27 @@ public class DatabaseHandler {
                             boolean isOverlapping = false;
                             String finalTimeFrom = "";
                             String finalTimeTo = "";
-                            if(timeFromInt < timeFromDBInt && timeToInt > timeToDBInt){
+                            if(timeFromInt <= timeFromDBInt && timeToInt >= timeToDBInt){
                                 //Case when the current user's timeslot is completely covering the databases timeslot
                                 isOverlapping = true;
                                 finalTimeFrom = String.valueOf(timeFromDBInt);
                                 finalTimeTo = String.valueOf(timeToDBInt);
 
                             } else
-                            if(timeFromDBInt< timeFromInt && timeToDBInt > timeToInt){
+                            if(timeFromDBInt <= timeFromInt && timeToDBInt >= timeToInt){
                                 //case when the current user's timeslot is being completely overlapped by the database timeslot
                                 isOverlapping = true;
                                 finalTimeFrom = String.valueOf(timeFromInt);
                                 finalTimeTo = String.valueOf(timeToInt);
 
                             } else
-                            if(timeFromInt < timeFromDBInt && timeFromInt< timeToDBInt && timeToInt< timeToDBInt){
+                            if(timeFromInt <= timeFromDBInt && timeFromInt< timeToDBInt && timeToInt<= timeToDBInt){
                                 //case when the current user's timeslot is overlapping with the dabase timeslot but the current users time slot is to the right of the database timeslot
                                 isOverlapping = true;
                                 finalTimeFrom = String.valueOf(timeFromDBInt);
                                 finalTimeTo = String.valueOf(timeToInt);
                             } else
-                            if(timeFromDBInt < timeFromInt && timeFromDBInt < timeToDBInt && timeToDBInt < timeToInt ){
+                            if(timeFromDBInt <= timeFromInt && timeFromDBInt < timeToDBInt && timeToDBInt <= timeToInt ){
                                 //case when the current user's timeslot is overlapping with the dabase timeslot but the current users time slot is to the left of the database timeslot
                                 isOverlapping = true;
                                 finalTimeFrom = String.valueOf(timeFromInt);
@@ -248,15 +248,7 @@ public class DatabaseHandler {
             for(Match newMatch : newMatches){
                 boolean isTheSame = false;
                 for(Match oldMatch : oldMatches){
-                    //Log.e(newMatch.getSportingActivity(),oldMatch.getSportingActivity());
-                    //Log.e("Comparing", String.valueOf(newMatch) + " To " + String.valueOf(oldMatch));
-                    //Check if the matches stats are different
-                    /*if(!newMatch.getSportingActivity().equals(oldMatch.getSportingActivity()) ||
-                            !newMatch.getDay().equals(oldMatch.getDay()) ||
-                            !newMatch.getTimeFromOverlap().equals(oldMatch.getTimeFromOverlap()) ||
-                            !newMatch.getTimeToOverlap().equals(oldMatch.getTimeToOverlap())){
 
-                    } else*/
                     if((newMatch.getMatchUser1().equals(oldMatch.getMatchUser1()) ||
                             newMatch.getMatchUser1().equals(oldMatch.getMatchUser2()) ||
                             newMatch.getMatchUser2().equals(oldMatch.getMatchUser1()) ||
@@ -301,8 +293,14 @@ public class DatabaseHandler {
                 matchesToBeAdded.add(match);
             }
         }
+        ArrayList<Match> matchesToSend = new ArrayList<Match>();
+        for(Match match : finalMatches){
+            if(!match.isHandled()){
+                matchesToSend.add(match);
+            }
+        }
         addMatchesToDatabase(matchesToBeAdded);
-        getMatchUsers(finalMatches,matchesTab);
+        getMatchUsers(matchesToSend,matchesTab);
     }
 
     private void addMatchesToDatabase(ArrayList<Match> matchesToBeAdded){
@@ -667,14 +665,20 @@ public class DatabaseHandler {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data : dataSnapshot.getChildren()){
-                    if(userIDs.contains(String.valueOf(data.getKey()))){
-                        String name = String.valueOf(data.child("Name").getValue());
-                        String age = String.valueOf(data.child("Age").getValue());
-                        String gender = String.valueOf(data.child("Gender").getValue());
-                        String about = String.valueOf(data.child("About").getValue());
-                        String UID = String.valueOf(data.getKey());
-                        appUsers.add(new AppUser(UID,name,age,gender,about,null));
+                for(String userId : userIDs){
+                    for(DataSnapshot data : dataSnapshot.getChildren()){
+                        AppUser appUser = new AppUser(
+                                String.valueOf(data.getKey()),
+                                String.valueOf(data.child("Name").getValue()),
+                                String.valueOf(data.child("Age").getValue()),
+                                String.valueOf(data.child("Gender").getValue()),
+                                String.valueOf(data.child("About").getValue()),
+                                String.valueOf(data.child("ProfilePicture").getValue())
+                        );
+                        if(userId.equals(String.valueOf(data.getKey()))){
+                            Log.e("Added", data.getKey());
+                            appUsers.add(appUser);
+                        }
                     }
                 }
                 getRequestedUserLevels(requests,appUsers,requestsTab);
@@ -778,11 +782,13 @@ public class DatabaseHandler {
     }
 
     public void getMessages(String conversationID, AppUser appUser, final MessagingActivity activity){
-        final ArrayList<Message> messages = new ArrayList<Message>();
+
+
         DatabaseReference ref = database.getReference("Messages").child(conversationID).child("Messages");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Message> messages = new ArrayList<Message>();
                 for(DataSnapshot message : dataSnapshot.getChildren()){
                     String content = String.valueOf(message.child("Content").getValue());
                     String sender = String.valueOf(message.child("Sender").getValue());
@@ -805,7 +811,6 @@ public class DatabaseHandler {
         ref.child("Sender").setValue(message.getSender());
         ref.child("Content").setValue(message.getMsgContent());
         ref.child("TimeSend").setValue(message.getTimeSent());
-        getMessages(conversationID,appUser,messagingActivity);
     }
 
     public void getMyPicture(final MessagingActivity messagingActivity){

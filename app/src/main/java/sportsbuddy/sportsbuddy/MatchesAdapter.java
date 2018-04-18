@@ -64,6 +64,7 @@ public class MatchesAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, View convertView, ViewGroup parent) {
+
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = new View(context);
         view = layoutInflater.inflate(R.layout.match_item, null);
@@ -80,21 +81,21 @@ public class MatchesAdapter extends BaseAdapter {
 
         //Proper time display:
         timeFromString = matches.get(i).getTimeFromOverlap();
-        if(timeFromString.length() == 3){
+        if (timeFromString.length() == 3) {
             timeFromString = "From: " + timeFromString.charAt(0) + ":" + timeFromString.charAt(1) + timeFromString.charAt(2);
-        } else if(timeFromString.length() == 4){
+        } else if (timeFromString.length() == 4) {
             timeFromString = "From: " + timeFromString.charAt(0) + timeFromString.charAt(1) + ":" + timeFromString.charAt(2) + timeFromString.charAt(3);
         }
         timeToString = matches.get(i).getTimeToOverlap();
-        if(timeToString.length() == 3){
+        if (timeToString.length() == 3) {
             timeToString = "To: " + timeToString.charAt(0) + ":" + timeToString.charAt(1) + timeToString.charAt(2);
-        } else if(timeToString.length() == 4){
+        } else if (timeToString.length() == 4) {
             timeToString = "To: " + timeToString.charAt(0) + timeToString.charAt(1) + ":" + timeToString.charAt(2) + timeToString.charAt(3);
         }
 
         textNameProfile.setText(appUsers.get(i).getName());
         sports.setText(matches.get(i).getSportingActivity());
-        if(matches.get(i).getMatchUser1().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+        if (matches.get(i).getMatchUser1().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
             level.setText(matches.get(i).getLevelUser2());
         } else {
             level.setText(matches.get(i).getLevelUser1());
@@ -105,8 +106,8 @@ public class MatchesAdapter extends BaseAdapter {
         byte[] bytes = new byte[0];
         if (profPic != "") {
             try {
-                bytes = Base64.decode(profPic,Base64.DEFAULT);
-            } catch(Exception e) {
+                bytes = Base64.decode(profPic, Base64.DEFAULT);
+            } catch (Exception e) {
                 e.getMessage();
             }
         }
@@ -139,6 +140,7 @@ public class MatchesAdapter extends BaseAdapter {
 
         //imageButton.setImageResource(values4[i]);
         return view;
+
     }
 
     public void updateMatchesList(ArrayList<AppUser> appUsers, ArrayList<Match> matches){
