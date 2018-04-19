@@ -105,20 +105,20 @@ public class TimerService extends IntentService {
         soldMatches = new ArrayList<>(smatches);
     }
 
-    public void test(int i){
-        if (i > 1){
-            smatches.add("6");
-        }
-        if (i > 2){
-            smatches.add("7");
-        }
-        if (i > 4){
-            smatches.add("10");
-        }
-        if (i > 8){
-            smatches.add("11");
-        }
-    }
+    //public void test(int i){
+    //    if (i > 1){
+    //        smatches.add("6");
+    //    }
+    //    if (i > 2){
+    //        smatches.add("7");
+    //    }
+    //    if (i > 4){
+    //        smatches.add("10");
+    //    }
+    //    if (i > 8){
+    //        smatches.add("11");
+    //    }
+    //}
 
     public void test2(int i){
         if (i > 1){
