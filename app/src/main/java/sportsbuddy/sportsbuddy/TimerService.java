@@ -120,20 +120,20 @@ public class TimerService extends IntentService {
     //    }
     //}
 
-    public void test2(int i){
-        if (i > 1){
-            soldMatches.add("6");
-        }
-        if (i > 2){
-            soldMatches.add("7");
-        }
-        if (i > 4){
-            soldMatches.add("10");
-        }
-        if (i > 8){
-            soldMatches.add("11");
-        }
-    }
+    //public void test2(int i){
+    //    if (i > 1){
+    //        soldMatches.add("6");
+    //    }
+    //    if (i > 2){
+    //        soldMatches.add("7");
+    //    }
+    //    if (i > 4){
+    //        soldMatches.add("10");
+    //    }
+    //    if (i > 8){
+    //        soldMatches.add("11");
+    //    }
+    //}
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -143,10 +143,8 @@ public class TimerService extends IntentService {
         while (timerOn){
             Log.v("timer", "i = " + i); //just shows the i in the log
             i++;
-            test2(i-1);
             //here the program needs to check if there are new matches or requests, if so, then run createNotification()
             pullMatches();
-            test(i);
 
             //remove all the old Matches from the arraylist, to only get a list of the current matches
             smatches.removeAll(soldMatches);
