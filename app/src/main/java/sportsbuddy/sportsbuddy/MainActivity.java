@@ -130,6 +130,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, FriendsActivity.class);
             startActivity(intent);
         }
+        if(id == R.id.action_search){
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+        }
         /**
          * Creates an Alert dialog asking to confirm log out.
          */
