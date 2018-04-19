@@ -1,13 +1,886 @@
-<?xml version="1.0" encoding="utf-8"?>
 <activities>
+
     <ranking>
+
+        <activity>Acro Yoga</activity>
+
+        <time>za 14:00-16:00</time>
+
+        <facility>Gymnasium</facility></ranking>
+
+    <ranking>
+
+        <activity>Aerial Silks</activity>
+
+        <time>ma 20:00-22:00
+            vr 19:30-21:30</time>
+
+        <facility>Gymnasium</facility></ranking>
+
+    <ranking>
+
+        <activity>Aikido</activity>
+
+        <time>di 21:00-22:30
+            do 18:30-20:00</time>
+
+        <facility>Dojo</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>ALGEMEEN</activity>
+
+        <time>ma 09:00-12:00
+            di 09:00-10:00
+            di 09:00-12:00
+            wo 09:00-15:00
+            wo 16:00-17:30
+            wo 09:00-10:00
+            wo 09:00-12:00
+            wo 09:00-12:00
+            wo 16:30-19:30
+            do 09:00-15:00
+            vr 09:00-10:00
+            vr 09:00-10:00
+            vr 09:00-12:00
+            vr 17:00-18:00za 10:00-13:00</time>
+
+        <facility>Climbing facility Neoliet
+
+            Climbing facility NeolietBoulder wallBoulder wallAan de meet, Amazonenlaan 4Aan de meet, Amazonenlaan 4Aan de meet, Amazonenlaan 4Aan de meet, Amazonenlaan 4Athletics trackAthletics trackSports hall 1Sports hall 1Sports hall 3aSports hall 2bSports hall 2aSports hall 2bSports hall 2aSports hall 2bSports hall 3bSports hall 2aSports hall 2aGymnasiumSports hall 2aSports hall 2a</facility></ranking>
+
+    <ranking>
+
+        <activity>Alpinism</activity>
+
+        <time>ma 19:00-23:00
+
+            di 19:00-21:00
+            wo 19:30-20:4520:45-22:15</time>
+
+        <facility>Sports hall 2bGymnasiumSports hall 2aSports hall 2aSports hall 2a</facility></ranking>
+
+    <ranking>
+
+        <activity>Athletics</activity>
+
+        <time>ma 20:00-22:00
+            wo 17:00-19:00</time>
+
+        <facility>Athletics trackAthletics track</facility></ranking>
+
+    <ranking>
+
+        <activity>Badminton</activity>
+
+        <time>ma 20:00-23:30
+            do 20:00-23:3021:30-23:30</time>
+
+        <facility>Sports hall 1Sports hall 1Sports hall 3a</facility></ranking>
+
+    <ranking>
+
+        <activity>Basketball</activity>
+
+        <time>di 20:00-23:3020:30-23:30
+            do 19:00-20:0020:00-23:3021:30-23:30</time>
+
+        <facility>Sports hall 2bSports hall 2aSports hall 2bSports hall 2aSports hall 2bSports hall 3b</facility></ranking>
+
+    <ranking>
+
+        <activity>BBB (belly-bottom-legs)</activity>
+
+        <time>ma 16:30-17:3017:30-18:30
+            di 16:00-17:0019:30-20:30
+            wo 18:30-19:30
+            do 17:00-18:00</time>
+
+        <facility>Indoor swimming pool aIndoor swimming pool bGymnasiumSports hall 2bSports hall 2aSports hall 2aSports hall 2a</facility></ranking>
+
+    <ranking>
+
+        <activity>Body pump</activity>
+
+        <time>ma 19:00-20:00
+            di 12:15-13:15d
+            di 16:30-17:30
+            wo 19:30-20:30
+            do 12:15-13:15d
+            do 18:00-19:00
+            vr 09:00-10:00</time>
+
+        <facility>Sports hall 2aSports hall 2bSports hall 2aSports hall 2aSports hall 2bSports hall 2aSports hall 2bDojo</facility></ranking>
+
+    <ranking>
+
+        <activity>Boksen</activity>
+
+        <time>wo 20:30-22:00
+            do 20:00-21:30</time>
+
+        <facility>GymnasiumSports hall 3b</facility></ranking>
+
+    <ranking>
+
+        <activity>Braziliaanse Jiu Jitsu</activity>
+
+        <time>do 21:30-23:00</time>
+
+        <facility>Dojo</facility></ranking>
+
+    <ranking>
+
+        <activity>Canoe</activity>
+
+        <time>mon 21:30-23:00
+            fri 19:00-20:30</time>
+
+        <facility>Indoor swimming pool aIndoor swimming pool bIndoor swimming pool aIndoor swimming pool b</facility></ranking>
+
+    <ranking>
+
+        <activity>Capoeira</activity>
+
+        <time>wed 17:00-19:00
+            fri 17:30-19:00</time>
+
+        <facility>GymnasiumSports hall 2b</facility></ranking>
+
+    <ranking>
+
+        <activity>Cardio Core</activity>
+
+        <time>mon 12:15-13:15
+            tue 18:30-19:30
+            wed 12:15-13:15
+            thu 17:00-18:00
+            fri 17:00-18:00
+            sat 11:00-12:00
+            sun 11:30-12:30
+
+        </time>
+
+        <facility>Sports hall 2aSports hall 2aSports hall 2aSports hall 2aSports hall 2bSports hall 2aSports hall 2aSports hall 2bSports hall 2aSports hall 2b</facility></ranking>
+
+    <ranking>
+
+        <activity>Cheerleading</activity>
+
+        <time>wed 16:30-19:00
+            sat 09:30-11:30</time>
+
+        <facility>DojoGymnasium</facility></ranking>
+
+    <ranking>
+
+        <activity>Condition training on music</activity>
+
+        <time>mon 12:45-13:15
+            tue 17:30-18:30
+            fri 12:45-13:15
+
+        </time>
+
+        <facility>Sports hall 2bSports hall 1Sports hall 1
+
+        </facility></ranking>
+
+    <ranking>
+
+        <activity>Core Class</activity>
+
+        <time>mon 18:30-19:00
+            tue 18:00-18:30
+            wed 18:00-18:30
+            thu 19:00-19:30
+            sat 12:00-12:30
+            sun 12:30-13:00</time>
+
+        <facility>Sports hall 2aPaalFitness StudioPaalFitness StudioPaalFitness StudioSports hall 2aSports hall 2a</facility></ranking>
+
+    <ranking>
+
+        <activity>Cuban Salsa</activity>
+
+        <time>tue 18:00-20:00</time>
+
+        <facility>Gymnasium</facility></ranking>
+
+    <ranking>
+
+        <activity>Core Class</activity>
+
+        <time>mon 18:30-19:00
+            tue 18:00-18:30
+            wed 18:00-18:30
+            thu 19:00-19:30
+            sat 12:00-12:30
+            sun 12:30-13:00</time>
+
+        <facility>Sports hall 2aPaalFitness StudioPaalFitness StudioPaalFitness StudioSports hall 2aSports hall 2a</facility></ranking>
+
+    <ranking>
+
+        <activity>Cuban Salsa</activity>
+
+        <time>mon 19:00-20:00
+            tue 18:00-20:00</time>
+
+        <facility>Gymnasium</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Cycling</activity>
+
+        <time>tue 20:00-21:30
+            thu 18:30-20:00</time>
+
+        <facility>Cycling track WoenselP+R Meerhoven</facility></ranking>
+
+    <ranking>
+
+        <activity>Diving course</activity>
+
+        <time>tue 21:00-22:0022:00-23:00
+
+        </time>
+
+        <facility>Conference roomIndoor swimming pool aIndoor swimming pool b</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Fencing</activity>
+
+        <time>tue 20:00-21:30</time>
+
+        <facility>Gymnasium</facility></ranking>
+
+    <ranking>
+
+        <activity>Fit and slim</activity>
+
+        <time>wed 19:00-20:00
+
+        </time>
+
+        <facility>Conference roomFitness 2</facility></ranking>
+
+    <ranking>
+
+        <activity>Fitness Course (Start your journey!)</activity>
+
+        <time>tue 12:00-13:30
+            thu 18:30-20:00
+            sat 13:00-14:30</time>
+
+        <facility>Fitness 3Fitness 3Fitness 3</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Food coach</activity>
+
+        <time>tue 15:30-17:10</time>
+
+        <facility>Conference room</facility></ranking>
+
+    <ranking>
+
+        <activity>Frisbee</activity>
+
+        <time>mon 20:00-21:30
+            wed 20:00-21:30</time>
+
+        <facility>De Hondsheuvels</facility></ranking>
+
+    <ranking>
+
+        <activity>General</activity>
+
+        <time>mon 09:00-12:00
+            tue 09:00-10:00
+            tue 09:00-12:00
+            tue 09:00-15:00
+            tue 16:00-17:30
+            wed 09:00-10:00
+            wed 09:00-12:00
+            wed 09:00-12:00
+            wed 16:30-19:30
+            thu 09:00-15:00
+            fri 09:00-10:00
+            fri 09:00-10:00
+            fri 09:00-12:00
+            fri 17:00-18:00
+            sat 10:00-13:00
+            mon 19:00-22:00
+            wed 19:00-21:00</time>
+
+        <facility>Tennis court 1Tennis court 2Tennis court 3Sports hall 3aSports hall 3bTennis court 1Tennis court 2Tennis court 3GymnasiumSports hall 1Sports hall 2aSports hall 2bSports hall 1Tennis court 1Tennis court 2Tennis court 3Tennis court 7GymnasiumFitness 3Sports hall 2bTennis court 1Tennis court 2Tennis court 3Sports hall 1Tennis court 4Tennis court 5ennis court 6Golf courseGolf course</facility></ranking>
+
+    <ranking>
+
+        <activity>Gymnastics</activity>
+
+        <time>mon 20:00-22:00
+            thu 20:00-22:00
+            fri 17:30-19:30</time>
+
+        <facility>Turnhal De VijfkampGymnasiumGymnasium</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Handball (indoor)</activity>
+
+        <time>mon 17:00-18:30
+            tue 20:00-23:00
+            fri 18:00-20:00</time>
+
+        <facility>Sports hall 3aSports hall 3bSports hall 3aSports hall 3bSports hall 1</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Hardlopen Basis</activity>
+
+        <time>wed 17:30-18:30</time>
+
+        <facility>Hockey pitch Z</facility></ranking>
+
+    <ranking>
+
+        <activity>Health Advice</activity>
+
+        <time>mon 18:30-19:30
+            thu 18:30-19:30e</time>
+
+        <facility>Fitness 2</facility></ranking>
+
+
+
+    <ranking>
+
         <activity>High Intensity Interval Training</activity>
-        <time>13:00-18:00</time>
-        <facility>Sporthal 2a</facility>
-    </ranking>
+
+        <time>mon 18:00-18:45
+            wed 16:30-17:15</time>
+
+        <facility>GymnasiumSports hall 2aSports hall 2b
+
+        </facility></ranking>
+
+
+
     <ranking>
-        <activity>Some other sport</activity>
-        <time>13:00-18:00</time>
-        <facility>a location</facility>
-    </ranking>
+
+        <activity>Hip Hop</activity>
+
+        <time>thu 19:00-20:00</time>
+
+        <facility>Sports hall 2a</facility></ranking>
+
+    <ranking>
+
+        <activity>Hockey</activity>
+
+        <time>mon 20:00-22:30
+            tue 19:00-22:00
+            wed 19:00-20:30
+            wed 19:00-22:00
+            thu 19:00-22:00
+
+        </time>
+
+        <facility>Hockey pitch WHockey pitch WHockey pitch ZHockey pitch ZHockey pitch WHockey pitch WHockey pitch Z</facility></ranking>
+
+    <ranking>
+
+        <activity>Horseback riding</activity>
+
+        <time>tue 19:00-20:30
+            wed 17:45-19:15</time>
+
+        <facility>Entrance SSCEntrance SSC</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Ice hockey</activity>
+
+        <time>mon 22:15-23:15
+            wed 21:15-22:45
+            thu 22:15-23:45
+            sun 19:45-22:30</time>
+
+        <facility>Ice rink</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Ice skating</activity>
+
+        <time>tue 18:45-20:00
+            thu 18:45-20:00</time>
+
+        <facility>Ice rink</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Indoor Soccer</activity>
+
+        <time>mon 17:00-18:30
+            mon 20:00-21:30
+            tue 18:30-20:00
+            wed 20:30-22:00
+            thu 18:00-20:00
+            thu 18:30-20:00</time>
+
+        <facility>Sports hall 1Sports hall 2bSports hall 3aSports hall 3bSports hall 2aSports hall 2bSports hall 3aSports hall 3bSports hall 1</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Indoor soccer university competition</activity>
+
+        <time>mon 12:00-13:30
+            tue 12:00-13:30
+            wed 12:00-13:30
+            wed 17:00-20:00
+            thu 12:00-13:30
+
+        </time>
+
+        <facility>Sports hall 1Sports hall 3aSports hall 3bSports hall 1Sports hall 3aSports hall 3bSports hall 1Sports hall 3aSports hall 3bSports hall 1Sports hall 3aSports hall 3bSports hall 1Sports hall 3aSports hall 3b</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Judo</activity>
+
+        <time>mon 20:30-22:00
+            tue 18:00-19:30
+            wed 19:00-20:30</time>
+
+        <facility>Dojo</facility></ranking>
+
+    <ranking>
+
+        <activity>Karate</activity>
+
+        <time>tue 19:30-21:00
+            thu 20:00-21:30</time>
+
+        <facility>Dojo</facility></ranking>
+
+    <ranking>
+
+        <activity>Kickboxing</activity>
+
+        <time>tue 17:30-18:30
+            tue 18:30-20:00
+            fri 17:30-18:30
+            fri 18:30-20:00
+
+        </time>
+
+        <facility>Sports hall 2bDojo</facility></ranking>
+
+    <ranking>
+
+        <activity>Korfball</activity>
+
+        <time>mon 19:00-20:30
+            wed 20:30-22:00</time>
+
+        <facility>Hockey pitch Z</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>LA Salsa</activity>
+
+        <time>thu 19:00-20:00</time>
+
+        <facility>Gymnasium</facility></ranking>
+
+    <ranking>
+
+        <activity>Ladies Fitness Course</activity>
+
+        <time>thu 17:00-18:30</time>
+
+        <facility>Fitness 3</facility></ranking>
+
+    <ranking>
+
+        <activity>Martial Arts</activity>
+
+        <time>sat 16:00-18:30</time>
+
+        <facility>Dojo</facility></ranking>
+
+    <ranking>
+
+        <activity>Mindfulness</activity>
+
+        <time>tue 16:30-22:00</time>
+
+        <facility>Metaforum</facility></ranking>
+
+    <ranking>
+
+        <activity>Outdoor/Survival</activity>
+
+        <time>wed 19:00-20:30
+            wed 19:00-20:30</time>
+
+        <facility>GymnasiumBuitenconstructie</facility></ranking>
+
+    <ranking>
+
+        <activity>PaalFitness</activity>
+
+        <time>mon 18:00-21:30
+            tue 19:00-21:00
+            wed 18:30-22:00</time>
+
+        <facility>PaalFitness Studio</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Physio Fitness</activity>
+
+        <time>mon 17:00-18:30
+            tue 17:00-18:30
+            thu 17:00-18:30</time>
+
+        <facility>Fitness 2</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Physiotherapy Advice</activity>
+
+        <time>mon 19:30-21:00
+            tue 18:30-20:00
+            thu 19:30-20:30</time>
+
+        <facility>Fitness 2</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Pilates</activity>
+
+        <time>mon 18:00-19:00
+            tue 07:30-08:30
+            thu 19:30-20:30</time>
+
+        <facility>DojoPaalFitness Studio</facility></ranking>
+
+    <ranking>
+
+        <activity>Pilates/Yoga</activity>
+
+        <time>tue 12:15-13:15
+            thu 08:00-09:00</time>
+
+        <facility>Dojo</facility></ranking>
+
+    <ranking>
+
+        <activity>Rugby</activity>
+
+        <time>tue 20:30-22:00
+            thu 20:00-22:00</time>
+
+        <facility>De HondsheuvelsRugby field</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Ruggensteun</activity>
+
+        <time>wed 17:00-19:00</time>
+
+        <facility>Fitness 2</facility></ranking>
+
+    <ranking>
+
+        <activity>Running</activity>
+
+        <time>wed 19:00-20:30
+            wed 19:00-21:30</time>
+
+        <facility>Athletics track</facility></ranking>
+
+    <ranking>
+
+        <activity>Self-defense Women</activity>
+
+        <time>tue 17:00-18:00
+
+        </time>
+
+        <facility>Dojo</facility></ranking>
+
+    <ranking>
+
+        <activity>Show Dance</activity>
+
+        <time>thu 17:30-19:00</time>
+
+        <facility>PaalFitness Studio</facility></ranking>
+
+    <ranking>
+
+        <activity>Soccer</activity>
+
+        <time>tue 19:00-20:30
+            tue 20:30-22:00
+            wed 19:00-20:30
+            wed 20:30-22:00
+            thu 19:00-20:30
+            thu 20:30-22:00
+            fri 19:00-20:30
+
+        </time>
+
+        <facility>AstroTurf A (Football)AstroTurf B (Football)</facility></ranking>
+
+    <ranking>
+
+        <activity>Spinning</activity>
+
+        <time>mon 18:00-19:00
+            mon 19:15-20:15
+            tue 17:30-18:30
+            wed 12:30-13:15
+            wed 18:00-19:00
+            thu 19:00-20:00</time>
+
+        <facility>Spinning Theatre</facility></ranking>
+
+    <ranking>
+
+        <activity>Squash</activity>
+
+        <time>mon 16:15-18:30
+            mon 18:30-22:30
+            tue 18:30-22:30
+            thu 20:00-23:00
+            fri 20:00-23:00</time>
+
+        <facility>Squash court 3Squash court 4Squash court 5</facility></ranking>
+
+    <ranking>
+
+        <activity>Stretch Class</activity>
+
+        <time>tue 17:00-18:00
+            thu 18:00-19:00</time>
+
+        <facility>Gymnasium</facility></ranking>
+
+    <ranking>
+
+        <activity>Swimming (Lessons + Courses)</activity>
+
+        <time>mon 18:30-19:30
+            mon 19:30-20:30
+            mon 20:30-21:30
+            tue 06:30-08:30
+            wed 18:00-19:00
+            wed 19:00-20:00
+            wed 20:00-21:30
+            thu 06:30-08:30
+            fri 18:00-19:00
+            sun 08:30-09:30
+            sun 09:30-10:30</time>
+
+        <facility>Indoor swimming pool aIndoor swimming pool b</facility></ranking>
+
+
+
+    <ranking>
+
+        <activity>Swimming (open)</activity>
+
+        <time>mon 07:30-08:30
+            mon 12:00-13:30
+            mon 17:30-18:30
+            tue 12:00-13:30
+            tue 16:30-18:30
+            wed 07:30-08:30
+            wed 12:00-13:30
+            wed 16:45-18:00
+            wed 21:30-23:00
+            thu 12:00-13:30
+            thu 16:30-18:30
+            fri 07:30-08:30
+            fri 12:00-13:30
+            fri 16:30-18:00
+            sat 13:15-15:00
+            sun 10:30-12:00
+
+        </time>
+
+        <facility>Indoor swimming pool aIndoor swimming pool b</facility></ranking>
+
+    <ranking>
+
+        <activity>Swimming lesson (Women)</activity>
+
+        <time>mon 10:00-11:00
+            tue 09:00-11:00
+            thu 09:00-11:00</time>
+
+        <facility>Indoor swimming pool aIndoor swimming pool b</facility></ranking>
+
+    <ranking>
+
+        <activity>Swimming lessons (kids)</activity>
+
+        <time>mon 15:30-17:30
+            tue 15:30-16:30
+            wed 13:30-16:30
+            thu 15:30-16:30
+            fri 15:00-16:30
+            sat 08:30-13:15</time>
+
+        <facility>Indoor swimming pool aIndoor swimming pool b</facility></ranking>
+
+    <ranking>
+
+        <activity>T'ai Chi</activity>
+
+        <time>mon 12:00-13:30</time>
+
+        <facility>Gymnasium</facility></ranking>
+
+    <ranking>
+
+        <activity>Table tennis</activity>
+
+        <time>mon 17:00-20:00
+            wed 21:30-23:30</time>
+
+        <facility>Sports hall 2bSports hall 3a</facility></ranking>
+
+    <ranking>
+
+        <activity>Taekwondo</activity>
+
+        <time>mon 18:30-20:00
+            thu 20:00-21:30
+            fri 20:00-21:30
+            sun 10:30-12:00</time>
+
+        <facility>Sports hall 1Sports hall 3aDojoGymnasium</facility></ranking>
+
+    <ranking>
+
+        <activity>Tennis</activity>
+
+        <time>mon 17:30-21:00
+            mon 17:30-22:00
+            tue 17:30-21:30
+            tue 17:30-22:30
+            wed 17:00-20:00
+            wed 17:30-20:00
+            wed 20:00-23:00
+            wed 20:00-23:00
+            thu 17:30-22:30
+            thu 18:30-20:30</time>
+
+        <facility>Tennis court 1Tennis court 2Tennis court 3Tennis court 4Tennis court 5ennis court 6Tennis court 7Tennis court 8Tennis court 9Tennis court 10ennis court 11</facility></ranking>
+
+    <ranking>
+
+        <activity>Volleyball</activity>
+
+        <time>mon 18:30-23:00
+            mon 18:30-23:00
+            mon 20:00-23:00
+            tue 18:30-23:00
+            wed 20:00-21:30
+            wed 20:00-23:00
+            wed 20:00-23:30
+            fri 17:00-18:00
+            fri 18:00-23:00</time>
+
+        <facility>Sports hall 3aSports hall 3bSports hall 1</facility></ranking>
+
+    <ranking>
+
+        <activity>Water polo</activity>
+
+        <time>tue 18:30-22:00
+            thu 18:30-22:30</time>
+
+        <facility>Indoor swimming pool aIndoor swimming pool b</facility></ranking>
+
+    <ranking>
+
+        <activity>Yoga Hatha</activity>
+
+        <time>wed 20:30-22:00</time>
+
+        <facility>Dojo</facility></ranking>
+
+    <ranking>
+
+        <activity>Yoga Kundalini</activity>
+
+        <time>mon 19:00-20:30</time>
+
+        <facility>Dojo</facility></ranking>
+
+    <ranking>
+
+        <activity>Yoga Power</activity>
+
+        <time>mon 12:15-13:15
+            wed 09:00-10:00
+            thu 12:15-13:15
+            thu 16:30-18:00
+            fri 12:15-13:15
+            sat 10:30-12:00
+            sun 10:30-12:00</time>
+
+        <facility></facility></ranking>
+
+    <ranking>
+
+        <activity>Zumba</activity>
+
+        <time>mon 17:00-18:00
+            tue 17:30-18:30
+            wed 17:30-18:30
+            fri 18:00-19:00</time>
+
+        <facility>GymnasiumSports hall 2aSports hall 2b</facility></ranking>
+
 </activities>
