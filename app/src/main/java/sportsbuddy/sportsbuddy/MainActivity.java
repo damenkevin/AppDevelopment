@@ -1,12 +1,18 @@
 package sportsbuddy.sportsbuddy;
 
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
@@ -62,7 +68,15 @@ public class MainActivity extends AppCompatActivity {
         loadFragment(new MatchesFragment());
         mSelectedItem = R.id.menu_matches;
 
+
+        //starts the timer in the background that checks for new matches
+        Intent intent = new Intent(this, TimerService.class);
+        startService(intent);
+
+
+
     }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

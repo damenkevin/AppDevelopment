@@ -89,6 +89,10 @@
             </intent-filter>
         </service>
 
+        <service
+            android:name=".TimerService"
+            android:exported="false" />
+
     </application>
 
 
