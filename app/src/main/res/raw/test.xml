@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<activities>
+    <ranking>
+        <activity>High Intensity Interval Training</activity>
+        <time>13:00-18:00</time>
+        <facility>Sporthal 2a</facility>
+    </ranking>
+    <ranking>
+        <activity>Some other sport</activity>
+        <time>13:00-18:00</time>
+        <facility>a location</facility>
+    </ranking>
+</activities>

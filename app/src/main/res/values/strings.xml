@@ -4,6 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_view_profile">View Profile</string>
     <string name="action_log_out">Log Out</string>
+    <string name="action_search">Search</string>
     <string name="action_friends_list">View Friends</string>
     <string name="section_format" translatable="false">Hello World from section: %1$d</string>
     <string name="menu_matches" translatable="false">Buddies</string>
@@ -63,6 +64,9 @@
     <string name="to">To:</string>
     <string name="camera" translatable="false">Camera</string>
     <string name="gallery">Gallery</string>
+    <string name="activity">Activity: </string>
+    <string name="time">Time: </string>
+    <string name="facility">Facility: </string>
     <string name="addImage">Add Image From</string>
     <string name="change_language_to">Change Language to:</string>
     <string name="link_activities"><a href="https://venusp.tue.nl/sci-cgi/sci_7012.opl?actie=perdag&amp;collegejaar="> Click here to view activities</a></string>

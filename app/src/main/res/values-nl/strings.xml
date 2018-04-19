@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Sports Buddy</string>
     <string name="action_settings">Instellingen</string>
+    <string name="action_search">Zoeken</string>
     <string name="action_view_profile">Profiel</string>
     <string name="action_log_out">Log uit</string>
     <string name="action_friends_list">Vrienden</string>
@@ -53,6 +54,9 @@
     <string name="from">Vanaf:</string>
     <string name="to">Tot</string>
     <string name="gallery">Galerij</string>
+    <string name="activity">Activiteit: </string>
+    <string name="time">Tijd: </string>
+    <string name="facility">Faciliteit: </string>
     <string name="addImage">Voeg toe vanuit</string>
     <string name="change_language_to">Verander taal naar</string>
     <string name="nl">En</string>

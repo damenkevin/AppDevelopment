@@ -66,6 +66,12 @@
             android:configChanges="locale">
 
         </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:configChanges="locale">
+        </activity>
+        <activity android:name=".SingleItemView" >
+        </activity>
 
         <service
             android:name=".NotificationService"
