@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <TextView
         android:id="@+id/activitylabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/activity" />
+        android:text="@string/activity"/>
 
     <TextView
         android:id="@+id/activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/activitylabel" />
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/timelabel"
@@ -26,21 +27,23 @@
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:layout_below="@+id/activity"
-        android:layout_toRightOf="@+id/timelabel" />
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/facilitylabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/timelabel"
-        android:text="@string/time" />
+        android:text="@string/facility" />
 
     <TextView
         android:id="@+id/facility"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:layout_below="@+id/time"
-        android:layout_toRightOf="@+id/facilitylabel" />
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

@@ -21,8 +21,8 @@ public class SingleItemView extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Get the view from singleitemview.xml
-        setContentView(R.layout.singleitemview);
+        // Get the view from listview_item.xml
+        setContentView(R.layout.listview_item);
 
         Intent i = getIntent();
         // Get the result of activity
@@ -32,7 +32,7 @@ public class SingleItemView extends Activity {
         // Get the result of facility
         facility = i.getStringExtra("facility");
 
-        // Locate the TextViews in singleitemview.xml
+        // Locate the TextViews in listview_item.xml
         TextView txtrank = (TextView) findViewById(R.id.activity);
         TextView txtcountry = (TextView) findViewById(R.id.time);
         TextView txtpopulation = (TextView) findViewById(R.id.facility);
