@@ -60,4 +60,7 @@
     <string name="addImage">Voeg toe vanuit</string>
     <string name="change_language_to">Verander taal naar</string>
     <string name="nl">En</string>
+    <string name="link_activities"><a href="https://venusp.tue.nl/sci-cgi/sci_7012.opl?actie=perdag&amp;collegejaar=">Klik hier om de activiteiten te zien</a></string>
+    <string name="link_occupancy"><a href="https://venusp.tue.nl/sci-cgi/sci_2592.opl">Click hier om de bezetting en reserveringen te zien</a></string>
+
 </resources>
