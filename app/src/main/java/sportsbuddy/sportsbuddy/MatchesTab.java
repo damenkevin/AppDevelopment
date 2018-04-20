@@ -119,7 +119,7 @@ public class MatchesTab extends MatchesFragment {
         startActivity(intent);
     }
 
-    public static ArrayList<Match> getMatches(){
+    public static ArrayList<Match> getTheMatches(){
         return matches;
     }
 
