@@ -68,6 +68,7 @@
     <string name="time">Time: </string>
     <string name="facility">Facility: </string>
     <string name="addImage">Add Image From</string>
+    <string name="nl">nl</string>
     <string name="change_language_to">Change Language to:</string>
     <string name="link_activities"><a href="https://venusp.tue.nl/sci-cgi/sci_7012.opl?actie=perdag&amp;collegejaar="> Click here to view activities</a></string>
     <string name="link_occupancy"><a href="https://venusp.tue.nl/sci-cgi/sci_2592.opl">Click here to view current occupancy and reservations</a></string>
