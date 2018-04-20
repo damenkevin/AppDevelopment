@@ -514,6 +514,7 @@ public class DatabaseHandler {
                         user.setAge(String.valueOf(datum.child("Age").getValue()));
                         user.setAbout(String.valueOf(datum.child("About").getValue()));
                         user.setGender(String.valueOf(datum.child("Gender").getValue()));
+                        user.setprofilePicture(String.valueOf(datum.child("ProfilePicture").getValue()));
                         user.setUID(datum.getKey());
                         if(!userList.contains(user)){
                             userList.add(user);

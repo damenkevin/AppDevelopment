@@ -1,13 +1,17 @@
 package sportsbuddy.sportsbuddy;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.Layout;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -61,12 +65,27 @@ public class FriendsAdapter extends BaseAdapter {
             TextView textNameProfile = view.findViewById(R.id.textNameProfile);
             TextView gender = view.findViewById(R.id.gender);
             TextView age = view.findViewById(R.id.age);
-            ImageButton imageButton = view.findViewById(R.id.profileImg);
+            ImageView imageButton = view.findViewById(R.id.profileImg);
             Button buttonSendText = view.findViewById(R.id.buttonSendText);
             textNameProfile.setText(userList.get(i).getName());
             gender.setText(userList.get(i).getAbout());
             age.setText(userList.get(i).getAge());
-            //imageButton.setImageResource(userList.get(i).getprofilePicture());
+            String profPic = userList.get(i).getprofilePicture();
+            byte[] bytes = new byte[0];
+            if (profPic != "") {
+                try {
+                    bytes = Base64.decode(profPic, Base64.DEFAULT);
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            if (bitmap == null) {
+
+            } else {
+                imageButton.setImageBitmap(bitmap);
+            }
             buttonSendText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
