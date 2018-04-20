@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/profileImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
             app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
 
     </LinearLayout>
