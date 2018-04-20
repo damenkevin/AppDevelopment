@@ -40,6 +40,8 @@ public class MatchesTab extends MatchesFragment {
     private ArrayList<Match> matchesToDisplay;
     private ArrayList<AppUser> appUsersToDisplay;
     MatchesAdapter matchesAdapter;
+    private static ArrayList<Match> matches;
+    private static ArrayList<AppUser> appUsers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,11 +88,13 @@ public class MatchesTab extends MatchesFragment {
 
     }
 
-    public void updateMatches(ArrayList<AppUser> _appUsersToDisplay, ArrayList<Match> matches){
-        this.matchesToDisplay = matches;
+    public void updateMatches(ArrayList<AppUser> _appUsersToDisplay, ArrayList<Match> _matches){
+        this.matchesToDisplay = _matches;
         this.appUsersToDisplay = _appUsersToDisplay;
         matchesAdapter.updateMatchesList(appUsersToDisplay,matchesToDisplay);
         matchesAdapter.notifyDataSetChanged();
+        matches = _matches;
+        appUsers = _appUsersToDisplay;
     }
 
 
@@ -113,5 +117,13 @@ public class MatchesTab extends MatchesFragment {
         ViewProfileActivity.setUserToDisplay(appUser);
         Intent intent = new Intent(getActivity(), ViewProfileActivity.class);
         startActivity(intent);
+    }
+
+    public static ArrayList<Match> getTheMatches(){
+        return matches;
+    }
+
+    public static ArrayList<AppUser> getAppUsers(){
+        return appUsers;
     }
 }
