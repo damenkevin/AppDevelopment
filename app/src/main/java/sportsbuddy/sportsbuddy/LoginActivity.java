@@ -36,9 +36,6 @@ import static com.firebase.ui.auth.ui.email.CheckEmailFragment.TAG;
  * CURRENT METHODS:
  * -google sign up
  * -email sign up with email verification.
- * TODO: Finish email sign up build
- * TODO: Add facebook sign up
- * TODO: Add Twitter sign up
  *
  */
 public class LoginActivity extends AppCompatActivity {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,7 @@ public class MatchesAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
 
@@ -146,5 +147,7 @@ public class MatchesAdapter extends BaseAdapter {
     public void updateMatchesList(ArrayList<AppUser> appUsers, ArrayList<Match> matches){
         this.appUsers = appUsers;
         this.matches = matches;
+        Log.e("Size in adapter", String.valueOf(matches.size()));
+        Log.e("Size in adapter", String.valueOf(appUsers.size()));
     }
 }

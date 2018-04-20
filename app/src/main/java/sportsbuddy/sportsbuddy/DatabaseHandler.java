@@ -202,11 +202,12 @@ public class DatabaseHandler {
     }
 
     public void getOldMatches(final ArrayList<Match> newMatches, final MatchesTab matchesTab){
-        final ArrayList<Match> activeMatches = new ArrayList<Match>();
         DatabaseReference reference = database.getReference("Matches");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<Match> activeMatches = new ArrayList<Match>();
                 for(DataSnapshot data : dataSnapshot.getChildren()){
 
                     String sport = String.valueOf(data.child("Sport").getValue());
@@ -593,12 +594,16 @@ public class DatabaseHandler {
     }
 
     public void getMatchUsers(final ArrayList<Match> matches, final MatchesTab matchesTab){
+        Log.e("Size of matches is:", String.valueOf(matches.size()));
         DatabaseReference ref = database.getReference("UsersInfo");
-        final ArrayList<AppUser> userToReturn = new ArrayList<>();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<AppUser> userToReturn = new ArrayList<>();
                 for(Match match : matches){
+                    Log.e("Checking1", match.getMatchUser1());
+                    Log.e("Checking2", match.getMatchUser2());
+                    boolean isFound = false;
                     for(DataSnapshot data : dataSnapshot.getChildren()){
                         //Who is the current user
                         AppUser appUser = new AppUser(
@@ -613,12 +618,19 @@ public class DatabaseHandler {
                             //In this case we are looking for an entry with matchUser1
                             if(match.getMatchUser1().equals(String.valueOf(data.getKey()))){
                                 userToReturn.add(appUser);
+                                Log.e("Added1", appUser.getName());
+                                isFound = true;
                             }
                         } else {
                             if(match.getMatchUser2().equals(String.valueOf(data.getKey()))){
                                 userToReturn.add(appUser);
+                                Log.e("Added2", appUser.getName());
+                                isFound = true;
                             }
                         }
+                    }
+                    if(!isFound){
+                        userToReturn.add(new AppUser("","","","","",""));
                     }
                 }
                 matchesTab.updateMatches(userToReturn,matches);
